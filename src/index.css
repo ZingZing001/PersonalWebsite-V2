@@ -167,8 +167,18 @@
 }
 
 @utility meteor {
-  @apply absolute bg-linear-to-r from-white via-white to-transparent rounded-full;
-  box-shadow: 0 0 10px 5px rgba(255,255,255,0.3);
+  @apply absolute rounded-full;
+  background: linear-gradient(to right, 
+    rgba(255, 255, 255, 1) 0%, 
+    rgba(255, 255, 255, 0.8) 10%, 
+    rgba(173, 216, 230, 0.6) 25%, 
+    rgba(135, 206, 250, 0.4) 45%, 
+    rgba(100, 149, 237, 0.2) 70%, 
+    transparent 100%);
+  box-shadow: 
+    0 0 15px 5px rgba(255, 255, 255, 0.3),
+    0 0 25px 8px rgba(173, 216, 230, 0.2),
+    0 0 40px 12px rgba(135, 206, 250, 0.15);
 }
 
 #root {
