@@ -6,11 +6,35 @@ import { useEffect, useState } from "react"
 export const StarBackground = () => {
   const [stars, setStars] = useState([])
   const [meteors, setMeteors] = useState([])
+  const [isDark, setIsDark] = useState(false)
 
   useEffect(() => {
+    // Check initial theme
+    const checkTheme = () => {
+      setIsDark(document.documentElement.classList.contains('dark'))
+    }
+
+    checkTheme()
     generateStars()
     generateMeteors()
-    window.addEventListener('resize', generateStars)
+
+    const handleResize = () => {
+      generateStars()
+    }
+
+    // Watch for theme changes
+    const observer = new MutationObserver(checkTheme)
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class']
+    })
+
+    window.addEventListener('resize', handleResize)
+
+    return () => {
+      window.removeEventListener('resize', handleResize)
+      observer.disconnect()
+    }
   }, [])
 
   const generateStars = () => {
@@ -47,13 +71,13 @@ export const StarBackground = () => {
   }
 
   return <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
-    {stars.map((star) => (
+    {isDark && stars.map((star) => (
       <div
         key={star.id} className="star animate-pulse-subtle" style={{
           width: star.size + "px", height: star.size + "px", left: star.x + "%", top: star.y + "%", opacity: star.opacity, animationDuration: star.twinkleDuration + "s",
         }} />
     ))}
-    {meteors.map((meteor) => (
+    {isDark && meteors.map((meteor) => (
       <div
         key={meteor.id} className="meteor animate-meteor" style={{
           width: meteor.size * 50 + "px", height: meteor.size * 0.2 + "px", left: meteor.x + "%", top: meteor.y * 2 + "%", animationDelay: meteor.delay, animationDuration: meteor.twinkleDuration + "s",
