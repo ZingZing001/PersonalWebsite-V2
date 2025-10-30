@@ -12,11 +12,11 @@ export const AboutSection = () => {
           <div className="space-y-6">
             <h3 className="text-2xl font-semibold">Who I Am</h3>
             <img src={pfp} alt="A picture of me" className="rounded-lg shadow-md" />
-            <p className="text-muted-foreground">
+            <p className="text-muted-foreground text-left">
               I'm a passionate software developer with a love for creating dynamic and user-friendly web applications.
             </p>
 
-            <p className="text-muted-foreground">
+            <p className="text-muted-foreground text-left">
               With a background in software engineering, I specialize in front-end development and have experience working with various modern frameworks and libraries.
               I'm committed to writing clean, maintainable code and continuously improving my skills.
             </p>
