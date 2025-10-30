@@ -1,3 +1,4 @@
+import { MouseIcon } from 'lucide-react';
 import Typewriter from 'typewriter-effect';
 export const HeroSection = () => {
   return (
@@ -18,12 +19,12 @@ export const HeroSection = () => {
         />
           </h1>
           <p className="text-lg md:text-xl text-muted-foreground max-2-2xl mx-auto opacity-0 animate-fade-in-delay-3" 
-          style={{ animationDelay: '3.2s' }}>
+          style={{ animationDelay: '4s' }}>
             I'm a passionate software developer specializing in building exceptional digital experiences. <br />
             Welcome to my portfolio!
           </p>
 
-          <div className="pt-4 mt-8 opacity-0 animate-fade-in-delay-4" style={{ animationDelay: '3.4s' }}>
+          <div className="pt-4 mt-8 opacity-0 animate-fade-in-delay-4" style={{ animationDelay: '5s' }}>
             <a
               href="#projects"
               className="cosmic-button"
@@ -33,6 +34,14 @@ export const HeroSection = () => {
           </div>
         </div>
       </div>
+      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center 
+      opacity-0 animate-fade-in-delay-4" style={{ animationDelay: '6.5s' }}>
+        <div className="animate-bounce flex flex-col items-center">
+          <span className="text-sm text-muted-foreground mb-2" size={32}>Scroll Down</span>
+          <MouseIcon className="h-5 w-5 text-primary " />
+        </div>
+      </div>
+
     </section>
   )
 }
