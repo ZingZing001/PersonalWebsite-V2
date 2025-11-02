@@ -1,4 +1,4 @@
-import { ExternalLink,Github } from "lucide-react";
+import { ExternalLink,Github, ArrowRight} from "lucide-react";
 
 const projects = [
   {
@@ -66,7 +66,7 @@ export const ProjectSection = () => {
                   rel="noopener noreferrer"
                   className="text-foreground/80 hover:text-primary transition-colours duration-300"
                   >
-                    <ExternalLink/>
+                    <ExternalLink size={16} />
                   </a>  
 
                   <a 
@@ -74,7 +74,7 @@ export const ProjectSection = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-foreground/80 hover:text-primary transition-colours duration-300"
-                  > <Github/>
+                  > <Github size={16}/>
                   </a>  
                 </div>
               </div>
@@ -82,6 +82,17 @@ export const ProjectSection = () => {
           </div>
           ))}
           </div>
+          <div className="text-center mt-12">
+            <a 
+            className="cosmic-button w-fit flex items-center mx-auto gap-2"
+            target="_blank"
+            href="https://github.com/ZingZing001">
+              Check My GitHub for More Projects <ArrowRight size={16}/>
+            </a>
+
+          </div>
+
+
         </div>
     </section>
   )
