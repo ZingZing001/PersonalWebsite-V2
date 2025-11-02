@@ -7,7 +7,7 @@ function App() {
   return (
     <>
       {/* Defining Routes using the React Router package */}
-      <BrowserRouter>
+      <BrowserRouter basename="/PersonalWebsite-V2">
         <Routes>
           {/* Scaffolding the two pages */}
           <Route index element={<Home />} />

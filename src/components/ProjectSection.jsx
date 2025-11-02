@@ -5,7 +5,7 @@ const projects = [
     id: 1,
     title: "Portfolio Website",
     description: "A personal portfolio website to showcase my projects and skills, built with React and Tailwind CSS.",
-    image: "/projects/project1.png",
+    image: `${import.meta.env.BASE_URL}projects/project1.png`,
     tags: ["React", "Tailwind CSS"],
     demoUrl: "",
     repoUrl: ""
@@ -14,7 +14,7 @@ const projects = [
     id: 2,
     title: "Plateful (food hunting app)",
     description: "A food hunting web application that helps users discover new recipes and restaurants based on their preferences.",
-    image: "/projects/project2.png",
+    image: `${import.meta.env.BASE_URL}projects/project2.png`,
     tags: ["React", "vite", "MongoDB", "Express", "Node.js"],
     demoUrl: "",
     repoUrl: ""
