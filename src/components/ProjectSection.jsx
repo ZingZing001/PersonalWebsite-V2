@@ -5,7 +5,7 @@ const projects = [
     id: 1,
     title: "Portfolio Website",
     description: "A personal portfolio website to showcase my projects and skills, built with React and Tailwind CSS.",
-    image: "",
+    image: "/projects/project1.png",
     tags: ["React", "Tailwind CSS"],
     demoUrl: "",
     repoUrl: ""
@@ -14,7 +14,7 @@ const projects = [
     id: 2,
     title: "Plateful (food hunting app)",
     description: "A food hunting web application that helps users discover new recipes and restaurants based on their preferences.",
-    image: "",
+    image: "/projects/project2.png",
     tags: ["React", "vite", "MongoDB", "Express", "Node.js"],
     demoUrl: "",
     repoUrl: ""
@@ -45,7 +45,7 @@ export const ProjectSection = () => {
               <div className="h-48 overflow-hidden">
                 <img src={project.image} 
                 alt={project.title} 
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-1100"/>
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"/>
               </div>
               <div className="p-6">
                 <div className="flex flex-wrap gap-2 mb-4">
