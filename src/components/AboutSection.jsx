@@ -29,7 +29,8 @@ export const AboutSection = () => {
               </a>
 
               <a 
-                href="#projects"
+                href={`${import.meta.env.BASE_URL}Runjia_Zhang_Resume.pdf`}
+                download="Runjia_Zhang_Resume.pdf"
                 className="px-6 py-2 rounded-full border border-primary text-secondary hover:bg-primary/10 
                 transition-colors duration-300"
               >
