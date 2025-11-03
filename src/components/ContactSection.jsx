@@ -17,14 +17,23 @@ export const ContactSection = () => {
     })
   }
 
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
   const handleSubmit = (e) => {
     e.preventDefault()
-    // Simulate form submission
-    setIsSubmitted(true)
+    setIsSubmitting(true)
+    
+    // Simulate form submission with delay
     setTimeout(() => {
-      setIsSubmitted(false)
-      setFormData({ name: "", email: "", message: "" })
-    }, 3000)
+      setIsSubmitting(false)
+      setIsSubmitted(true)
+      
+      // Reset after showing success message
+      setTimeout(() => {
+        setIsSubmitted(false)
+        setFormData({ name: "", email: "", message: "" })
+      }, 3000)
+    }, 1000)
   }
 
   const socialLinks = [
@@ -120,23 +129,35 @@ export const ContactSection = () => {
 
                 <button 
                   type="submit" 
-                  className="w-full px-6 py-3 rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 transition-all duration-300 flex items-center justify-center gap-2 font-medium group"
+                  disabled={isSubmitting}
+                  className="w-full px-6 py-3 rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 disabled:opacity-70 disabled:cursor-not-allowed transition-all duration-300 flex items-center justify-center gap-2 font-medium group"
                 >
-                  <Send className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
-                  Send Message
+                  {isSubmitting ? (
+                    <>
+                      <div className="animate-spin rounded-full h-5 w-5 border-2 border-primary-foreground border-t-transparent" />
+                      <span>Sending...</span>
+                    </>
+                  ) : (
+                    <>
+                      <Send className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
+                      <span>Send Message</span>
+                    </>
+                  )}
                 </button>
               </form>
             ) : (
-              <div className="py-12 text-center space-y-4 animate-fade-in">
-                <div className="flex justify-center">
-                  <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center">
-                    <CheckCircle2 className="w-8 h-8 text-primary" />
+              <div className="py-12 text-center space-y-6">
+                <div className="flex justify-center animate-fade-in" style={{ animationDelay: '0s' }}>
+                  <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center animate-pulse">
+                    <CheckCircle2 className="w-10 h-10 text-primary animate-fade-in" style={{ animationDelay: '0.2s' }} />
                   </div>
                 </div>
-                <h3 className="text-xl text-foreground font-semibold">Message Sent!</h3>
-                <p className="text-muted-foreground">
-                  Thank you for reaching out. I'll get back to you soon.
-                </p>
+                <div className="space-y-2 animate-fade-in" style={{ animationDelay: '0.4s' }}>
+                  <h3 className="text-2xl text-foreground font-bold">Message Sent!</h3>
+                  <p className="text-muted-foreground">
+                    Thank you for reaching out. I'll get back to you soon.
+                  </p>
+                </div>
               </div>
             )}
           </div>
