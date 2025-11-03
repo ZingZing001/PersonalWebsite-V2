@@ -49,13 +49,8 @@ export const ContactSection = () => {
   ]
 
   return (
-    <section id="contact" className="py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
-      {/* Gradient background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-primary/10"></div>
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(127,108,224,0.1),transparent_50%)]"></div>
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(127,108,224,0.08),transparent_50%)]"></div>
-      
-      <div className="max-w-[1200px] mx-auto relative z-10">
+    <section id="contact" className="py-20 px-4 sm:px-6 lg:px-8 relative bg-gray-50 dark:bg-transparent">
+      <div className="max-w-[1200px] mx-auto">
         <div className="text-center mb-16">
           <div className="inline-flex items-center gap-2 mb-4">
             <span className="inline-block animate-wave origin-[70%_70%]">
@@ -72,7 +67,7 @@ export const ContactSection = () => {
         </div>
         <div className="max-w-2xl mx-auto">
           {/* Glass-morphism floating card */}
-          <div className="bg-card/60 backdrop-blur-xl border border-border/50 rounded-lg shadow-2xl shadow-primary/5 p-8">
+          <div className="dark:bg-card/60 dark:backdrop-blur-xl bg-white dark:border-border/50 border-2 border-primary/20 rounded-lg shadow-2xl dark:shadow-primary/5 shadow-xl p-8">
             {!isSubmitted ? (
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="space-y-2">
@@ -87,7 +82,7 @@ export const ContactSection = () => {
                     value={formData.name}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 rounded-lg bg-background/50 backdrop-blur-sm border border-border/50 focus:border-primary/50 focus:ring-2 focus:ring-primary/20 outline-none transition-all duration-200"
+                    className="w-full px-4 py-3 rounded-lg dark:bg-background/50 dark:backdrop-blur-sm bg-gray-50 border dark:border-border/50 border-primary/20 focus:border-primary/50 focus:ring-2 focus:ring-primary/20 outline-none transition-all duration-200"
                   />
                 </div>
 
@@ -103,7 +98,7 @@ export const ContactSection = () => {
                     value={formData.email}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 rounded-lg bg-background/50 backdrop-blur-sm border border-border/50 focus:border-primary/50 focus:ring-2 focus:ring-primary/20 outline-none transition-all duration-200"
+                    className="w-full px-4 py-3 rounded-lg dark:bg-background/50 dark:backdrop-blur-sm bg-gray-50 border dark:border-border/50 border-primary/20 focus:border-primary/50 focus:ring-2 focus:ring-primary/20 outline-none transition-all duration-200"
                   />
                 </div>
 
@@ -119,7 +114,7 @@ export const ContactSection = () => {
                     onChange={handleChange}
                     required
                     rows="6"
-                    className="w-full px-4 py-3 rounded-lg bg-background/50 backdrop-blur-sm border border-border/50 focus:border-primary/50 focus:ring-2 focus:ring-primary/20 outline-none resize-none transition-all duration-200"
+                    className="w-full px-4 py-3 rounded-lg dark:bg-background/50 dark:backdrop-blur-sm bg-gray-50 border dark:border-border/50 border-primary/20 focus:border-primary/50 focus:ring-2 focus:ring-primary/20 outline-none resize-none transition-all duration-200"
                   />
                 </div>
 
@@ -156,7 +151,7 @@ export const ContactSection = () => {
                   href={social.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`w-14 h-14 rounded-xl bg-card/80 backdrop-blur-sm border border-border/50 flex items-center justify-center text-muted-foreground transition-all duration-300 hover:scale-110 hover:-translate-y-2 hover:shadow-lg hover:shadow-primary/20 ${social.color}`}
+                  className={`w-14 h-14 rounded-xl dark:bg-card/80 dark:backdrop-blur-sm bg-white dark:border-border/50 border-2 border-primary/20 flex items-center justify-center text-muted-foreground transition-all duration-300 hover:scale-110 hover:-translate-y-2 hover:shadow-lg hover:shadow-primary/20 ${social.color}`}
                   aria-label={social.name}
                 >
                   {social.icon}

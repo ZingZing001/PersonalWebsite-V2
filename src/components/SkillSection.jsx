@@ -95,10 +95,10 @@ export const SkillSection = () => {
             <button
               key={key} 
               onClick={() => setActiveCategory(category)}
-              className={cn("px-5 py-2 rounded-full transition-all duration-300 capitalize relative group",
+              className={cn("px-5 py-2 rounded-full transition-all duration-300 capitalize relative group dark:backdrop-blur-sm border",
                 activeCategory === category
-                ? "bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg"
-                : "bg-card/70 text-foreground hover:bg-primary/50"
+                ? "bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg border-primary/50"
+                : "dark:bg-card/70 bg-white text-foreground hover:bg-primary/50 dark:border-border/50 border-primary/30"
               )}>
                 {category}
                 <span className={cn("ml-2 px-2 py-0.5 rounded-full text-xs font-semibold transition-colors duration-300",
@@ -124,7 +124,7 @@ export const SkillSection = () => {
             return (
             <div 
               key={key} 
-              className="bg-card rounded-lg p-6 shadow-xs card-hover animate-fade-in"
+              className="dark:bg-card/60 dark:backdrop-blur-sm bg-white dark:border-border/50 border-2 border-primary/20 rounded-lg p-6 shadow-lg dark:shadow-primary/5 shadow-xl card-hover animate-fade-in"
               style={{ animationDelay: `${key * 0.1}s` }}
             >
               <div className="flex items-center gap-3 mb-4">
