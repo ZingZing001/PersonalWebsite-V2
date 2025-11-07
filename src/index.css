@@ -5,10 +5,12 @@
   --color-border: hsl(var(--border));
   --color-background: hsl(var(--background));
   --color-foreground: hsl(var(--foreground));
+  --color-muted-foreground: hsl(var(--muted-foreground));
 
   --color-primary: hsl(var(--primary));
   --color-secondary: hsl(var(--secondary));
   --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
 
   --color-card: hsl(var(--card));
 
@@ -120,19 +122,20 @@
     --primary-foreground: 210 40% 98%;
     --secondary: 0 0% 0%;
 
-
     --border: 214 32% 91%;
   }
 
   .dark {
     --background: 222 47% 4%;
     --foreground: 213 31% 91%;
+    --muted-foreground: 0 0% 87%;
 
     --card: 222 47% 8%;
 
     --primary: 250 65% 65%;
     --primary-foreground: 213 31% 91%;
     --secondary: 0 0% 100%;
+    --secondary-foreground: 0 0% 87%;
 
     --border: 217 33% 20%;
   }
