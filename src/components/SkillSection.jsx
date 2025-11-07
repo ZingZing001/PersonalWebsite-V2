@@ -81,8 +81,8 @@ export const SkillSection = () => {
   }
   
   return (
-    <section id="skills" className="py-24 px-4 relative">
-      <div className="container max-w-5xl mx-auto">
+    <section id="skills" className="min-h-screen py-24 px-4 relative flex items-center">
+      <div className="container max-w-6xl mx-auto">
         <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">
           My <span className="text-primary">Skills</span>
         </h2>
