@@ -19,14 +19,15 @@ export const Meteors = ({ number = 20 }) => {
               top: `${yPos}%`,
               animationDelay: `${delay}s`,
               animationDuration: `${duration}s`,
+              opacity: 0,
             }}
           >
             {/* Glowing head */}
             <div 
               className="meteor-head"
               style={{
-                width: `${size * 1.5}px`,
-                height: `${size * 1.5}px`,
+                width: `${size * 0.8}px`,
+                height: `${size * 0.8}px`,
                 left: 0,
                 top: '50%',
                 transform: 'translateY(-50%)',
