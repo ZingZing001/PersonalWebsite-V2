@@ -1,4 +1,4 @@
-# 🌐 Personal Portfolio Website V2
+# Personal Portfolio Website V2
 
 ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
 ![Vite](https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white)
@@ -227,7 +227,7 @@ This project is copyrighted and all rights are reserved. You may not copy, modif
 
 💼 **Portfolio**: [zingzing001.github.io/PersonalWebsite-V2](https://zingzing001.github.io/PersonalWebsite-V2/)
 
-📧 **Email**: [your-email@example.com](mailto:your-email@example.com)
+📧 **Email**: [runjiazhang.nz@gmail.com](mailto:runjiazhang.nz@gmail.com)
 
 👨‍💻 **GitHub**: [ZingZing001](https://github.com/ZingZing001)
 
