@@ -65,7 +65,7 @@ export const StarBackground = () => {
           }} 
         />
       ))}
-      {isDark && <Meteors number={20} />}
+      {isDark && <Meteors number={15} />}
     </div>
   )
 }

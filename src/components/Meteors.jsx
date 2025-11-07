@@ -6,8 +6,8 @@ export const Meteors = ({ number = 20 }) => {
       {meteors.map((_, idx) => {
         const size = Math.random() * 4 + 1;
         const xPos = Math.random() * 100;
-        const yPos = Math.random() * 40; // Keep meteors in top 40% of screen
-        const delay = Math.random() * 15;
+        const yPos = Math.random() * 80; // Spread meteors across 80% of screen height
+        const delay = Math.random() * 20; // Increased delay spread (0-20s)
         const duration = Math.random() * 3 + 3;
         
         return (
