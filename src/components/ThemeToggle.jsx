@@ -3,29 +3,53 @@ import { cn } from '@/lib/utils';
 import { Moon, Sun } from 'lucide-react';
 
 export const ThemeToggle = () => {
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    // Initialize from localStorage or default to light
+    const storedTheme = localStorage.getItem('theme');
+    return storedTheme === 'dark';
+  });
 
   useEffect(() => {
+    // Set initial theme on mount
     const storedTheme = localStorage.getItem('theme');
-    if (storedTheme === 'dark') {
-      setIsDarkMode(true);
+    const isDark = storedTheme === 'dark';
+    setIsDarkMode(isDark);
+    
+    if (isDark) {
       document.documentElement.classList.add('dark');
     } else {
-      setIsDarkMode(false);
       document.documentElement.classList.remove('dark');
     }
+
+    // Listen for theme changes from other ThemeToggle instances
+    const handleThemeChange = (e) => {
+      setIsDarkMode(e.detail.isDark);
+    };
+
+    window.addEventListener('themeChange', handleThemeChange);
+
+    return () => {
+      window.removeEventListener('themeChange', handleThemeChange);
+    };
   }, []);
 
   const toggleTheme = () => {
-    if (isDarkMode) {
-      setIsDarkMode(false);
-      document.documentElement.classList.remove('dark');
-      localStorage.setItem('theme', 'light');
-    } else {
+    const newIsDarkMode = !isDarkMode;
+    setIsDarkMode(newIsDarkMode);
+    
+    // Update DOM
+    if (newIsDarkMode) {
       document.documentElement.classList.add('dark');
       localStorage.setItem('theme', 'dark');
-      setIsDarkMode(true);
+    } else {
+      document.documentElement.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
     }
+
+    // Dispatch custom event to sync other ThemeToggle instances
+    window.dispatchEvent(new CustomEvent('themeChange', {
+      detail: { isDark: newIsDarkMode }
+    }));
   };
 
   return (
