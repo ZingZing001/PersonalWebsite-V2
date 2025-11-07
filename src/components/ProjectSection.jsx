@@ -28,6 +28,15 @@ const projects = [
     demoUrl: "https://github.com/ZingZing001/WaterMarkRemovalTool/releases",
     repoUrl: "https://github.com/ZingZing001/WaterMarkRemovalTool"
   },
+  {
+    id: 4,
+    title: "Guess Who's the Thief",
+    description: "An interactive AI-driven mystery game where players solve an art theft case by interrogating suspects and gathering clues using AI-powered dialogue.",
+    image: `${import.meta.env.BASE_URL}projects/project4.png`,
+    tags: ["Java", "JavaFX", "OpenAI API", "Maven"],
+    demoUrl: "https://github.com/ZingZing001/GuessWhosTheThief/releases",
+    repoUrl: "https://github.com/ZingZing001/GuessWhosTheThief"
+  },
 ];
 
 
