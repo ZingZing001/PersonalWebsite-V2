@@ -34,7 +34,7 @@ export const StarBackground = () => {
   }, [])
 
   const generateStars = () => {
-    const numberOfStars = Math.floor(window.innerWidth * window.innerHeight / 10000)
+    const numberOfStars = Math.floor(window.innerWidth * window.innerHeight / 20000)
     const newStars = []
     for (let i = 0; i < numberOfStars; i++) {
       newStars.push({
@@ -50,7 +50,7 @@ export const StarBackground = () => {
   }
 
   return (
-    <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
+    <div className="fixed inset-0 overflow-hidden pointer-events-none z-0 opacity-85">
       {isDark && stars.map((star) => (
         <div
           key={star.id} 
