@@ -19,6 +19,15 @@ const projects = [
     demoUrl: "https://uoa-dcml.github.io/se310-plateful/",
     repoUrl: "https://github.com/UOA-DCML/se310-plateful"
   },
+  {
+    id: 3,
+    title: "Watermark Removal Tool",
+    description: "A cross-platform tool to remove watermarks from PDF and Word documents with ease. Supports batch processing and customizable removal modes.",
+    image: `${import.meta.env.BASE_URL}projects/project3.png`,
+    tags: ["Python", "PyQt5", "OpenCV", "PDF Processing"],
+    demoUrl: "https://github.com/ZingZing001/WaterMarkRemovalTool/releases",
+    repoUrl: "https://github.com/ZingZing001/WaterMarkRemovalTool"
+  },
 ];
 
 
