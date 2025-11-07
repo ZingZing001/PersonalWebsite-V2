@@ -210,18 +210,24 @@
 }
 
 @utility meteor {
-  @apply absolute rounded-full;
+  @apply absolute;
   background: linear-gradient(to right, 
     rgba(255, 255, 255, 1) 0%, 
-    rgba(255, 255, 255, 0.8) 10%, 
-    rgba(173, 216, 230, 0.6) 25%, 
-    rgba(135, 206, 250, 0.4) 45%, 
-    rgba(100, 149, 237, 0.2) 70%, 
+    rgba(255, 255, 255, 0.9) 5%, 
+    rgba(173, 216, 230, 0.7) 15%, 
+    rgba(135, 206, 250, 0.5) 30%, 
+    rgba(100, 149, 237, 0.3) 50%, 
     transparent 100%);
+  border-radius: 50% 0 0 50%;
+  filter: blur(1.5px);
+}
+
+@utility meteor-head {
+  @apply absolute rounded-full bg-white;
   box-shadow: 
-    0 0 15px 5px rgba(255, 255, 255, 0.3),
-    0 0 25px 8px rgba(173, 216, 230, 0.2),
-    0 0 40px 12px rgba(135, 206, 250, 0.15);
+    0 0 10px 2px rgba(255, 255, 255, 0.9),
+    0 0 20px 4px rgba(173, 216, 230, 0.7),
+    0 0 30px 6px rgba(135, 206, 250, 0.5);
 }
 
 #root {
