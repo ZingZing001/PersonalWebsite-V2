@@ -119,6 +119,7 @@
   :root {
     --background: 210 40% 98%;
     --foreground: 222 47% 11%;
+    --muted-foreground: 215 16% 47%;
 
     --card: 0 0% 100%;
 
@@ -187,7 +188,7 @@
 
 @utility text-glow {
   @apply relative;
-  text-shadow: 0 0 10px rgba(167,139,250,0.5);
+  text-shadow: 0 0 10px rgba(167, 139, 250, 0.5);
 }
 
 @utility card-hover {
@@ -202,26 +203,23 @@
 }
 
 @utility cosmic-button {
-  @apply px-6 py-2 rounded-full bg-primary 
-  text-primary-foreground font-medium transition-all 
-  duration-300 hover:shadow-[0_0_10px_rgba(139,92,246,0.5)] 
-  hover:scale-105 active:scale-95;
+  @apply px-6 py-2 rounded-full bg-primary text-primary-foreground font-medium transition-all duration-300 hover:shadow-[0_0_10px_rgba(139, 92, 246, 0.5)] hover:scale-105 active:scale-95;
 }
 
 @utility star {
   @apply absolute bg-white rounded-full;
-  box-shadow: 0 0 10px 2px rgba(255,255,255,0.4);
+  box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.4);
 }
 
 @utility meteor {
   @apply absolute;
-  background: linear-gradient(to right, 
-    rgba(255, 255, 255, 1) 0%, 
-    rgba(255, 255, 255, 0.9) 5%, 
-    rgba(173, 216, 230, 0.7) 15%, 
-    rgba(135, 206, 250, 0.5) 30%, 
-    rgba(100, 149, 237, 0.3) 50%, 
-    transparent 100%);
+  background: linear-gradient(to right,
+      rgba(255, 255, 255, 1) 0%,
+      rgba(255, 255, 255, 0.9) 5%,
+      rgba(173, 216, 230, 0.7) 15%,
+      rgba(135, 206, 250, 0.5) 30%,
+      rgba(100, 149, 237, 0.3) 50%,
+      transparent 100%);
   border-radius: 50% 0 0 50%;
   filter: blur(1.5px);
 }
@@ -229,7 +227,7 @@
 @utility meteor-head {
   @apply absolute rounded-full;
   background: rgba(255, 255, 255, 0.6);
-  box-shadow: 
+  box-shadow:
     0 0 4px 1px rgba(255, 255, 255, 0.4),
     0 0 8px 2px rgba(173, 216, 230, 0.3),
     0 0 12px 3px rgba(135, 206, 250, 0.2);
