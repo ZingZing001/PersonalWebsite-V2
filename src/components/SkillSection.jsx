@@ -132,7 +132,7 @@ export const SkillSection = () => {
                   <Icon className="h-6 w-6 text-primary" />
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-lg font-semibold">{skill.name}</h3>
+                  <h3 className="text-lg font-semibold text-foreground">{skill.name}</h3>
                   <span className="text-xs text-muted-foreground">{getProficiencyLabel(skill.level)}</span>
                 </div>
               </div>

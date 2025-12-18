@@ -98,7 +98,7 @@ export const ContactSection = () => {
             {!isSubmitted ? (
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="space-y-2">
-                  <label htmlFor="name" className="block text-sm font-medium">
+                  <label htmlFor="name" className="block text-sm font-medium text-foreground">
                     Name
                   </label>
                   <input
@@ -114,7 +114,7 @@ export const ContactSection = () => {
                 </div>
 
                 <div className="space-y-2">
-                  <label htmlFor="email" className="block text-sm font-medium">
+                  <label htmlFor="email" className="block text-sm font-medium text-foreground">
                     Email
                   </label>
                   <input
@@ -130,7 +130,7 @@ export const ContactSection = () => {
                 </div>
 
                 <div className="space-y-2">
-                  <label htmlFor="message" className="block text-sm font-medium">
+                  <label htmlFor="message" className="block text-sm font-medium text-foreground">
                     Message
                   </label>
                   <textarea

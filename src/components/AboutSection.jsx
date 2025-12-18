@@ -10,7 +10,7 @@ export const AboutSection = () => {
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div className="space-y-6">
-            <h3 className="text-2xl font-semibold">Who I Am</h3>
+            <h3 className="text-2xl font-semibold text-foreground">Who I Am</h3>
             <img src={pfp} alt="A picture of me" className="rounded-lg shadow-md" />
             <p className="text-muted-foreground text-left">
               I'm a passionate software developer with a love for creating dynamic and user-friendly web applications.
@@ -45,7 +45,7 @@ export const AboutSection = () => {
                   <Code className="h-6 w-6 text-primary" />
                 </div>
                 <div className="text-left">
-                  <h4 className="text-lg font-semibold mb-1">Front-End Development</h4>
+                  <h4 className="text-lg font-semibold mb-1 text-foreground">Front-End Development</h4>
                   <p className="text-sm text-muted-foreground">
                     Expertise in building responsive and interactive user interfaces using React, Vue, and Angular.
                   </p>
@@ -58,7 +58,7 @@ export const AboutSection = () => {
                   <Database className="h-6 w-6 text-primary" />
                 </div>
                 <div className="text-left">
-                  <h4 className="text-lg font-semibold mb-1">Back-End Development</h4>
+                  <h4 className="text-lg font-semibold mb-1 text-foreground">Back-End Development</h4>
                   <p className="text-sm text-muted-foreground">
                     Proficient in building RESTful APIs and working with databases using Node.js, Express, and MongoDB.
                   </p>
@@ -71,7 +71,7 @@ export const AboutSection = () => {
                   <Globe className="h-6 w-6 text-primary" />
                 </div>
                 <div className="text-left">
-                  <h4 className="text-lg font-semibold mb-1">Full-Stack Development</h4>
+                  <h4 className="text-lg font-semibold mb-1 text-foreground">Full-Stack Development</h4>
                   <p className="text-sm text-muted-foreground">
                     Experienced in working with both front-end and back-end technologies to create seamless web applications.
                   </p>
@@ -84,7 +84,7 @@ export const AboutSection = () => {
                   <Sparkle className="h-6 w-6 text-primary" />
                 </div>
                 <div className="text-left">
-                  <h4 className="text-lg font-semibold mb-1">UI/UX Design</h4>
+                  <h4 className="text-lg font-semibold mb-1 text-foreground">UI/UX Design</h4>
                   <p className="text-sm text-muted-foreground">
                     Expertise in creating user-centered designs through research, wireframing, and prototyping.
                   </p>
