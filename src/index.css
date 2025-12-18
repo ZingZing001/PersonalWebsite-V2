@@ -118,15 +118,15 @@
 @layer base {
   :root {
     --background: 210 40% 98%;
-    --foreground: 222 47% 11%;
-    --muted-foreground: 220 30% 25%;
+    --foreground: 222 60% 8%;
+    --muted-foreground: 0 0% 15%;
 
     --card: 0 0% 100%;
 
-    --primary: 250 47% 60%;
+    --primary: 250 55% 55%;
     --primary-foreground: 210 40% 98%;
     --secondary: 0 0% 0%;
-    --secondary-foreground: 222 47% 11%;
+    --secondary-foreground: 222 60% 8%;
 
     --border: 214 32% 91%;
   }

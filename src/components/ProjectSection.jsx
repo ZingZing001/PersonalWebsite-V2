@@ -58,7 +58,7 @@ export const ProjectSection = () => {
           {projects.map((project,key) => (  
             <div 
             key={key} 
-            className="group dark:bg-card/60 dark:backdrop-blur-sm bg-white dark:border-border/50 border-2 border-primary/20 rounded-lg overflow-hidden shadow-lg dark:shadow-primary/5 shadow-xl card-hover flex flex-col"
+            className="group bg-card/90 border-2 dark:border-border/50 border-primary/20 rounded-lg overflow-hidden shadow-lg dark:shadow-primary/5 shadow-xl card-hover flex flex-col"
             >
               <div className="h-48 overflow-hidden">
                 <img src={project.image} 

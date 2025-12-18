@@ -39,7 +39,7 @@ export const AboutSection = () => {
             </div>
           </div>
           <div className="grid grid-cols-1 gap-6">
-            <div className="gradient-border p-6 card-hover dark:bg-card/60 dark:backdrop-blur-sm bg-white dark:border-border/50 border-2 border-primary/20 dark:shadow-none shadow-lg"> 
+            <div className="gradient-border p-6 card-hover bg-card/90 border-2 dark:border-border/50 border-primary/20 dark:shadow-none shadow-lg"> 
               <div className="flex items-start gap-4"> 
                 <div className="p-3 rounded-full bg-primary/10">
                   <Code className="h-6 w-6 text-primary" />
@@ -52,7 +52,7 @@ export const AboutSection = () => {
                 </div>
               </div>
             </div>
-            <div className="gradient-border p-6 card-hover dark:bg-card/60 dark:backdrop-blur-sm bg-white dark:border-border/50 border-2 border-primary/20 dark:shadow-none shadow-lg">
+            <div className="gradient-border p-6 card-hover bg-card/90 border-2 dark:border-border/50 border-primary/20 dark:shadow-none shadow-lg">
               <div className="flex items-start gap-4"> 
                 <div className="p-3 rounded-full bg-primary/10">
                   <Database className="h-6 w-6 text-primary" />
@@ -65,7 +65,7 @@ export const AboutSection = () => {
                 </div>
               </div>
             </div>
-            <div className="gradient-border p-6 card-hover dark:bg-card/60 dark:backdrop-blur-sm bg-white dark:border-border/50 border-2 border-primary/20 dark:shadow-none shadow-lg">
+            <div className="gradient-border p-6 card-hover bg-card/90 border-2 dark:border-border/50 border-primary/20 dark:shadow-none shadow-lg">
               <div className="flex items-start gap-4"> 
                 <div className="p-3 rounded-full bg-primary/10">
                   <Globe className="h-6 w-6 text-primary" />
@@ -78,7 +78,7 @@ export const AboutSection = () => {
                 </div>
               </div>
             </div>
-            <div className="gradient-border p-6 card-hover dark:bg-card/60 dark:backdrop-blur-sm bg-white dark:border-border/50 border-2 border-primary/20 dark:shadow-none shadow-lg">
+            <div className="gradient-border p-6 card-hover bg-card/90 border-2 dark:border-border/50 border-primary/20 dark:shadow-none shadow-lg">
               <div className="flex items-start gap-4"> 
                 <div className="p-3 rounded-full bg-primary/10">
                   <Sparkle className="h-6 w-6 text-primary" />

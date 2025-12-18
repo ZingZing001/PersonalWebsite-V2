@@ -94,7 +94,7 @@ export const ContactSection = () => {
         </div>
         <div className="max-w-2xl mx-auto">
           {/* Glass-morphism floating card */}
-          <div className="dark:bg-card/60 dark:backdrop-blur-xl bg-white dark:border-border/50 border-2 border-primary/20 rounded-lg shadow-2xl dark:shadow-primary/5 shadow-xl p-8">
+          <div className="bg-card/90 border-2 dark:border-border/50 border-primary/20 rounded-lg shadow-2xl dark:shadow-primary/5 shadow-xl p-8">
             {!isSubmitted ? (
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="space-y-2">
@@ -109,7 +109,7 @@ export const ContactSection = () => {
                     value={formData.name}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 rounded-lg dark:bg-background/50 dark:backdrop-blur-sm bg-gray-50 border dark:border-border/50 border-primary/20 focus:border-primary/50 focus:ring-2 focus:ring-primary/20 outline-none transition-all duration-200 text-foreground placeholder:text-muted-foreground"
+                    className="w-full px-4 py-3 rounded-lg bg-background/80 border dark:border-border/50 border-primary/20 focus:border-primary/50 focus:ring-2 focus:ring-primary/20 outline-none transition-all duration-200 text-foreground placeholder:text-foreground/50"
                   />
                 </div>
 
@@ -125,7 +125,7 @@ export const ContactSection = () => {
                     value={formData.email}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 rounded-lg dark:bg-background/50 dark:backdrop-blur-sm bg-gray-50 border dark:border-border/50 border-primary/20 focus:border-primary/50 focus:ring-2 focus:ring-primary/20 outline-none transition-all duration-200 text-foreground placeholder:text-muted-foreground"
+                    className="w-full px-4 py-3 rounded-lg bg-background/80 border dark:border-border/50 border-primary/20 focus:border-primary/50 focus:ring-2 focus:ring-primary/20 outline-none transition-all duration-200 text-foreground placeholder:text-foreground/50"
                   />
                 </div>
 
@@ -141,7 +141,7 @@ export const ContactSection = () => {
                     onChange={handleChange}
                     required
                     rows="6"
-                    className="w-full px-4 py-3 rounded-lg dark:bg-background/50 dark:backdrop-blur-sm bg-gray-50 border dark:border-border/50 border-primary/20 focus:border-primary/50 focus:ring-2 focus:ring-primary/20 outline-none resize-none transition-all duration-200 text-foreground placeholder:text-muted-foreground"
+                    className="w-full px-4 py-3 rounded-lg bg-background/80 border dark:border-border/50 border-primary/20 focus:border-primary/50 focus:ring-2 focus:ring-primary/20 outline-none resize-none transition-all duration-200 text-foreground placeholder:text-foreground/50"
                   />
                 </div>
 
@@ -190,7 +190,7 @@ export const ContactSection = () => {
                   href={social.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`w-14 h-14 rounded-xl dark:bg-card/80 dark:backdrop-blur-sm bg-white dark:border-border/50 border-2 border-primary/20 flex items-center justify-center text-muted-foreground transition-all duration-300 hover:scale-110 hover:-translate-y-2 hover:shadow-lg hover:shadow-primary/20 ${social.color}`}
+                  className={`w-14 h-14 rounded-xl bg-card/90 border-2 dark:border-border/50 border-primary/20 flex items-center justify-center text-muted-foreground transition-all duration-300 hover:scale-110 hover:-translate-y-2 hover:shadow-lg hover:shadow-primary/20 ${social.color}`}
                   aria-label={social.name}
                 >
                   {social.icon}
