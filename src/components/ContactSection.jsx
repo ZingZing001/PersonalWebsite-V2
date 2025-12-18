@@ -76,7 +76,7 @@ export const ContactSection = () => {
   ]
 
   return (
-    <section id="contact" className="min-h-screen py-20 px-4 sm:px-6 lg:px-8 relative bg-gray-50 dark:bg-transparent flex items-center">
+    <section id="contact" className="min-h-screen py-20 px-4 sm:px-6 lg:px-8 relative bg-transparent flex items-center">
       <div className="max-w-[1200px] mx-auto">
         <div className="text-center mb-16">
           <div className="inline-flex items-center gap-2 mb-4">
@@ -109,7 +109,7 @@ export const ContactSection = () => {
                     value={formData.name}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 rounded-lg dark:bg-background/50 dark:backdrop-blur-sm bg-gray-50 border dark:border-border/50 border-primary/20 focus:border-primary/50 focus:ring-2 focus:ring-primary/20 outline-none transition-all duration-200"
+                    className="w-full px-4 py-3 rounded-lg dark:bg-background/50 dark:backdrop-blur-sm bg-gray-50 border dark:border-border/50 border-primary/20 focus:border-primary/50 focus:ring-2 focus:ring-primary/20 outline-none transition-all duration-200 text-foreground placeholder:text-muted-foreground"
                   />
                 </div>
 
@@ -125,7 +125,7 @@ export const ContactSection = () => {
                     value={formData.email}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 rounded-lg dark:bg-background/50 dark:backdrop-blur-sm bg-gray-50 border dark:border-border/50 border-primary/20 focus:border-primary/50 focus:ring-2 focus:ring-primary/20 outline-none transition-all duration-200"
+                    className="w-full px-4 py-3 rounded-lg dark:bg-background/50 dark:backdrop-blur-sm bg-gray-50 border dark:border-border/50 border-primary/20 focus:border-primary/50 focus:ring-2 focus:ring-primary/20 outline-none transition-all duration-200 text-foreground placeholder:text-muted-foreground"
                   />
                 </div>
 
@@ -141,7 +141,7 @@ export const ContactSection = () => {
                     onChange={handleChange}
                     required
                     rows="6"
-                    className="w-full px-4 py-3 rounded-lg dark:bg-background/50 dark:backdrop-blur-sm bg-gray-50 border dark:border-border/50 border-primary/20 focus:border-primary/50 focus:ring-2 focus:ring-primary/20 outline-none resize-none transition-all duration-200"
+                    className="w-full px-4 py-3 rounded-lg dark:bg-background/50 dark:backdrop-blur-sm bg-gray-50 border dark:border-border/50 border-primary/20 focus:border-primary/50 focus:ring-2 focus:ring-primary/20 outline-none resize-none transition-all duration-200 text-foreground placeholder:text-muted-foreground"
                   />
                 </div>
 

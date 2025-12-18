@@ -136,7 +136,7 @@ export const SkillSection = () => {
                   <span className="text-xs text-muted-foreground">{getProficiencyLabel(skill.level)}</span>
                 </div>
               </div>
-              <div className="w-full bg-card/50 h-2 rounded-full overflow-hidden group">
+              <div className="w-full bg-muted-foreground/20 dark:bg-card/50 h-2 rounded-full overflow-hidden group">
                 <div
                   className="bg-gradient-to-r from-primary to-primary/70 h-2 rounded-full origin-left animate-[grow_1.5s_ease-out] transition-all duration-300 group-hover:from-primary group-hover:to-primary"
                   style={{ width: `${skill.level}%` }}

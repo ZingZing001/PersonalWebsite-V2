@@ -41,7 +41,7 @@ export const Navbar = () => {
               <a
                 key={key}
                 href={item.href}
-                className="text-foreground/80 hover:text-primary transition-colors duration-300 text-center animate-fade-in"
+                className="text-foreground font-medium hover:text-primary transition-colors duration-300 text-center animate-fade-in tracking-wide"
                 style={{ animationDelay: `${key * 0.1}s` }}
                 onClick={() => setIsMobileMenuOpen(false)}
               >
@@ -62,12 +62,12 @@ export const Navbar = () => {
           </a>
 
           {/* Nav for desktops */}
-          <div className="hidden md:flex space-x-8 font-medium items-center">
+          <div className="hidden md:flex space-x-8 items-center">
             {NavItems.map((item,key) => (
               <a
                 key={key}
                 href={item.href}
-                className="text-foreground/80 hover:text-primary transition-colors duration-300"
+                className="text-foreground font-medium hover:text-primary transition-colors duration-300 tracking-wide"
               >
                 {item.name}
               </a>
