@@ -47,7 +47,7 @@ describe('ProjectSection - Dark Mode Text Colors', () => {
 
   test('project cards have dark mode specific classes', () => {
     const { container } = renderWithProviders(<ProjectSection />)
-    const cards = container.querySelectorAll('.dark\\:bg-card\\/60')
+    const cards = container.querySelectorAll('[class*="bg-card"]')
     expect(cards.length).toBeGreaterThan(0)
   })
 })

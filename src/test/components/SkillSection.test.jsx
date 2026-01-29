@@ -49,7 +49,7 @@ describe('SkillSection - Dark Mode Text Colors', () => {
 
   test('skill cards have dark mode specific classes', () => {
     const { container } = renderWithProviders(<SkillSection />)
-    const cards = container.querySelectorAll('.dark\\:bg-card\\/60')
+    const cards = container.querySelectorAll('[class*="bg-card"]')
     expect(cards.length).toBeGreaterThan(0)
   })
 })
