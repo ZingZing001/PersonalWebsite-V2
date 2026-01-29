@@ -12,8 +12,8 @@ export const HeroSection = () => {
             <Typewriter
           onInit={(typewriter) => {
             typewriter.typeString('Hello, I\'m')
-              .typeString('<span className="animate-fade-in-delay-1" style="color: #7f6ce0;"> Johnson</span>')
-              .typeString('<span className="animate-fade-in-delay-2"> Zhang</span>')
+              .typeString('<span class="text-primary"> Johnson</span>')
+              .typeString('<span class="text-foreground"> Zhang</span>')
               .start();
           }}
         />

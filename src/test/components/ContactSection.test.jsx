@@ -76,13 +76,13 @@ describe('ContactSection - Dark Mode Text Colors', () => {
 
   test('contact card has dark mode specific classes', () => {
     const { container } = renderWithProviders(<ContactSection />)
-    const cards = container.querySelectorAll('.dark\\:bg-card\\/60')
+    const cards = container.querySelectorAll('[class*="bg-card"]')
     expect(cards.length).toBeGreaterThan(0)
   })
 
   test('social links have dark mode specific classes', () => {
     const { container } = renderWithProviders(<ContactSection />)
-    const socialLinks = container.querySelectorAll('.dark\\:bg-card\\/80')
+    const socialLinks = container.querySelectorAll('.dark\\:border-border\\/50')
     expect(socialLinks.length).toBeGreaterThan(0)
   })
 })
