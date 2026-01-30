@@ -4,6 +4,7 @@ import { HeroSection } from "@/components/HeroSection"
 import { AboutSection } from "@/components/AboutSection"
 import { SkillSection } from "@/components/SkillSection"
 import { ProjectSection } from "@/components/ProjectSection"
+import { BlogSection } from "@/components/BlogSection"
 import { ContactSection } from "@/components/ContactSection"
 import { useSnapScroll } from "@/hooks/useSnapScroll"
 
@@ -25,6 +26,7 @@ export const Home = () => {
         <AboutSection />
         <SkillSection />
         <ProjectSection />
+        <BlogSection />
         <ContactSection />
       </main>
     </div>
