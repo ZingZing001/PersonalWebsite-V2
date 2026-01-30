@@ -33,11 +33,11 @@ export const BlogPost = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
+    <div className="min-h-screen bg-background text-foreground overflow-x-hidden flex flex-col">
       <StarBackground />
       <Navbar />
 
-      <main className="pt-24 pb-16 px-4">
+      <main className="flex-1 pt-24 pb-16 px-4">
         <article className="container mx-auto max-w-3xl text-left">
           {/* Back Link */}
           <Link 

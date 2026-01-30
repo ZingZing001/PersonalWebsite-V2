@@ -14,7 +14,7 @@ export const Home = () => {
   useSnapScroll();
 
   return (
-    <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
+    <div className="min-h-screen bg-background text-foreground overflow-x-hidden flex flex-col">
       {/* Background Effects */}
       <StarBackground />
 
@@ -22,7 +22,7 @@ export const Home = () => {
       <Navbar />
 
       {/* Main Content */}
-      <main>
+      <main className="flex-1">
         <HeroSection />
         <AboutSection />
         <SkillSection />

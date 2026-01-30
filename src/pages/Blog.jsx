@@ -19,11 +19,11 @@ export const Blog = () => {
   const [featuredPost, ...otherPosts] = posts;
 
   return (
-    <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
+    <div className="min-h-screen bg-background text-foreground overflow-x-hidden flex flex-col">
       <StarBackground />
       <Navbar />
 
-      <main className="pt-24 pb-16 px-4">
+      <main className="flex-1 pt-24 pb-16 px-4">
         <div className="container mx-auto max-w-5xl text-left">
           {/* Header */}
           <div className="mb-12">
