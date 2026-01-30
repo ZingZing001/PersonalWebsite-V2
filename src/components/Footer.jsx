@@ -28,7 +28,7 @@ export const Footer = () => {
               className="hidden sm:inline-flex items-center gap-1 text-xs text-muted-foreground/60 hover:text-primary transition-colors"
             >
               <ExternalLink size={10} />
-              <span>PedroTech</span>
+              <span>Inspired by ABSOLUTE LEGEND PedroTech</span>
             </a>
 
             {/* Divider */}
