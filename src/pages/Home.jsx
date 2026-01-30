@@ -6,6 +6,7 @@ import { SkillSection } from "@/components/SkillSection"
 import { ProjectSection } from "@/components/ProjectSection"
 import { BlogSection } from "@/components/BlogSection"
 import { ContactSection } from "@/components/ContactSection"
+import { Footer } from "@/components/Footer"
 import { useSnapScroll } from "@/hooks/useSnapScroll"
 
 export const Home = () => {
@@ -29,6 +30,9 @@ export const Home = () => {
         <BlogSection />
         <ContactSection />
       </main>
+
+      {/* Footer */}
+      <Footer />
     </div>
   )
 }

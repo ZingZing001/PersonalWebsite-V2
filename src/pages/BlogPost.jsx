@@ -2,6 +2,7 @@ import { useParams, Link, Navigate } from "react-router-dom";
 import { ArrowLeft, Calendar, Clock, Tag, Share2, BookOpen, ArrowRight } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
 import { StarBackground } from "@/components/StarBackground";
+import { Footer } from "@/components/Footer";
 import { getPostBySlug, getSortedPosts } from "@/data/blogPosts";
 import ReactMarkdown from "react-markdown";
 
@@ -201,6 +202,8 @@ export const BlogPost = () => {
           )}
         </article>
       </main>
+
+      <Footer />
     </div>
   );
 };

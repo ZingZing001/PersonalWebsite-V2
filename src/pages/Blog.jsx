@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { ArrowLeft, Calendar, Clock, ArrowRight, BookOpen, Search } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
 import { StarBackground } from "@/components/StarBackground";
+import { Footer } from "@/components/Footer";
 import { getSortedPosts } from "@/data/blogPosts";
 import { useState } from "react";
 
@@ -228,6 +229,8 @@ export const Blog = () => {
           )}
         </div>
       </main>
+
+      <Footer />
     </div>
   );
 };
