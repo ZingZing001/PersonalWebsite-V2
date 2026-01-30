@@ -76,8 +76,8 @@ export const ContactSection = () => {
   ]
 
   return (
-    <section id="contact" className="min-h-screen py-20 px-4 sm:px-6 lg:px-8 relative bg-transparent flex items-center">
-      <div className="max-w-[1200px] mx-auto">
+    <section id="contact" className="min-h-screen py-24 px-4 relative flex items-center">
+      <div className="container mx-auto max-w-5xl">
         <div className="text-center mb-16">
           <div className="inline-flex items-center gap-2 mb-4">
             <span className="inline-block animate-wave origin-[70%_70%]">
