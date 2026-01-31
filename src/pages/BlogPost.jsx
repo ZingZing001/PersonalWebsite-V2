@@ -1,10 +1,91 @@
 import { useParams, Link, Navigate } from "react-router-dom";
-import { ArrowLeft, Calendar, Clock, Tag, Share2, BookOpen, ArrowRight } from "lucide-react";
+import { ArrowLeft, Calendar, Clock, Tag, Share2, BookOpen, ArrowRight, Copy, Check } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
 import { StarBackground } from "@/components/StarBackground";
 import { Footer } from "@/components/Footer";
 import { getPostBySlug, getSortedPosts } from "@/data/blogPosts";
 import ReactMarkdown from "react-markdown";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { oneDark, oneLight } from "react-syntax-highlighter/dist/esm/styles/prism";
+import { useState, useEffect } from "react";
+
+// Code block component with syntax highlighting and copy button
+const CodeBlock = ({ language, children }) => {
+  const [copied, setCopied] = useState(false);
+  const [isDark, setIsDark] = useState(document.documentElement.classList.contains("dark"));
+
+  useEffect(() => {
+    const observer = new MutationObserver(() => {
+      setIsDark(document.documentElement.classList.contains("dark"));
+    });
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
+    return () => observer.disconnect();
+  }, []);
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(children);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  return (
+    <div className="relative group my-6">
+      {/* Language badge */}
+      {language && (
+        <span className="absolute top-3 left-4 text-xs font-medium text-muted-foreground uppercase tracking-wider">
+          {language}
+        </span>
+      )}
+      {/* Copy button */}
+      <button
+        onClick={handleCopy}
+        className="absolute top-3 right-3 p-2 rounded-lg bg-background/50 hover:bg-background/80 text-muted-foreground hover:text-foreground transition-all opacity-0 group-hover:opacity-100"
+        aria-label="Copy code"
+      >
+        {copied ? <Check size={16} className="text-green-500" /> : <Copy size={16} />}
+      </button>
+      <SyntaxHighlighter
+        language={language || "text"}
+        style={isDark ? oneDark : oneLight}
+        customStyle={{
+          margin: 0,
+          borderRadius: "0.75rem",
+          padding: "2.5rem 1.5rem 1.5rem",
+          fontSize: "0.875rem",
+          border: isDark ? "2px solid hsl(var(--border) / 0.5)" : "2px solid hsl(var(--primary) / 0.2)",
+        }}
+        showLineNumbers={children.split("\n").length > 3}
+        wrapLines
+      >
+        {children}
+      </SyntaxHighlighter>
+    </div>
+  );
+};
+
+// Inline code component
+const InlineCode = ({ children }) => (
+  <code className="text-primary bg-primary/10 px-1.5 py-0.5 rounded-md font-mono text-sm">
+    {children}
+  </code>
+);
+
+// Custom image component with caption support
+const BlogImage = ({ src, alt }) => (
+  <figure className="my-8">
+    <img
+      src={src}
+      alt={alt || ""}
+      className="w-full rounded-xl shadow-lg border-2 dark:border-border/50 border-primary/20"
+      loading="lazy"
+    />
+    {alt && (
+      <figcaption className="text-center text-sm text-muted-foreground mt-3 italic">
+        {alt}
+      </figcaption>
+    )}
+  </figure>
+);
 
 export const BlogPost = () => {
   const { slug } = useParams();
@@ -114,16 +195,39 @@ export const BlogPost = () => {
             prose-p:text-muted-foreground prose-p:leading-relaxed prose-p:mb-6
             prose-strong:text-foreground prose-strong:font-semibold
             prose-a:text-primary prose-a:font-medium prose-a:no-underline hover:prose-a:underline
-            prose-code:text-primary prose-code:bg-primary/10 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded-md prose-code:font-normal prose-code:before:content-none prose-code:after:content-none
-            prose-pre:bg-card/80 prose-pre:border-2 prose-pre:border-border/50 prose-pre:rounded-xl prose-pre:shadow-lg
             prose-ul:text-muted-foreground prose-ul:my-6
             prose-ol:text-muted-foreground prose-ol:my-6
             prose-li:marker:text-primary prose-li:my-2
             prose-blockquote:border-l-4 prose-blockquote:border-l-primary prose-blockquote:bg-primary/5 prose-blockquote:py-1 prose-blockquote:px-6 prose-blockquote:rounded-r-lg prose-blockquote:not-italic prose-blockquote:text-muted-foreground
             prose-hr:border-border/50 prose-hr:my-12
-            prose-img:rounded-xl prose-img:shadow-lg
           ">
-            <ReactMarkdown>{post.content}</ReactMarkdown>
+            <ReactMarkdown
+              components={{
+                code({ inline, className, children, ...props }) {
+                  const match = /language-(\w+)/.exec(className || "");
+                  const codeString = String(children).replace(/\n$/, "");
+                  
+                  if (!inline && match) {
+                    return <CodeBlock language={match[1]}>{codeString}</CodeBlock>;
+                  }
+                  
+                  if (!inline && codeString.includes("\n")) {
+                    return <CodeBlock>{codeString}</CodeBlock>;
+                  }
+                  
+                  return <InlineCode {...props}>{children}</InlineCode>;
+                },
+                img({ src, alt }) {
+                  return <BlogImage src={src} alt={alt} />;
+                },
+                pre({ children }) {
+                  // Just render children, CodeBlock handles the styling
+                  return <>{children}</>;
+                },
+              }}
+            >
+              {post.content}
+            </ReactMarkdown>
           </div>
 
           {/* Post Footer */}

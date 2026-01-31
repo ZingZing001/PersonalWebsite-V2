@@ -23,9 +23,38 @@ I chose **React** with **Vite** for several reasons:
 - 🔥 Hot Module Replacement (HMR)
 - 📦 Optimized production builds
 
+Here's how simple it is to create a component in React:
+
+\`\`\`jsx
+import { useState } from 'react';
+
+export const Counter = () => {
+  const [count, setCount] = useState(0);
+  
+  return (
+    <button onClick={() => setCount(count + 1)}>
+      Count: {count}
+    </button>
+  );
+};
+\`\`\`
+
 ### Design Philosophy
 
 I wanted something that felt modern and unique. The cosmic theme with the star background creates an immersive experience while keeping the focus on the content.
+
+For the star animation, I used CSS keyframes with \`animation-delay\` for a staggered effect:
+
+\`\`\`css
+@keyframes twinkle {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+.star {
+  animation: twinkle 3s ease-in-out infinite;
+}
+\`\`\`
 
 ### Key Features
 
@@ -33,6 +62,15 @@ I wanted something that felt modern and unique. The cosmic theme with the star b
 2. **Dark/Light Mode** - Respects user preferences
 3. **Responsive Design** - Works on all devices
 4. **Smooth Animations** - Subtle but engaging
+
+The theme toggle uses a simple \`localStorage\` approach:
+
+\`\`\`javascript
+const toggleTheme = () => {
+  const isDark = document.documentElement.classList.toggle('dark');
+  localStorage.setItem('theme', isDark ? 'dark' : 'light');
+};
+\`\`\`
 
 ### Lessons Learned
 
