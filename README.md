@@ -7,7 +7,7 @@
 
 This is the second version of my Personal Portfolio Website, completely rebuilt using modern web technologies. The website showcases my projects, skills, and achievements with stunning animations, interactive features, and a beautiful dark/light mode theme.
 
-🌐 **Live Demo**: [zingzing001.github.io/PersonalWebsite-V2](https://zingzing001.github.io/PersonalWebsite-V2/)
+🌐 **Live Demo**: [zingzing001.github.io/PersonalWebsite-V2/](https://zingzing001.github.io/PersonalWebsite-V2/)
 
 ## ✨ Features
 
