@@ -2,6 +2,7 @@ import { cn } from "@/lib/utils"
 import { useEffect, useState } from "react"
 import { Menu, X } from "lucide-react"
 import { ThemeToggle } from "./ThemeToggle"
+import { Link, useLocation, useNavigate } from "react-router-dom"
 
 
 const NavItems = [
@@ -17,6 +18,8 @@ const NavItems = [
 export const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -28,6 +31,31 @@ export const Navbar = () => {
     };
   }, []);
 
+  // Handle navigation - smooth scroll on home, navigate first on other pages
+  const handleNavClick = (e, href) => {
+    e.preventDefault();
+    setIsMobileMenuOpen(false);
+    
+    if (href.startsWith("#")) {
+      if (location.pathname === "/") {
+        // On home page - just scroll to section
+        const element = document.querySelector(href);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth" });
+        }
+      } else {
+        // On other pages - navigate to home first, then scroll
+        navigate("/");
+        setTimeout(() => {
+          const element = document.querySelector(href);
+          if (element) {
+            element.scrollIntoView({ behavior: "smooth" });
+          }
+        }, 100);
+      }
+    }
+  };
+
   return (
     <>
       {/* Mobile Menu Overlay */}
@@ -37,16 +65,28 @@ export const Navbar = () => {
           onClick={() => setIsMobileMenuOpen(false)}
         >
           <div className="flex flex-col items-center justify-center min-h-screen space-y-8 text-xl">
-            {NavItems.map((item,key) => (
-              <a
-                key={key}
-                href={item.href}
-                className="text-foreground font-medium hover:text-primary transition-colors duration-300 text-center animate-fade-in tracking-wide"
-                style={{ animationDelay: `${key * 0.1}s` }}
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                {item.name}
-              </a>
+            {NavItems.map((item, key) => (
+              item.href.startsWith("/") ? (
+                <Link
+                  key={key}
+                  to={item.href}
+                  className="text-foreground font-medium hover:text-primary transition-colors duration-300 text-center animate-fade-in tracking-wide"
+                  style={{ animationDelay: `${key * 0.1}s` }}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  {item.name}
+                </Link>
+              ) : (
+                <a
+                  key={key}
+                  href={item.href}
+                  className="text-foreground font-medium hover:text-primary transition-colors duration-300 text-center animate-fade-in tracking-wide"
+                  style={{ animationDelay: `${key * 0.1}s` }}
+                  onClick={(e) => handleNavClick(e, item.href)}
+                >
+                  {item.name}
+                </a>
+              )
             ))}
           </div>
         </div>
@@ -55,22 +95,33 @@ export const Navbar = () => {
       <nav className={cn("fixed w-full z-50 transition-all duration-300", 
       isScrolled ? "py-3 bg-background/80 backdrop-blur-md shadow-xs" : "py-5")}>
         <div className="container flex items-center justify-between">
-          <a className="text-xl font-bold text-primary flex items-center relative z-50" href="#hero">
+          <Link className="text-xl font-bold text-primary flex items-center relative z-50" to="/">
             <span className="relative z-10">
               <span className="text-glow text-foreground">Johnson's </span> Portfolio
             </span>
-          </a>
+          </Link>
 
           {/* Nav for desktops */}
           <div className="hidden md:flex space-x-8 items-center">
-            {NavItems.map((item,key) => (
-              <a
-                key={key}
-                href={item.href}
-                className="text-foreground font-medium hover:text-primary transition-colors duration-300 tracking-wide"
-              >
-                {item.name}
-              </a>
+            {NavItems.map((item, key) => (
+              item.href.startsWith("/") ? (
+                <Link
+                  key={key}
+                  to={item.href}
+                  className="text-foreground font-medium hover:text-primary transition-colors duration-300 tracking-wide"
+                >
+                  {item.name}
+                </Link>
+              ) : (
+                <a
+                  key={key}
+                  href={item.href}
+                  className="text-foreground font-medium hover:text-primary transition-colors duration-300 tracking-wide"
+                  onClick={(e) => handleNavClick(e, item.href)}
+                >
+                  {item.name}
+                </a>
+              )
             ))}
             <ThemeToggle />
           </div>

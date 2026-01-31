@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
 /* Custom theme for this website, @theme to make it easier for dark/light mode switching */
 @theme {

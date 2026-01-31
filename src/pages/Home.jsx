@@ -4,7 +4,9 @@ import { HeroSection } from "@/components/HeroSection"
 import { AboutSection } from "@/components/AboutSection"
 import { SkillSection } from "@/components/SkillSection"
 import { ProjectSection } from "@/components/ProjectSection"
+import { BlogSection } from "@/components/BlogSection"
 import { ContactSection } from "@/components/ContactSection"
+import { Footer } from "@/components/Footer"
 import { useSnapScroll } from "@/hooks/useSnapScroll"
 
 export const Home = () => {
@@ -12,7 +14,7 @@ export const Home = () => {
   useSnapScroll();
 
   return (
-    <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
+    <div className="min-h-screen bg-background text-foreground overflow-x-hidden flex flex-col">
       {/* Background Effects */}
       <StarBackground />
 
@@ -20,13 +22,17 @@ export const Home = () => {
       <Navbar />
 
       {/* Main Content */}
-      <main>
+      <main className="flex-1">
         <HeroSection />
         <AboutSection />
         <SkillSection />
         <ProjectSection />
+        <BlogSection />
         <ContactSection />
       </main>
+
+      {/* Footer */}
+      <Footer />
     </div>
   )
 }
