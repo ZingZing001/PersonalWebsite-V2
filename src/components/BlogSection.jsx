@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { getLatestPosts } from "@/data/blogPosts";
 
 export const BlogSection = () => {
-  const latestPosts = getLatestPosts(3);
+  const latestPosts = getLatestPosts(5);
   const [featuredPost, ...otherPosts] = latestPosts;
 
   return (
@@ -103,58 +103,56 @@ export const BlogSection = () => {
             </Link>
           )}
 
-          {/* Other Posts - Stacked */}
-          <div className="flex flex-col gap-6">
+          {/* Other Posts - 2x2 Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-4">
             {otherPosts.map((post) => (
               <Link
                 key={post.id}
                 to={`/blog/${post.slug}`}
-                className="group bg-card/90 border-2 dark:border-border/50 border-primary/20 rounded-xl overflow-hidden shadow-lg dark:shadow-primary/5 card-hover"
+                className="group bg-card/90 border-2 dark:border-border/50 border-primary/20 rounded-xl overflow-hidden shadow-lg dark:shadow-primary/5 card-hover flex flex-col"
               >
-                <div className="flex flex-col sm:flex-row">
-                  {/* Image */}
-                  <div className="sm:w-40 md:w-48 h-32 sm:h-auto overflow-hidden bg-gradient-to-br from-primary/20 to-primary/5 flex-shrink-0">
-                    {post.image ? (
-                      <img 
-                        src={post.image} 
-                        alt={post.title} 
-                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                      />
-                    ) : (
-                      <div className="w-full h-full flex items-center justify-center min-h-[100px]">
-                        <span className="text-3xl">📝</span>
-                      </div>
-                    )}
+                {/* Image */}
+                <div className="h-28 overflow-hidden bg-gradient-to-br from-primary/20 to-primary/5 flex-shrink-0">
+                  {post.image ? (
+                    <img 
+                      src={post.image} 
+                      alt={post.title} 
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center">
+                      <span className="text-3xl">📝</span>
+                    </div>
+                  )}
+                </div>
+
+                {/* Content */}
+                <div className="p-4 flex flex-col flex-1">
+                  {/* Tags */}
+                  <div className="flex flex-wrap gap-1.5 mb-2">
+                    {post.tags.slice(0, 2).map((tag, index) => (
+                      <span 
+                        key={index} 
+                        className="px-2 py-0.5 text-xs font-medium rounded-full bg-primary/10 text-primary"
+                      >
+                        {tag}
+                      </span>
+                    ))}
                   </div>
 
-                  {/* Content */}
-                  <div className="p-5 flex flex-col flex-1 justify-center">
-                    {/* Tags */}
-                    <div className="flex flex-wrap gap-1.5 mb-2">
-                      {post.tags.slice(0, 2).map((tag, index) => (
-                        <span 
-                          key={index} 
-                          className="px-2 py-0.5 text-xs font-medium rounded-full bg-primary/10 text-primary"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
+                  {/* Title */}
+                  <h3 className="text-base font-semibold mb-2 text-foreground group-hover:text-primary transition-colors duration-300 line-clamp-2">
+                    {post.title}
+                  </h3>
 
-                    {/* Title */}
-                    <h3 className="text-lg font-semibold mb-2 text-foreground group-hover:text-primary transition-colors duration-300 line-clamp-2">
-                      {post.title}
-                    </h3>
-
-                    {/* Meta */}
-                    <div className="flex items-center gap-3 text-xs text-muted-foreground">
-                      <span className="flex items-center gap-1">
-                        <Calendar size={12} />
-                        {new Date(post.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
-                      </span>
-                      <span>•</span>
-                      <span>{post.readTime}</span>
-                    </div>
+                  {/* Meta */}
+                  <div className="flex items-center gap-3 text-xs text-muted-foreground mt-auto">
+                    <span className="flex items-center gap-1">
+                      <Calendar size={12} />
+                      {new Date(post.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                    </span>
+                    <span>•</span>
+                    <span>{post.readTime}</span>
                   </div>
                 </div>
               </Link>
