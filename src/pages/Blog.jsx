@@ -1,22 +1,54 @@
 import { Link } from "react-router-dom";
-import { ArrowLeft, Calendar, Clock, ArrowRight, BookOpen, Search } from "lucide-react";
+import { ArrowLeft, Calendar, Clock, ArrowRight, BookOpen, Search, ChevronLeft, ChevronRight } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
 import { StarBackground } from "@/components/StarBackground";
 import { Footer } from "@/components/Footer";
 import { getSortedPosts } from "@/data/blogPosts";
-import { useState } from "react";
+import { useState, useMemo } from "react";
+
+// Number of posts to show per page (excluding featured post on first page)
+const POSTS_PER_PAGE = 6;
 
 export const Blog = () => {
   const allPosts = getSortedPosts();
   const [searchQuery, setSearchQuery] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
   
-  const posts = allPosts.filter(post => 
-    post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    post.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase())) ||
-    post.excerpt.toLowerCase().includes(searchQuery.toLowerCase())
+  // Filter posts based on search query
+  const filteredPosts = useMemo(() => 
+    allPosts.filter(post => 
+      post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      post.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase())) ||
+      post.excerpt.toLowerCase().includes(searchQuery.toLowerCase())
+    ), [allPosts, searchQuery]
   );
 
-  const [featuredPost, ...otherPosts] = posts;
+  // Reset to first page when search query changes
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
+    setCurrentPage(1);
+  };
+
+  // Get featured post (first post) and paginate the rest
+  const featuredPost = filteredPosts[0];
+  const remainingPosts = filteredPosts.slice(1);
+  
+  // Pagination calculations (ensure at least 1 page when there are remaining posts)
+  const totalPages = remainingPosts.length > 0 
+    ? Math.ceil(remainingPosts.length / POSTS_PER_PAGE) 
+    : 0;
+  const startIndex = (currentPage - 1) * POSTS_PER_PAGE;
+  const otherPosts = remainingPosts.slice(startIndex, startIndex + POSTS_PER_PAGE);
+
+  // Handle page changes with scroll to grid
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+    // Scroll to the "More Articles" section
+    const gridSection = document.getElementById('articles-grid');
+    if (gridSection) {
+      gridSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
 
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden flex flex-col">
@@ -56,7 +88,7 @@ export const Blog = () => {
                   type="text"
                   placeholder="Search articles..."
                   value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onChange={handleSearchChange}
                   className="w-full pl-10 pr-4 py-2.5 rounded-lg bg-card/80 border-2 border-border/50 focus:border-primary/50 outline-none transition-colors text-foreground placeholder:text-muted-foreground"
                 />
               </div>
@@ -141,11 +173,23 @@ export const Blog = () => {
           )}
 
           {/* Other Posts Grid */}
-          {otherPosts.length > 0 && (
-            <>
-              <h3 className="text-xl font-semibold mb-6 text-muted-foreground">
-                More Articles
-              </h3>
+          {remainingPosts.length > 0 && (
+            <section id="articles-grid" className="scroll-mt-24">
+              <div className="flex items-center justify-between mb-6">
+                <h3 className="text-xl font-semibold text-muted-foreground">
+                  More Articles
+                  {totalPages > 1 && (
+                    <span className="text-sm font-normal ml-2">
+                      (Page {currentPage} of {totalPages})
+                    </span>
+                  )}
+                </h3>
+                {totalPages > 1 && (
+                  <span className="text-sm text-muted-foreground">
+                    Showing {startIndex + 1}-{Math.min(startIndex + POSTS_PER_PAGE, remainingPosts.length)} of {remainingPosts.length}
+                  </span>
+                )}
+              </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {otherPosts.map((post) => (
                   <Link
@@ -214,11 +258,92 @@ export const Blog = () => {
                   </Link>
                 ))}
               </div>
-            </>
+
+              {/* Pagination Controls */}
+              {totalPages > 1 && (
+                <div className="flex items-center justify-center gap-2 mt-10">
+                  {/* Previous Button */}
+                  <button
+                    onClick={() => handlePageChange(currentPage - 1)}
+                    disabled={currentPage === 1}
+                    className="p-2 rounded-lg border-2 border-border/50 hover:border-primary/50 hover:bg-primary/10 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:border-border/50 disabled:hover:bg-transparent transition-all"
+                    aria-label="Previous page"
+                  >
+                    <ChevronLeft size={20} />
+                  </button>
+
+                  {/* Page Numbers */}
+                  <div className="flex items-center gap-1">
+                    {(() => {
+                      const items = [];
+                      
+                      // Always show page 1
+                      items.push(1);
+                      
+                      // Show ellipsis after page 1 if there's a gap
+                      if (currentPage > 3) {
+                        items.push('ellipsis-start');
+                      }
+                      
+                      // Show pages around current page (excluding 1 and totalPages to avoid duplicates)
+                      for (let page = currentPage - 1; page <= currentPage + 1; page++) {
+                        if (page > 1 && page < totalPages) {
+                          items.push(page);
+                        }
+                      }
+                      
+                      // Show ellipsis before last page if there's a gap
+                      if (currentPage < totalPages - 2) {
+                        items.push('ellipsis-end');
+                      }
+                      
+                      // Always show last page (if more than 1 page)
+                      if (totalPages > 1) {
+                        items.push(totalPages);
+                      }
+                      
+                      return items.map((item) => {
+                        if (typeof item === 'string') {
+                          return (
+                            <span key={item} className="px-2 text-muted-foreground">
+                              …
+                            </span>
+                          );
+                        }
+                        
+                        return (
+                          <button
+                            key={item}
+                            onClick={() => handlePageChange(item)}
+                            className={`w-10 h-10 rounded-lg font-medium transition-all ${
+                              currentPage === item
+                                ? 'bg-primary text-primary-foreground'
+                                : 'hover:bg-primary/10 text-muted-foreground hover:text-foreground'
+                            }`}
+                          >
+                            {item}
+                          </button>
+                        );
+                      });
+                    })()}
+                  </div>
+
+                  {/* Next Button */}
+                  <button
+                    onClick={() => handlePageChange(currentPage + 1)}
+                    disabled={currentPage === totalPages}
+                    className="p-2 rounded-lg border-2 border-border/50 hover:border-primary/50 hover:bg-primary/10 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:border-border/50 disabled:hover:bg-transparent transition-all"
+                    aria-label="Next page"
+                  >
+                    <ChevronRight size={20} />
+                  </button>
+                </div>
+              )}
+            </section>
           )}
 
           {/* Empty State */}
-          {posts.length === 0 && (
+          {filteredPosts.length === 0 && (
             <div className="text-center py-16 bg-card/50 rounded-2xl border-2 border-dashed border-border/50">
               <div className="text-5xl mb-4">🔍</div>
               <p className="text-muted-foreground text-lg mb-2">No articles found</p>
