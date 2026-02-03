@@ -4,12 +4,14 @@ import { Home } from './pages/Home.jsx'
 import { NotFound } from './pages/NotFound.jsx'
 import { Blog } from './pages/Blog.jsx'
 import { BlogPost } from './pages/BlogPost.jsx'
+import { ScrollToTop } from './components/ScrollToTop.jsx'
 
 function App() {
   return (
     <>
       {/* Defining Routes using the React Router package */}
       <BrowserRouter basename="/PersonalWebsite-V2">
+        <ScrollToTop />
         <Routes>
           {/* Scaffolding the pages */}
           <Route index element={<Home />} />

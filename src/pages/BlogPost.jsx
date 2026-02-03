@@ -91,6 +91,11 @@ export const BlogPost = () => {
   const { slug } = useParams();
   const post = getPostBySlug(slug);
   
+  // Scroll to top when the slug changes (navigating between blog posts)
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+  }, [slug]);
+  
   // Get related posts (excluding current)
   const relatedPosts = getSortedPosts()
     .filter(p => p.slug !== slug)
