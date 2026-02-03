@@ -98,7 +98,7 @@ Through this experience, I didn't just learn about Power Automate, AI agents, or
 
 One unexpected gift from this internship has been the friendships I've made—not just with colleagues, but with fellow interns who I know will be part of my journey for years to come. We went through challenges together, celebrated wins together, and grew together.
 
-![Running the barista station at company BBQ](${BASE_URL}blog/RunningBristaForCompanyBBQ.JPG)
+![Running the barista station at company BBQ](${BASE_URL}blog/RunningBaristaForCompanyBBQ.JPG)
 *Running the barista station at the company BBQ—getting involved in the EROAD community beyond just coding!*
 
 From intern lunches to company BBQs where I got to run the barista station, every event was an opportunity to connect with amazing people. These weren't just networking opportunities—they were genuine moments of fun and connection that made EROAD feel like a second home.
