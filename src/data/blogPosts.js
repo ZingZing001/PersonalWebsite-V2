@@ -6,48 +6,51 @@ const BASE_URL = import.meta.env.BASE_URL;
 export const blogPosts = [
   {
     id: 7,
-    slug: "spotto-hackathon-building-under-pressure",
-    title: "Spotto Hackathon: Building Under Pressure",
+    slug: "spotto-hackathon-spendsmash",
+    title: "SpendSmash Hackathon: Uncovering Cloud Savings with Spotto",
     date: "2026-01-28",
-    excerpt: "Participating in the Spotto Hackathon at EROAD—a day of intense coding, creative problem-solving, and team collaboration.",
-    tags: ["Hackathon", "EROAD", "Team Building", "Innovation"],
-    readTime: "4 min read",
+    excerpt: "Had a great time at the Spotto SpendSmash Hackathon—lots of fun, even more learning, and a front-row seat to how AI can uncover hidden cloud costs.",
+    tags: ["Hackathon", "EROAD", "FinOps", "Cloud", "AI"],
+    readTime: "5 min read",
     image: `${BASE_URL}blog/SpottoHackathon.JPG`,
     content: `
-## The Thrill of a Hackathon
+## SpendSmash: A Fast-Paced Cloud Savings Hackathon
 
-Hackathons are a unique beast. Take tight deadlines, add a dash of creativity, mix in some caffeine, and you get an environment where innovation thrives under pressure.
+Had a great time at the Spotto Hackathon—there was lots of fun, and even more learning. EROAD partnered with Spotto to run SpendSmash, a fast-paced hackathon focused on one goal: uncovering meaningful cloud savings.
 
-![Spotto Hackathon](${BASE_URL}blog/SpottoHackathon.JPG)
-*Our team at the Spotto Hackathon—focused, caffeinated, and ready to build!*
+### Seeing Spotto in Action
 
-### What is Spotto?
+The biggest highlight for me was seeing Spotto in action. Spotto brings fresh technologies that use AI to help uncover hidden issues early—the kind of problems that can quietly cost companies thousands of dollars each month if they go unnoticed. It was truly eye-catching to witness how it identifies these potential problems and even provides recommendations to assist teams in eliminating them.
 
-The Spotto Hackathon was an internal event at EROAD where teams competed to build innovative solutions in a limited timeframe. It was a fantastic opportunity to step outside our regular work and let creativity take the lead.
+### The Competition
 
-### The Experience
+Spotto powered the analysis, and six teams—made up of engineers from both EROAD and Spotto—took it from there. The brief wasn't just "find the biggest number." We were asked for creativity:
 
-What made this hackathon special wasn't just the coding—it was the collaboration. Working intensively with teammates, bouncing ideas off each other, and iterating rapidly showed me the power of focused teamwork.
+- The intuitive fixes
+- The left-field ideas
+- Even changes to business processes that shift spend patterns
 
-**Key Takeaways:**
+### The Results
 
-1. **Constraints breed creativity** - Limited time forced us to prioritize ruthlessly
-2. **Prototyping > Perfection** - A working demo beats a perfect plan
-3. **Team dynamics matter** - Good communication can accelerate development exponentially
-4. **Fun fuels productivity** - When you're enjoying the work, you produce better results
+The results were varied and valuable:
 
-### Why Hackathons Matter
+- Some teams found quick, clean wins—precise, well-scoped fixes that could be implemented immediately
+- Others brought deeper insights
+- One team even built an AI app using Spotto's MCP engine to apply EROAD-specific business context to cost recommendations!
 
-Beyond the immediate outcomes, hackathons are incredible learning experiences. You get to:
+The day wrapped with 3-minute pitches and sharp executive judging from both EROAD and Spotto. Two winning teams took home Sharesies vouchers—a fitting prize for a day spent finding ways to reclaim wasted spend to invest smarter.
 
-- Try new technologies without the pressure of production
-- Work with people you might not normally collaborate with
-- Practice pitching ideas and solutions
-- Build something tangible in a short time
+### Learning Beyond the Hackathon
 
-### Looking Forward
+On top of the main event, I also learned a lot from our Cloud/Azure Engineer about the state of modern databases and the pain points teams still run into today. These kinds of insights from experienced engineers are invaluable.
 
-I hope to participate in more hackathons—both internal and external. There's something magical about that concentrated burst of creativity and building. If you ever get the chance to join one, do it. You won't regret it!
+### Thank You
+
+Huge thanks to Jay Strydom, Symon Thurlow, and Shaun Webber for the opportunity for us interns at EROAD to learn from real-world problems and understand how Spotto helps identify and reduce them.
+
+Also big thanks to JiYoung Do for the fabulous organisation, Jordan York as the high-energy MC, and David Morton, Juan De Roock, and Jacques Ellis for their support and sponsorship.
+
+To all the teams in Auckland and Manila—and everyone who contributed ideas, time, and energy—thanks again! It was exciting to see these insights and know they'll make their way into production.
     `
   },
   {
@@ -63,9 +66,6 @@ I hope to participate in more hackathons—both internal and external. There's s
 ## Looking Back on an Incredible Journey
 
 As my internship at EROAD comes to an end, I find myself reflecting on what has been one of the most transformative experiences of my career so far. What started on November 26th, 2025 has turned into so much more than just a work placement—it's been a masterclass in professional growth, teamwork, and what it truly means to be part of a great company.
-
-![Intern team lunch](${BASE_URL}blog/InternLunch.JPG)
-*Our intern team enjoying lunch together—moments like these made the internship special.*
 
 ### The People Make the Difference
 
@@ -183,9 +183,6 @@ This experience was invaluable. It's one thing to learn about production inciden
 ## Diving Into the World of AI Agents
 
 When I started my AI & Business Internship at EROAD, I had no idea I'd be working with cutting-edge technology like Microsoft Copilot agents. Thanks to opportunities provided by my manager Olivier, I got to attend numerous seminars and conferences—both online and in-person—that opened my eyes to what's possible with AI in the enterprise.
-
-![Microsoft AI Conference](${BASE_URL}blog/MicrosoftAIConference.JPG)
-*Attending the Microsoft AI Conference—learning directly from the experts.*
 
 ### Learning From the Experts
 
