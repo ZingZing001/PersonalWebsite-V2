@@ -272,37 +272,58 @@ export const Blog = () => {
 
                   {/* Page Numbers */}
                   <div className="flex items-center gap-1">
-                    {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => {
-                      // Show first, last, current, and adjacent pages
-                      const showPage = page === 1 || 
-                                       page === totalPages || 
-                                       Math.abs(page - currentPage) <= 1;
-                      const showEllipsis = page === currentPage - 2 || page === currentPage + 2;
+                    {(() => {
+                      const items = [];
                       
-                      if (showEllipsis && !showPage && totalPages > 5) {
-                        return (
-                          <span key={page} className="px-2 text-muted-foreground">
-                            …
-                          </span>
-                        );
+                      // Always show page 1
+                      items.push(1);
+                      
+                      // Show ellipsis after page 1 if there's a gap
+                      if (currentPage > 3) {
+                        items.push('ellipsis-start');
                       }
                       
-                      if (!showPage && totalPages > 5) return null;
+                      // Show pages around current page
+                      for (let page = currentPage - 1; page <= currentPage + 1; page++) {
+                        if (page > 1 && page < totalPages) {
+                          items.push(page);
+                        }
+                      }
                       
-                      return (
-                        <button
-                          key={page}
-                          onClick={() => handlePageChange(page)}
-                          className={`w-10 h-10 rounded-lg font-medium transition-all ${
-                            currentPage === page
-                              ? 'bg-primary text-primary-foreground'
-                              : 'hover:bg-primary/10 text-muted-foreground hover:text-foreground'
-                          }`}
-                        >
-                          {page}
-                        </button>
-                      );
-                    })}
+                      // Show ellipsis before last page if there's a gap
+                      if (currentPage < totalPages - 2) {
+                        items.push('ellipsis-end');
+                      }
+                      
+                      // Always show last page (if more than 1 page)
+                      if (totalPages > 1) {
+                        items.push(totalPages);
+                      }
+                      
+                      return items.map((item) => {
+                        if (typeof item === 'string') {
+                          return (
+                            <span key={item} className="px-2 text-muted-foreground">
+                              …
+                            </span>
+                          );
+                        }
+                        
+                        return (
+                          <button
+                            key={item}
+                            onClick={() => handlePageChange(item)}
+                            className={`w-10 h-10 rounded-lg font-medium transition-all ${
+                              currentPage === item
+                                ? 'bg-primary text-primary-foreground'
+                                : 'hover:bg-primary/10 text-muted-foreground hover:text-foreground'
+                            }`}
+                          >
+                            {item}
+                          </button>
+                        );
+                      });
+                    })()}
                   </div>
 
                   {/* Next Button */}
