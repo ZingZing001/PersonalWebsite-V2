@@ -175,26 +175,37 @@ This experience was invaluable. It's one thing to learn about production inciden
     slug: "building-ai-agents-from-conferences-to-production",
     title: "Building AI Agents: From Conferences to Production",
     date: "2026-01-10",
-    excerpt: "My journey learning Microsoft Copilot and building AI agents for enterprise use—applying software engineering principles to a brand new technology.",
-    tags: ["AI", "Microsoft Copilot", "Agents", "Software Engineering"],
+    excerpt: "From chatting with AI to having AI work for us—my journey attending Microsoft Discovery Day and building AI agents for enterprise use.",
+    tags: ["AI", "Microsoft Copilot", "Agents", "Software Engineering", "FutureOfWork"],
     readTime: "7 min read",
     image: `${BASE_URL}blog/MicrosoftAIConference.JPG`,
     content: `
-## Diving Into the World of AI Agents
+## From Chatting with AI to Having AI Work for Us 🖥️
 
 When I started my AI & Business Internship at EROAD, I had no idea I'd be working with cutting-edge technology like Microsoft Copilot agents. Thanks to opportunities provided by my manager Olivier, I got to attend numerous seminars and conferences—both online and in-person—that opened my eyes to what's possible with AI in the enterprise.
 
-### Learning From the Experts
+### Microsoft Discovery Day: Copilot & Agents
 
-The conferences were incredible. Getting to hear directly from Microsoft and industry experts about Copilot agents gave us insights that you simply can't get from documentation alone. We learned about:
+I'm still reflecting on the Microsoft Discovery Day event in Auckland. It was fantastic to meet professionals from diverse fields and hear their unique perspectives on adopting AI Agents.
 
-- Agent architecture and design patterns
-- Best practices for enterprise deployment
-- Real-world use cases and success stories
-- Common pitfalls and how to avoid them
+While we're all getting used to having Copilot as an assistant, the real eye-opener was the deep dive into Agents. We've already moved past the stage of just generating text and images—we're heading towards AI that can autonomously execute complex business processes.
 
 ![Microsoft AI Conference networking](${BASE_URL}blog/MicrosoftAiConference2.JPG)
 *Networking and learning at the conference—invaluable experiences for any aspiring AI developer.*
+
+### Key Takeaways from the Day
+
+**1. Agents Drive Automation**
+
+By assigning repetitive workflows to Agents, we aren't just saving time—we're fundamentally increasing the productivity capacity of every employee.
+
+**2. Augmentation, Not Replacement**
+
+A key discussion point was that AI isn't about reducing headcount. Companies aren't looking to fire staff; they're looking to supercharge them. The goal is to empower individuals to achieve more than they ever could alone.
+
+**3. Proven Results**
+
+The data is clear—the shift to using AI Agents has already proven to result in significantly higher productivity and output for staff members who embrace the tools.
 
 ### From Learning to Building
 
