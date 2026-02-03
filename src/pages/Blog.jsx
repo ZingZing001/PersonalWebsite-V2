@@ -283,9 +283,9 @@ export const Blog = () => {
                         items.push('ellipsis-start');
                       }
                       
-                      // Show pages around current page
+                      // Show pages around current page (excluding 1 and totalPages to avoid duplicates)
                       for (let page = currentPage - 1; page <= currentPage + 1; page++) {
-                        if (page > 1 && page < totalPages) {
+                        if (page > 1 && page < totalPages && !items.includes(page)) {
                           items.push(page);
                         }
                       }
@@ -295,8 +295,8 @@ export const Blog = () => {
                         items.push('ellipsis-end');
                       }
                       
-                      // Always show last page (if more than 1 page)
-                      if (totalPages > 1) {
+                      // Always show last page (if more than 1 page and not already added)
+                      if (totalPages > 1 && !items.includes(totalPages)) {
                         items.push(totalPages);
                       }
                       
