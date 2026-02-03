@@ -1,6 +1,8 @@
 // Blog posts data - add new posts here
 // Posts are sorted by date (newest first) when displayed
 
+const BASE_URL = import.meta.env.BASE_URL;
+
 export const blogPosts = [
   {
     id: 7,
@@ -10,13 +12,13 @@ export const blogPosts = [
     excerpt: "Participating in the Spotto Hackathon at EROAD—a day of intense coding, creative problem-solving, and team collaboration.",
     tags: ["Hackathon", "EROAD", "Team Building", "Innovation"],
     readTime: "4 min read",
-    image: `${import.meta.env.BASE_URL}blog/SpottoHackathon.JPG`,
-    content: \`
+    image: `${BASE_URL}blog/SpottoHackathon.JPG`,
+    content: `
 ## The Thrill of a Hackathon
 
 Hackathons are a unique beast. Take tight deadlines, add a dash of creativity, mix in some caffeine, and you get an environment where innovation thrives under pressure.
 
-![Spotto Hackathon](${import.meta.env.BASE_URL}blog/SpottoHackathon.JPG)
+![Spotto Hackathon](${BASE_URL}blog/SpottoHackathon.JPG)
 *Our team at the Spotto Hackathon—focused, caffeinated, and ready to build!*
 
 ### What is Spotto?
@@ -46,7 +48,7 @@ Beyond the immediate outcomes, hackathons are incredible learning experiences. Y
 ### Looking Forward
 
 I hope to participate in more hackathons—both internal and external. There's something magical about that concentrated burst of creativity and building. If you ever get the chance to join one, do it. You won't regret it!
-    \`
+    `
   },
   {
     id: 6,
@@ -56,13 +58,13 @@ I hope to participate in more hackathons—both internal and external. There's s
     excerpt: "Looking back on my AI & Business Internship at EROAD—the lessons learned, the amazing people, and how this experience shaped me as both a developer and a person.",
     tags: ["Internship", "Career", "EROAD", "Personal Growth"],
     readTime: "8 min read",
-    image: `${import.meta.env.BASE_URL}blog/InternLunch.JPG`,
-    content: \`
+    image: `${BASE_URL}blog/InternLunch.JPG`,
+    content: `
 ## Looking Back on an Incredible Journey
 
 As my internship at EROAD comes to an end, I find myself reflecting on what has been one of the most transformative experiences of my career so far. What started on November 26th, 2025 has turned into so much more than just a work placement—it's been a masterclass in professional growth, teamwork, and what it truly means to be part of a great company.
 
-![Intern team lunch](${import.meta.env.BASE_URL}blog/InternLunch.JPG)
+![Intern team lunch](${BASE_URL}blog/InternLunch.JPG)
 *Our intern team enjoying lunch together—moments like these made the internship special.*
 
 ### The People Make the Difference
@@ -96,12 +98,12 @@ Through this experience, I didn't just learn about Power Automate, AI agents, or
 
 One unexpected gift from this internship has been the friendships I've made—not just with colleagues, but with fellow interns who I know will be part of my journey for years to come. We went through challenges together, celebrated wins together, and grew together.
 
-![Running the barista station at company BBQ](${import.meta.env.BASE_URL}blog/RunningBristaForCompanyBBQ.JPG)
+![Running the barista station at company BBQ](${BASE_URL}blog/RunningBristaForCompanyBBQ.JPG)
 *Running the barista station at the company BBQ—getting involved in the EROAD community beyond just coding!*
 
 From intern lunches to company BBQs where I got to run the barista station, every event was an opportunity to connect with amazing people. These weren't just networking opportunities—they were genuine moments of fun and connection that made EROAD feel like a second home.
 
-![The 2026 EROAD Intern Team](${import.meta.env.BASE_URL}blog/InternAtEroad2026.JPG)
+![The 2026 EROAD Intern Team](${BASE_URL}blog/InternAtEroad2026.JPG)
 *The 2026 EROAD Intern Team—friends for life!*
 
 ### Thank You, EROAD
@@ -109,7 +111,7 @@ From intern lunches to company BBQs where I got to run the barista station, ever
 To everyone at EROAD who made this experience possible—thank you. You've not only helped me become a better developer but a better person. The lessons I've learned here will stay with me throughout my career.
 
 Here's to new beginnings, armed with everything this incredible team has taught me. 🚀
-    \`
+    `
   },
   {
     id: 5,
@@ -120,7 +122,7 @@ Here's to new beginnings, armed with everything this incredible team has taught 
     tags: ["Engineering", "Problem Solving", "EROAD", "Architecture"],
     readTime: "5 min read",
     image: null,
-    content: \`
+    content: `
 ## When Things Go Wrong in Production
 
 After completing our work on AI agents, our team was pulled into something completely different—a P1 incident. Customer billing data was incorrect or corrupted, caused by potential data loss in a previous layer of our system.
@@ -166,7 +168,7 @@ One silver lining: the automation solutions we built saved significant time. Wha
 - **Pressure reveals character** - And our team's character was exceptional
 
 This experience was invaluable. It's one thing to learn about production incidents in theory; it's another to be in the trenches solving them.
-    \`
+    `
   },
   {
     id: 4,
@@ -176,13 +178,13 @@ This experience was invaluable. It's one thing to learn about production inciden
     excerpt: "My journey learning Microsoft Copilot and building AI agents for enterprise use—applying software engineering principles to a brand new technology.",
     tags: ["AI", "Microsoft Copilot", "Agents", "Software Engineering"],
     readTime: "7 min read",
-    image: `${import.meta.env.BASE_URL}blog/MicrosoftAIConference.JPG`,
-    content: \`
+    image: `${BASE_URL}blog/MicrosoftAIConference.JPG`,
+    content: `
 ## Diving Into the World of AI Agents
 
 When I started my AI & Business Internship at EROAD, I had no idea I'd be working with cutting-edge technology like Microsoft Copilot agents. Thanks to opportunities provided by my manager Olivier, I got to attend numerous seminars and conferences—both online and in-person—that opened my eyes to what's possible with AI in the enterprise.
 
-![Microsoft AI Conference](${import.meta.env.BASE_URL}blog/MicrosoftAIConference.JPG)
+![Microsoft AI Conference](${BASE_URL}blog/MicrosoftAIConference.JPG)
 *Attending the Microsoft AI Conference—learning directly from the experts.*
 
 ### Learning From the Experts
@@ -194,7 +196,7 @@ The conferences were incredible. Getting to hear directly from Microsoft and ind
 - Real-world use cases and success stories
 - Common pitfalls and how to avoid them
 
-![Microsoft AI Conference networking](${import.meta.env.BASE_URL}blog/MicrosoftAiConference2.JPG)
+![Microsoft AI Conference networking](${BASE_URL}blog/MicrosoftAiConference2.JPG)
 *Networking and learning at the conference—invaluable experiences for any aspiring AI developer.*
 
 ### From Learning to Building
@@ -245,7 +247,7 @@ Building these agents taught me that AI isn't magic—it's engineering. The same
 The AI agent space is evolving rapidly. What we built today will likely look primitive in a year. But the engineering principles? Those are timeless. I'm excited to see where this technology goes and to continue building solutions that make people's work lives easier.
 
 If you're interested in AI agents, my advice: start with the fundamentals of good software engineering. The AI part is just another tool in your toolkit.
-    \`
+    `
   },
   {
     id: 1,
@@ -255,7 +257,7 @@ If you're interested in AI agents, my advice: start with the fundamentals of goo
     excerpt: "A deep dive into how I built this portfolio website using React, Vite, and Tailwind CSS. Learn about the design decisions and challenges I faced.",
     tags: ["React", "Vite", "Tailwind CSS", "Portfolio"],
     readTime: "5 min read",
-    image: `${import.meta.env.BASE_URL}projects/project1.png`,
+    image: `${BASE_URL}projects/project1.png`,
     content: `
 ## Why I Built a New Portfolio
 
