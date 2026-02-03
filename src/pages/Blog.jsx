@@ -33,8 +33,10 @@ export const Blog = () => {
   const featuredPost = filteredPosts[0];
   const remainingPosts = filteredPosts.slice(1);
   
-  // Pagination calculations
-  const totalPages = Math.ceil(remainingPosts.length / POSTS_PER_PAGE);
+  // Pagination calculations (ensure at least 1 page when there are remaining posts)
+  const totalPages = remainingPosts.length > 0 
+    ? Math.ceil(remainingPosts.length / POSTS_PER_PAGE) 
+    : 0;
   const startIndex = (currentPage - 1) * POSTS_PER_PAGE;
   const otherPosts = remainingPosts.slice(startIndex, startIndex + POSTS_PER_PAGE);
 
@@ -285,7 +287,7 @@ export const Blog = () => {
                       
                       // Show pages around current page (excluding 1 and totalPages to avoid duplicates)
                       for (let page = currentPage - 1; page <= currentPage + 1; page++) {
-                        if (page > 1 && page < totalPages && !items.includes(page)) {
+                        if (page > 1 && page < totalPages) {
                           items.push(page);
                         }
                       }
@@ -295,8 +297,8 @@ export const Blog = () => {
                         items.push('ellipsis-end');
                       }
                       
-                      // Always show last page (if more than 1 page and not already added)
-                      if (totalPages > 1 && !items.includes(totalPages)) {
+                      // Always show last page (if more than 1 page)
+                      if (totalPages > 1) {
                         items.push(totalPages);
                       }
                       
