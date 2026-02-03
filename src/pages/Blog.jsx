@@ -172,8 +172,8 @@ export const Blog = () => {
 
           {/* Other Posts Grid */}
           {remainingPosts.length > 0 && (
-            <>
-              <div id="articles-grid" className="flex items-center justify-between mb-6 scroll-mt-24">
+            <section id="articles-grid" className="scroll-mt-24">
+              <div className="flex items-center justify-between mb-6">
                 <h3 className="text-xl font-semibold text-muted-foreground">
                   More Articles
                   {totalPages > 1 && (
@@ -337,7 +337,7 @@ export const Blog = () => {
                   </button>
                 </div>
               )}
-            </>
+            </section>
           )}
 
           {/* Empty State */}
