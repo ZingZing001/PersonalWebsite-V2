@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Johnson's Portfolio</title>
+    <!--
+      GitHub Pages SPA redirect (https://github.com/rafgraph/spa-github-pages).
+      GitHub Pages has no server-side routing, so a direct hit on a client-side
+      route (e.g. /ask-me) 404s. This page encodes the requested path into a
+      query string and redirects to the app root, where a snippet in index.html
+      restores the real path before React Router boots.
+      pathSegmentsToKeep = 1 preserves the "/PersonalWebsite-V2" base segment.
+    -->
+    <script type="text/javascript">
+      var pathSegmentsToKeep = 1;
+      var l = window.location;
+      l.replace(
+        l.protocol +
+          "//" +
+          l.hostname +
+          (l.port ? ":" + l.port : "") +
+          l.pathname
+            .split("/")
+            .slice(0, 1 + pathSegmentsToKeep)
+            .join("/") +
+          "/?/" +
+          l.pathname
+            .slice(1)
+            .split("/")
+            .slice(pathSegmentsToKeep)
+            .join("/")
+            .replace(/&/g, "~and~") +
+          (l.search ? "&" + l.search.slice(1).replace(/&/g, "~and~") : "") +
+          l.hash
+      );
+    </script>
+  </head>
+  <body></body>
+</html>
