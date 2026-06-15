@@ -136,7 +136,7 @@ export const AskMe = () => {
             {/* Messages */}
             <div
               ref={scrollRef}
-              className="flex-1 overflow-y-auto px-4 md:px-6 py-6 space-y-4"
+              className="flex-1 overflow-y-auto custom-scrollbar px-4 md:px-6 py-6 space-y-4"
             >
               {isEmpty ? (
                 <div className="h-full flex flex-col justify-center items-center text-center space-y-6 px-2">
@@ -175,7 +175,7 @@ export const AskMe = () => {
                   placeholder="Ask me anything…"
                   rows={1}
                   disabled={isStreaming}
-                  className="flex-1 resize-none bg-background/80 border dark:border-border/50 border-primary/20 focus:border-primary/50 focus:ring-2 focus:ring-primary/20 outline-none rounded-xl px-4 py-3 text-foreground placeholder:text-foreground/40 transition-all disabled:opacity-60"
+                  className="flex-1 resize-none custom-scrollbar bg-background/80 border dark:border-border/50 border-primary/20 focus:border-primary/50 focus:ring-2 focus:ring-primary/20 outline-none rounded-xl px-4 py-3 text-foreground placeholder:text-foreground/40 transition-all disabled:opacity-60"
                 />
                 <button
                   type="submit"

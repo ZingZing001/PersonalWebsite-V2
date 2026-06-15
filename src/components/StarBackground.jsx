@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react"
+import { memo, useEffect, useState } from "react"
 import { Meteors } from "./Meteors"
 
-export const StarBackground = () => {
+export const StarBackground = memo(function StarBackground() {
   const [stars, setStars] = useState([])
   const [isDark, setIsDark] = useState(false)
 
@@ -68,4 +68,4 @@ export const StarBackground = () => {
       {isDark && <Meteors number={15} />}
     </div>
   )
-}
+})

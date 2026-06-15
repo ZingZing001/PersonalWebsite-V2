@@ -232,11 +232,39 @@
 @utility meteor-head {
   @apply absolute rounded-full;
   background: rgba(255, 255, 255, 0.6);
-  box-shadow: 
+  box-shadow:
     0 0 4px 1px rgba(255, 255, 255, 0.4),
     0 0 8px 2px rgba(173, 216, 230, 0.3),
     0 0 12px 3px rgba(135, 206, 250, 0.2);
   filter: blur(0.5px);
+}
+
+/* Themed scrollbar that follows the primary/border tokens in both
+   light and dark mode (the default browser scrollbar renders white). */
+@utility custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: hsl(var(--primary) / 0.4) transparent;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: hsl(var(--primary) / 0.4);
+    border-radius: 9999px;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: hsl(var(--primary) / 0.65);
+    background-clip: padding-box;
+  }
 }
 
 #root {
