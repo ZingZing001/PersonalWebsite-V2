@@ -13,7 +13,8 @@
     "preview": "vite preview",
     "test": "vitest",
     "test:run": "vitest run",
-    "test:coverage": "vitest run --coverage"
+    "test:coverage": "vitest run --coverage",
+    "embed": "node scripts/build-embeddings.mjs"
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",

@@ -1,5 +1,6 @@
-import { MouseIcon } from 'lucide-react';
+import { MouseIcon, Sparkles } from 'lucide-react';
 import Typewriter from 'typewriter-effect';
+import { Link } from 'react-router-dom';
 export const HeroSection = () => {
   return (
     <section 
@@ -24,13 +25,23 @@ export const HeroSection = () => {
             Welcome to my portfolio!
           </p>
 
-          <div className="pt-4 mt-8 opacity-0 animate-fade-in-delay-4" style={{ animationDelay: '5s' }}>
+          <div className="pt-4 mt-8 opacity-0 animate-fade-in-delay-4 flex flex-col sm:flex-row gap-4 justify-center items-center" style={{ animationDelay: '5s' }}>
             <a
               href="#projects"
               className="cosmic-button"
             >
               View My Projects
             </a>
+            <Link
+              to="/ask-me"
+              className="px-6 py-2 rounded-full border border-primary/40 bg-primary/5 text-primary font-medium hover:bg-primary/10 hover:border-primary/60 transition-all duration-300 inline-flex items-center gap-2 group"
+            >
+              <Sparkles size={16} className="group-hover:rotate-12 transition-transform" />
+              Chat with Virtual Me
+              <span className="text-[10px] uppercase tracking-wider px-1.5 py-0.5 rounded-full bg-primary/15 border border-primary/30">
+                New
+              </span>
+            </Link>
           </div>
         </div>
       </div>

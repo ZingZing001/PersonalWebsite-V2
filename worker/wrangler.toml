@@ -1,0 +1,20 @@
+name = "ask-johnson"
+main = "src/index.ts"
+compatibility_date = "2025-01-15"
+compatibility_flags = ["nodejs_compat"]
+
+# Allowed origins for CORS. Set to your production site(s).
+# Local dev origins (http://localhost:5173) are also allowed automatically.
+[vars]
+ALLOWED_ORIGINS = "https://zingzing001.github.io"
+
+# KV namespace for per-IP rate limiting.
+# Create with: wrangler kv:namespace create RATE_LIMIT
+# Then paste the returned `id` below.
+[[kv_namespaces]]
+binding = "RATE_LIMIT"
+id = "REPLACE_WITH_KV_NAMESPACE_ID"
+
+# Secrets are set with: wrangler secret put <NAME>
+#   ANTHROPIC_API_KEY  — required, Anthropic Messages API key
+#   VOYAGE_API_KEY     — required, Voyage AI embeddings key

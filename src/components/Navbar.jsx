@@ -12,6 +12,7 @@ const NavItems = [
   { name: "Projects", href: "#projects" },
   { name: "Blog", href: "#blog" },
   { name: "Contact", href: "#contact" },
+  { name: "Ask Me", href: "/ask-me", badge: "New" },
 ];
 
 
@@ -70,11 +71,16 @@ export const Navbar = () => {
                 <Link
                   key={key}
                   to={item.href}
-                  className="text-foreground font-medium hover:text-primary transition-colors duration-300 text-center animate-fade-in tracking-wide"
+                  className="text-foreground font-medium hover:text-primary transition-colors duration-300 text-center animate-fade-in tracking-wide inline-flex items-center gap-2"
                   style={{ animationDelay: `${key * 0.1}s` }}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {item.name}
+                  {item.badge && (
+                    <span className="text-[10px] uppercase tracking-wider px-1.5 py-0.5 rounded-full bg-primary/15 text-primary border border-primary/30">
+                      {item.badge}
+                    </span>
+                  )}
                 </Link>
               ) : (
                 <a
@@ -108,9 +114,14 @@ export const Navbar = () => {
                 <Link
                   key={key}
                   to={item.href}
-                  className="text-foreground font-medium hover:text-primary transition-colors duration-300 tracking-wide"
+                  className="text-foreground font-medium hover:text-primary transition-colors duration-300 tracking-wide inline-flex items-center gap-1.5"
                 >
                   {item.name}
+                  {item.badge && (
+                    <span className="text-[10px] uppercase tracking-wider px-1.5 py-0.5 rounded-full bg-primary/15 text-primary border border-primary/30">
+                      {item.badge}
+                    </span>
+                  )}
                 </Link>
               ) : (
                 <a

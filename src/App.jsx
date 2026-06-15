@@ -4,6 +4,7 @@ import { Home } from './pages/Home.jsx'
 import { NotFound } from './pages/NotFound.jsx'
 import { Blog } from './pages/Blog.jsx'
 import { BlogPost } from './pages/BlogPost.jsx'
+import { AskMe } from './pages/AskMe.jsx'
 import { ScrollToTop } from './components/ScrollToTop.jsx'
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
           <Route index element={<Home />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/blog/:slug" element={<BlogPost />} />
+          <Route path="/ask-me" element={<AskMe />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
