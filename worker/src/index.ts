@@ -8,9 +8,13 @@ import {
 } from "./rag";
 
 interface Env {
-  ANTHROPIC_API_KEY: string;
+  OPENROUTER_API_KEY: string;
   VOYAGE_API_KEY: string;
   ALLOWED_ORIGINS: string;
+  // Optional: override the model and the headers OpenRouter uses for analytics.
+  OPENROUTER_MODEL?: string;
+  SITE_URL?: string;
+  SITE_TITLE?: string;
   RATE_LIMIT: KVNamespace;
 }
 
@@ -25,9 +29,8 @@ interface ChatRequest {
 
 const KB = knowledgeBase as unknown as KnowledgeBase;
 
-const ANTHROPIC_ENDPOINT = "https://api.anthropic.com/v1/messages";
-const ANTHROPIC_VERSION = "2023-06-01";
-const MODEL = "claude-haiku-4-5-20251001";
+const OPENROUTER_ENDPOINT = "https://openrouter.ai/api/v1/chat/completions";
+const DEFAULT_MODEL = "anthropic/claude-haiku-4.5";
 
 const RATE_LIMIT_REQUESTS = 20;
 const RATE_LIMIT_WINDOW_SECONDS = 5 * 60;
@@ -90,36 +93,45 @@ function validateMessages(messages: unknown): messages is ChatMessage[] {
   });
 }
 
-async function streamAnthropicResponse(
+async function streamLLMResponse(
   env: Env,
   messages: ChatMessage[],
   contextBlock: string,
 ): Promise<Response> {
   const systemWithContext = `${SYSTEM_PROMPT}\n\n---\n\nCONTEXT (excerpts retrieved for this turn):\n\n${contextBlock}`;
 
-  const upstream = await fetch(ANTHROPIC_ENDPOINT, {
+  // OpenRouter is OpenAI-compatible: the system prompt is the first message.
+  const openAiMessages = [
+    { role: "system", content: systemWithContext },
+    ...messages,
+  ];
+
+  const headers: Record<string, string> = {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${env.OPENROUTER_API_KEY}`,
+  };
+  // Optional headers OpenRouter uses for dashboard analytics / rankings.
+  if (env.SITE_URL) headers["HTTP-Referer"] = env.SITE_URL;
+  if (env.SITE_TITLE) headers["X-Title"] = env.SITE_TITLE;
+
+  const upstream = await fetch(OPENROUTER_ENDPOINT, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "x-api-key": env.ANTHROPIC_API_KEY,
-      "anthropic-version": ANTHROPIC_VERSION,
-    },
+    headers,
     body: JSON.stringify({
-      model: MODEL,
+      model: env.OPENROUTER_MODEL || DEFAULT_MODEL,
       max_tokens: 800,
-      system: systemWithContext,
-      messages,
+      messages: openAiMessages,
       stream: true,
     }),
   });
 
   if (!upstream.ok || !upstream.body) {
     const errBody = await upstream.text();
-    throw new Error(`Anthropic upstream ${upstream.status}: ${errBody}`);
+    throw new Error(`OpenRouter upstream ${upstream.status}: ${errBody}`);
   }
 
-  // Pass through the SSE stream, re-emitting only the text deltas as simple
-  // `data: {"type":"text","text":"..."}` events for the frontend to consume.
+  // Translate OpenRouter's OpenAI-style SSE deltas into the simple
+  // `data: {"type":"text","text":"..."}` events the frontend consumes.
   const decoder = new TextDecoder();
   const encoder = new TextEncoder();
   const reader = upstream.body.getReader();
@@ -127,6 +139,10 @@ async function streamAnthropicResponse(
   const stream = new ReadableStream({
     async start(controller) {
       let buffer = "";
+      const emitDone = () =>
+        controller.enqueue(
+          encoder.encode(`data: ${JSON.stringify({ type: "done" })}\n\n`),
+        );
       try {
         while (true) {
           const { done, value } = await reader.read();
@@ -135,24 +151,24 @@ async function streamAnthropicResponse(
           const lines = buffer.split("\n");
           buffer = lines.pop() ?? "";
           for (const line of lines) {
-            if (!line.startsWith("data:")) continue;
-            const payload = line.slice(5).trim();
+            const trimmed = line.trim();
+            // OpenRouter sends `: ...` comment lines as keepalives.
+            if (!trimmed || trimmed.startsWith(":")) continue;
+            if (!trimmed.startsWith("data:")) continue;
+            const payload = trimmed.slice(5).trim();
             if (!payload) continue;
+            if (payload === "[DONE]") {
+              emitDone();
+              continue;
+            }
             try {
               const evt = JSON.parse(payload);
-              if (
-                evt.type === "content_block_delta" &&
-                evt.delta?.type === "text_delta" &&
-                typeof evt.delta.text === "string"
-              ) {
+              const delta = evt.choices?.[0]?.delta?.content;
+              if (typeof delta === "string" && delta.length > 0) {
                 controller.enqueue(
                   encoder.encode(
-                    `data: ${JSON.stringify({ type: "text", text: evt.delta.text })}\n\n`,
+                    `data: ${JSON.stringify({ type: "text", text: delta })}\n\n`,
                   ),
-                );
-              } else if (evt.type === "message_stop") {
-                controller.enqueue(
-                  encoder.encode(`data: ${JSON.stringify({ type: "done" })}\n\n`),
                 );
               }
             } catch {
@@ -243,7 +259,7 @@ export default {
       );
       const chunks = topK(queryEmbedding, KB, 3);
       const contextBlock = formatContext(chunks);
-      const sseResponse = await streamAnthropicResponse(
+      const sseResponse = await streamLLMResponse(
         env,
         body.messages,
         contextBlock,

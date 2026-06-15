@@ -117,7 +117,7 @@ npm run deploy
 
 ### Ask Virtual Johnson (AI chat agent)
 
-The `/ask-me` route is a chat interface backed by a Cloudflare Worker (`/worker`) that runs Claude Haiku 4.5 with RAG over my blog posts.
+The `/ask-me` route is a chat interface backed by a Cloudflare Worker (`/worker`) that runs an LLM via OpenRouter (Claude Haiku 4.5 by default) with RAG over my blog posts.
 
 ```bash
 # 1. Generate the knowledge base (one-time, re-run when blog content changes)

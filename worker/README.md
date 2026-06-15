@@ -2,7 +2,7 @@
 
 Backend for the **/ask-me** page on the personal site. Exposes a single endpoint:
 
-- `POST /chat` — accepts `{ messages: [{ role, content }, ...] }`, retrieves relevant excerpts from `knowledge-base.json`, and streams a response from Claude Haiku 4.5 back as Server-Sent Events.
+- `POST /chat` — accepts `{ messages: [{ role, content }, ...] }`, retrieves relevant excerpts from `knowledge-base.json`, and streams a response from an LLM (via [OpenRouter](https://openrouter.ai), defaulting to Claude Haiku 4.5) back as Server-Sent Events.
 
 ## One-time setup
 
@@ -18,16 +18,18 @@ npx wrangler kv:namespace create RATE_LIMIT
 # Copy the returned `id` into wrangler.toml (replace REPLACE_WITH_KV_NAMESPACE_ID)
 
 # 3. Set secrets
-npx wrangler secret put ANTHROPIC_API_KEY
+npx wrangler secret put OPENROUTER_API_KEY
 npx wrangler secret put VOYAGE_API_KEY
 ```
 
 For local dev, create `worker/.dev.vars`:
 
 ```
-ANTHROPIC_API_KEY=sk-ant-...
+OPENROUTER_API_KEY=sk-or-...
 VOYAGE_API_KEY=pa-...
 ```
+
+To use a different model, change `OPENROUTER_MODEL` in `wrangler.toml` (any slug from https://openrouter.ai/models) — no code change needed.
 
 ## Generate the knowledge base
 

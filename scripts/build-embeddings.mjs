@@ -3,15 +3,42 @@
 // content and embedding each chunk with Voyage AI.
 //
 // Run with:  npm run embed
-// Required env: VOYAGE_API_KEY  (export, or put in a .env.local that you source)
+// Required env: VOYAGE_API_KEY  (read from the shell, or from .env / .env.local)
 
-import { readFile, writeFile } from "node:fs/promises";
+import { readFile, writeFile, rm } from "node:fs/promises";
+import { existsSync, readFileSync } from "node:fs";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { dirname, resolve } from "node:path";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = resolve(__dirname, "..");
 const OUT_PATH = resolve(REPO_ROOT, "worker/knowledge-base.json");
+
+// Minimal .env loader so `npm run embed` picks up keys from the repo's env
+// files without requiring a dotenv dependency or a manual `export`.
+function loadEnvFiles() {
+  for (const file of [".env", ".env.local"]) {
+    const path = resolve(REPO_ROOT, file);
+    if (!existsSync(path)) continue;
+    for (const line of readFileSync(path, "utf8").split("\n")) {
+      const trimmed = line.trim();
+      if (!trimmed || trimmed.startsWith("#")) continue;
+      const eq = trimmed.indexOf("=");
+      if (eq === -1) continue;
+      const key = trimmed.slice(0, eq).trim();
+      let value = trimmed.slice(eq + 1).trim();
+      // Strip surrounding quotes if present.
+      if (
+        (value.startsWith('"') && value.endsWith('"')) ||
+        (value.startsWith("'") && value.endsWith("'"))
+      ) {
+        value = value.slice(1, -1);
+      }
+      if (!(key in process.env)) process.env[key] = value;
+    }
+  }
+}
+loadEnvFiles();
 
 const VOYAGE_MODEL = "voyage-3";
 const VOYAGE_ENDPOINT = "https://api.voyageai.com/v1/embeddings";
@@ -99,7 +126,7 @@ async function loadBlogPosts() {
     const mod = await import(pathToFileURL(tmpPath).href);
     return mod.blogPosts;
   } finally {
-    await writeFile(tmpPath, "// generated, safe to delete\n");
+    await rm(tmpPath, { force: true });
   }
 }
 
