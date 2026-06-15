@@ -115,6 +115,28 @@ npm run build
 npm run deploy
 ```
 
+### Ask Virtual Johnson (AI chat agent)
+
+The `/ask-me` route is a chat interface backed by a Cloudflare Worker (`/worker`) that runs an LLM via OpenRouter (the free `openrouter/free` router by default) with RAG over my blog posts.
+
+```bash
+# 1. Generate the knowledge base (one-time, re-run when blog content changes)
+export VOYAGE_API_KEY=...
+npm run embed
+
+# 2. Run the Worker locally
+cd worker
+npm install
+npm run dev    # http://localhost:8787
+
+# 3. Point the site at the local Worker and start the site
+cd ..
+# Set VITE_CHAT_API_URL=http://localhost:8787/chat in .env.local
+npm run dev
+```
+
+See `worker/README.md` for full deployment instructions (secrets, KV namespace, etc).
+
 ## 🎨 Key Features Breakdown
 
 ### 🌙 Dark/Light Mode

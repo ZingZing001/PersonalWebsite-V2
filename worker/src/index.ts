@@ -1,0 +1,282 @@
+import knowledgeBase from "../knowledge-base.json";
+import { SYSTEM_PROMPT } from "./system-prompt";
+import {
+  embedQuery,
+  formatContext,
+  topK,
+  type KnowledgeBase,
+} from "./rag";
+
+interface Env {
+  OPENROUTER_API_KEY: string;
+  VOYAGE_API_KEY: string;
+  ALLOWED_ORIGINS: string;
+  // Optional: override the model and the headers OpenRouter uses for analytics.
+  OPENROUTER_MODEL?: string;
+  SITE_URL?: string;
+  SITE_TITLE?: string;
+  RATE_LIMIT: KVNamespace;
+}
+
+interface ChatMessage {
+  role: "user" | "assistant";
+  content: string;
+}
+
+interface ChatRequest {
+  messages: ChatMessage[];
+}
+
+const KB = knowledgeBase as unknown as KnowledgeBase;
+
+const OPENROUTER_ENDPOINT = "https://openrouter.ai/api/v1/chat/completions";
+// "openrouter/free" auto-routes across OpenRouter's free models.
+const DEFAULT_MODEL = "openrouter/free";
+
+const RATE_LIMIT_REQUESTS = 20;
+const RATE_LIMIT_WINDOW_SECONDS = 5 * 60;
+
+const LOCAL_ORIGINS = new Set([
+  "http://localhost:5173",
+  "http://127.0.0.1:5173",
+]);
+
+function resolveAllowedOrigin(env: Env, origin: string | null): string | null {
+  if (!origin) return null;
+  if (LOCAL_ORIGINS.has(origin)) return origin;
+  const allowed = env.ALLOWED_ORIGINS.split(",").map((s) => s.trim());
+  return allowed.includes(origin) ? origin : null;
+}
+
+function corsHeaders(allowOrigin: string | null): Record<string, string> {
+  const headers: Record<string, string> = {
+    "Access-Control-Allow-Methods": "POST, OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type",
+    "Access-Control-Max-Age": "86400",
+    Vary: "Origin",
+  };
+  if (allowOrigin) headers["Access-Control-Allow-Origin"] = allowOrigin;
+  return headers;
+}
+
+function jsonResponse(
+  body: unknown,
+  status: number,
+  cors: Record<string, string>,
+): Response {
+  return new Response(JSON.stringify(body), {
+    status,
+    headers: { "Content-Type": "application/json", ...cors },
+  });
+}
+
+async function checkRateLimit(env: Env, ip: string): Promise<boolean> {
+  const key = `rl:${ip}`;
+  const current = await env.RATE_LIMIT.get(key);
+  const count = current ? parseInt(current, 10) : 0;
+  if (count >= RATE_LIMIT_REQUESTS) return false;
+  await env.RATE_LIMIT.put(key, String(count + 1), {
+    expirationTtl: RATE_LIMIT_WINDOW_SECONDS,
+  });
+  return true;
+}
+
+function validateMessages(messages: unknown): messages is ChatMessage[] {
+  if (!Array.isArray(messages) || messages.length === 0) return false;
+  if (messages.length > 30) return false;
+  return messages.every((m) => {
+    if (typeof m !== "object" || m === null) return false;
+    const msg = m as Record<string, unknown>;
+    if (msg.role !== "user" && msg.role !== "assistant") return false;
+    if (typeof msg.content !== "string") return false;
+    if (msg.content.length === 0 || msg.content.length > 4000) return false;
+    return true;
+  });
+}
+
+async function streamLLMResponse(
+  env: Env,
+  messages: ChatMessage[],
+  contextBlock: string,
+): Promise<Response> {
+  const systemWithContext = `${SYSTEM_PROMPT}\n\n---\n\nCONTEXT (excerpts retrieved for this turn):\n\n${contextBlock}`;
+
+  // OpenRouter is OpenAI-compatible: the system prompt is the first message.
+  const openAiMessages = [
+    { role: "system", content: systemWithContext },
+    ...messages,
+  ];
+
+  const headers: Record<string, string> = {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${env.OPENROUTER_API_KEY}`,
+  };
+  // Optional headers OpenRouter uses for dashboard analytics / rankings.
+  if (env.SITE_URL) headers["HTTP-Referer"] = env.SITE_URL;
+  if (env.SITE_TITLE) headers["X-Title"] = env.SITE_TITLE;
+
+  const upstream = await fetch(OPENROUTER_ENDPOINT, {
+    method: "POST",
+    headers,
+    body: JSON.stringify({
+      model: env.OPENROUTER_MODEL || DEFAULT_MODEL,
+      max_tokens: 800,
+      messages: openAiMessages,
+      stream: true,
+    }),
+  });
+
+  if (!upstream.ok || !upstream.body) {
+    const errBody = await upstream.text();
+    throw new Error(`OpenRouter upstream ${upstream.status}: ${errBody}`);
+  }
+
+  // Translate OpenRouter's OpenAI-style SSE deltas into the simple
+  // `data: {"type":"text","text":"..."}` events the frontend consumes.
+  const decoder = new TextDecoder();
+  const encoder = new TextEncoder();
+  const reader = upstream.body.getReader();
+
+  const stream = new ReadableStream({
+    async start(controller) {
+      let buffer = "";
+      const emitDone = () =>
+        controller.enqueue(
+          encoder.encode(`data: ${JSON.stringify({ type: "done" })}\n\n`),
+        );
+      try {
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          buffer += decoder.decode(value, { stream: true });
+          const lines = buffer.split("\n");
+          buffer = lines.pop() ?? "";
+          for (const line of lines) {
+            const trimmed = line.trim();
+            // OpenRouter sends `: ...` comment lines as keepalives.
+            if (!trimmed || trimmed.startsWith(":")) continue;
+            if (!trimmed.startsWith("data:")) continue;
+            const payload = trimmed.slice(5).trim();
+            if (!payload) continue;
+            if (payload === "[DONE]") {
+              emitDone();
+              continue;
+            }
+            try {
+              const evt = JSON.parse(payload);
+              const delta = evt.choices?.[0]?.delta?.content;
+              if (typeof delta === "string" && delta.length > 0) {
+                controller.enqueue(
+                  encoder.encode(
+                    `data: ${JSON.stringify({ type: "text", text: delta })}\n\n`,
+                  ),
+                );
+              }
+            } catch {
+              // ignore non-JSON keepalives
+            }
+          }
+        }
+      } catch (err) {
+        controller.enqueue(
+          encoder.encode(
+            `data: ${JSON.stringify({ type: "error", message: String(err) })}\n\n`,
+          ),
+        );
+      } finally {
+        controller.close();
+      }
+    },
+  });
+
+  return new Response(stream, {
+    headers: {
+      "Content-Type": "text/event-stream",
+      "Cache-Control": "no-cache, no-transform",
+      Connection: "keep-alive",
+    },
+  });
+}
+
+export default {
+  async fetch(request: Request, env: Env): Promise<Response> {
+    const url = new URL(request.url);
+    const origin = request.headers.get("Origin");
+    const allowOrigin = resolveAllowedOrigin(env, origin);
+    const cors = corsHeaders(allowOrigin);
+
+    if (request.method === "OPTIONS") {
+      return new Response(null, { status: 204, headers: cors });
+    }
+
+    if (url.pathname !== "/chat") {
+      return jsonResponse({ error: "not_found" }, 404, cors);
+    }
+
+    if (request.method !== "POST") {
+      return jsonResponse({ error: "method_not_allowed" }, 405, cors);
+    }
+
+    if (origin && !allowOrigin) {
+      return jsonResponse({ error: "origin_not_allowed" }, 403, cors);
+    }
+
+    const ip =
+      request.headers.get("CF-Connecting-IP") ??
+      request.headers.get("X-Forwarded-For") ??
+      "unknown";
+    const allowed = await checkRateLimit(env, ip);
+    if (!allowed) {
+      return jsonResponse(
+        { error: "rate_limited", retryAfterSeconds: RATE_LIMIT_WINDOW_SECONDS },
+        429,
+        cors,
+      );
+    }
+
+    let body: ChatRequest;
+    try {
+      body = (await request.json()) as ChatRequest;
+    } catch {
+      return jsonResponse({ error: "invalid_json" }, 400, cors);
+    }
+
+    if (!validateMessages(body.messages)) {
+      return jsonResponse({ error: "invalid_messages" }, 400, cors);
+    }
+
+    const lastUser = [...body.messages]
+      .reverse()
+      .find((m) => m.role === "user");
+    if (!lastUser) {
+      return jsonResponse({ error: "no_user_message" }, 400, cors);
+    }
+
+    try {
+      const queryEmbedding = await embedQuery(
+        lastUser.content,
+        KB.model,
+        env.VOYAGE_API_KEY,
+      );
+      const chunks = topK(queryEmbedding, KB, 3);
+      const contextBlock = formatContext(chunks);
+      const sseResponse = await streamLLMResponse(
+        env,
+        body.messages,
+        contextBlock,
+      );
+      const headers = new Headers(sseResponse.headers);
+      for (const [k, v] of Object.entries(cors)) headers.set(k, v);
+      return new Response(sseResponse.body, {
+        status: sseResponse.status,
+        headers,
+      });
+    } catch (err) {
+      return jsonResponse(
+        { error: "upstream_failure", message: String(err) },
+        502,
+        cors,
+      );
+    }
+  },
+};
