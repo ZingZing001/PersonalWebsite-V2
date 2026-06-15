@@ -19,7 +19,7 @@ SITE_TITLE = "Ask Virtual Johnson"
 # Then paste the returned `id` below.
 [[kv_namespaces]]
 binding = "RATE_LIMIT"
-id = "REPLACE_WITH_KV_NAMESPACE_ID"
+id = "c2fa8b603e2b4a9cb7343a26873163fb"
 
 # Secrets are set with: wrangler secret put <NAME>
 #   OPENROUTER_API_KEY — required, OpenRouter API key (https://openrouter.ai/keys)
