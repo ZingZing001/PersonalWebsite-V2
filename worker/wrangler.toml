@@ -8,7 +8,8 @@ compatibility_flags = ["nodejs_compat"]
 [vars]
 ALLOWED_ORIGINS = "https://zingzing001.github.io"
 # Any OpenRouter model slug — swap without code changes. See https://openrouter.ai/models
-OPENROUTER_MODEL = "anthropic/claude-haiku-4.5"
+# "openrouter/free" auto-routes across free models (https://openrouter.ai/openrouter/free).
+OPENROUTER_MODEL = "openrouter/free"
 # Optional: shown in your OpenRouter dashboard analytics.
 SITE_URL = "https://zingzing001.github.io/PersonalWebsite-V2/"
 SITE_TITLE = "Ask Virtual Johnson"

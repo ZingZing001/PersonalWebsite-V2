@@ -121,7 +121,7 @@ export const AskMe = () => {
           <header className="text-center mb-8">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/30 text-primary text-xs font-medium mb-4">
               <Sparkles size={12} />
-              <span>Experimental · powered by Claude Haiku 4.5</span>
+              <span>Experimental · powered by OpenRouter</span>
             </div>
             <h1 className="text-3xl md:text-5xl font-bold mb-3">
               Chat with <span className="text-primary">Virtual Johnson</span>

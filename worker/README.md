@@ -2,7 +2,7 @@
 
 Backend for the **/ask-me** page on the personal site. Exposes a single endpoint:
 
-- `POST /chat` — accepts `{ messages: [{ role, content }, ...] }`, retrieves relevant excerpts from `knowledge-base.json`, and streams a response from an LLM (via [OpenRouter](https://openrouter.ai), defaulting to Claude Haiku 4.5) back as Server-Sent Events.
+- `POST /chat` — accepts `{ messages: [{ role, content }, ...] }`, retrieves relevant excerpts from `knowledge-base.json`, and streams a response from an LLM (via [OpenRouter](https://openrouter.ai), defaulting to the free [`openrouter/free`](https://openrouter.ai/openrouter/free) router) back as Server-Sent Events.
 
 ## One-time setup
 

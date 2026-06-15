@@ -30,7 +30,8 @@ interface ChatRequest {
 const KB = knowledgeBase as unknown as KnowledgeBase;
 
 const OPENROUTER_ENDPOINT = "https://openrouter.ai/api/v1/chat/completions";
-const DEFAULT_MODEL = "anthropic/claude-haiku-4.5";
+// "openrouter/free" auto-routes across OpenRouter's free models.
+const DEFAULT_MODEL = "openrouter/free";
 
 const RATE_LIMIT_REQUESTS = 20;
 const RATE_LIMIT_WINDOW_SECONDS = 5 * 60;
