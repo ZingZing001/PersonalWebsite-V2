@@ -2,10 +2,11 @@ import { Sparkles } from "lucide-react";
 
 const STARTER_QUESTIONS = [
   "What did you learn from your EROAD internship?",
-  "Walk me through the SpendSmash hackathon project.",
+  "What are you building as Product Owner at AUSS?",
+  "Walk me through your capstone project.",
   "What's your tech stack and how did you pick it?",
   "Tell me about a hard production incident you've handled.",
-  "How did you get into software development?",
+  "What's your experience and education background?",
 ];
 
 export const StarterQuestions = ({ onPick, disabled }) => {

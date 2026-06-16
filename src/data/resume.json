@@ -1,0 +1,717 @@
+{
+  "basics": {
+    "name": "Runjia Zhang",
+    "headline": "Graduate Software Engineer @ EROAD | Product Owner @ AUSS | Penultimate-Year SWE Student",
+    "email": "runjiazhang.nz@gmail.com",
+    "location": "Auckland, New Zealand",
+    "website": {
+      "url": "https://zingzing001.github.io/PersonalWebsite-V2/",
+      "label": "Personal Portfolio"
+    },
+    "customFields": []
+  },
+  "summary": {
+    "title": "Summary",
+    "icon": "",
+    "columns": 1,
+    "hidden": false,
+    "content": "<p><strong>Penultimate-year Software Engineering student</strong> at the <strong>University of Auckland</strong>, currently working part-time as a <strong>Graduate Software Engineer at EROAD</strong> and serving as <strong>Product Owner</strong> on a full-stack platform for AUSS — the largest sports club at UoA. Hands-on experience building <strong>AI agents</strong> with Microsoft Copilot Studio and custom <strong>MCP (Model Context Protocol)</strong> integrations, designing <strong>cloud-native pipelines</strong> on AWS (S3, Lambda) with Kubernetes-ready deployments, and automating <strong>production-critical workflows</strong> with Power Automate and Snowflake. Comfortable across the stack — <strong>React/TypeScript</strong>, <strong>Node.js/Express</strong>, <strong>Prisma + PostgreSQL</strong>, <strong>real-time telemetry (MQTT + Socket.io)</strong>, and <strong>embedded firmware (ESP32)</strong>. Strong in <strong>Agile delivery</strong>, <strong>Requirements Engineering</strong>, and turning ambiguous business problems into reliable, shipped software.</p>"
+  },
+  "sections": {
+    "profiles": {
+      "title": "Profiles",
+      "icon": "",
+      "columns": 3,
+      "hidden": false,
+      "items": [
+        {
+          "id": "yoa0cq96sz5nsazs4vm2ua2j",
+          "hidden": false,
+          "icon": "github",
+          "iconColor": "",
+          "network": "Github",
+          "username": "ZingZing001",
+          "website": {
+            "url": "https://github.com/ZingZing001",
+            "label": "",
+            "inlineLink": false
+          }
+        },
+        {
+          "id": "ifbeoimujx7wu382aqf3i1hz",
+          "hidden": false,
+          "icon": "linkedin",
+          "iconColor": "",
+          "network": "LinkedIn",
+          "username": "runjiazhangnz",
+          "website": {
+            "url": "https://www.linkedin.com/in/runjiazhangnz/",
+            "label": "",
+            "inlineLink": false
+          }
+        },
+        {
+          "id": "f26nmczy3vyujjmxq7uap1l7",
+          "hidden": false,
+          "icon": "googlescholar",
+          "iconColor": "",
+          "network": "University Of Auckland",
+          "username": "rzha972",
+          "website": {
+            "url": "https://profiles.auckland.ac.nz/rzha972",
+            "label": "",
+            "inlineLink": false
+          }
+        }
+      ]
+    },
+    "experience": {
+      "title": "Experience",
+      "icon": "",
+      "columns": 1,
+      "hidden": false,
+      "items": [
+        {
+          "id": "eroad-grad-swe-2025-001",
+          "hidden": false,
+          "company": "EROAD",
+          "position": "Graduate Software Engineer (Part-Time)",
+          "location": "Auckland, New Zealand",
+          "period": "2025 Nov - Present",
+          "website": {
+            "url": "https://www.eroad.com/",
+            "label": "Company Website",
+            "inlineLink": true
+          },
+          "description": "<ul><li><p><strong>Fuel Data Translation Pipeline (AI + MCP)</strong>: Designed and built an AI-driven data translation pipeline integrating <strong>Microsoft Copilot Studio</strong> with EROAD's fuel transaction API via two custom <strong>Model Context Protocol (MCP) servers</strong>. The AI generates, deploys, and validates a JavaScript translation script once; the converter then runs deterministically with no further AI calls — making it fast, cheap, and auditable. Architected for <strong>AWS</strong> deployment using <strong>S3</strong> for artifact storage and <strong>Lambda</strong> for serverless execution, with <strong>Kubernetes-ready containerisation</strong> for production scaling. Stack: Node.js, Docker, Tailscale Funnel, MCP Streamable HTTP, AWS (S3, Lambda), Kubernetes.</p></li><li><p><strong>AI Agent Development (Microsoft Copilot Studio)</strong>: Designed, scoped, and shipped three internal AI agents — <strong>Enterprise System Agent</strong>, <strong>Email Manager Agent</strong>, and <strong>Employee Travel Agent</strong> — following a full engineering lifecycle (Requirements → MVP → Feedback Loop → MLP). Applied <strong>Requirements Engineering</strong> to scope agent capabilities with stakeholders across multiple internal departments. Attended industry seminars and conferences on the Microsoft Copilot and AI Agent ecosystem.</p></li><li><p><strong>Billing Automation — P1 Production Incident</strong>: Mobilised on a P1 incident involving corrupted billing data threatening customer integrity. Built an automated remediation architecture using <strong>Power Automate</strong> and <strong>Snowflake SQL</strong>: intelligent SQL scanning across <strong>Assets, Contracts, and Subscriptions</strong> to detect failure patterns, context-aware triage logic, and closed-loop error logging back to Snowflake for full auditability. Gained real-world perspective on how architectural decisions impact business operations and customer trust.</p></li></ul><p></p>",
+          "roles": [
+            {
+              "id": "019e3ac4-8e8e-727c-a77b-f30a8f127e7e",
+              "position": "Software Engineering Intern",
+              "period": "2025 Nov - 2026 Feb",
+              "description": "<ul><li><p><strong>AI Agent Development (Microsoft Copilot Studio)</strong>: Designed, scoped, and shipped three internal AI agents — <strong>Enterprise System Agent</strong>, <strong>Email Manager Agent</strong>, and <strong>Employee Travel Agent</strong> — following a full engineering lifecycle (Requirements → MVP → Feedback Loop → MLP). Applied <strong>Requirements Engineering</strong> to scope agent capabilities with stakeholders across multiple internal departments. Attended industry seminars and conferences on the Microsoft Copilot and AI Agent ecosystem.</p></li><li><p><strong>Billing Automation — P1 Production Incident</strong>: Mobilised on a P1 incident involving corrupted billing data threatening customer integrity. Built an automated remediation architecture using <strong>Power Automate</strong> and <strong>Snowflake SQL</strong>: intelligent SQL scanning across <strong>Assets, Contracts, and Subscriptions</strong> to detect failure patterns, context-aware triage logic, and closed-loop error logging back to Snowflake for full auditability. Gained real-world perspective on how architectural decisions impact business operations and customer trust.</p></li></ul><p></p>"
+            },
+            {
+              "id": "019e3ac5-6db5-7508-a6a4-78e68e92b553",
+              "position": "Graduate Software Engineer",
+              "period": "Present",
+              "description": "<ul><li><p><strong>Fuel Data Translation Pipeline (AI + MCP)</strong>: Designed and built an AI-driven data translation pipeline integrating <strong>Microsoft Copilot Studio</strong> with EROAD's fuel transaction API via two custom <strong>Model Context Protocol (MCP) servers</strong>. The AI generates, deploys, and validates a JavaScript translation script once; the converter then runs deterministically with no further AI calls — making it fast, cheap, and auditable. Architected for <strong>AWS</strong> deployment using <strong>S3</strong> for artifact storage and <strong>Lambda</strong> for serverless execution, with <strong>Kubernetes-ready containerisation</strong> for production scaling. Stack: Node.js, Docker, Tailscale Funnel, MCP Streamable HTTP, AWS (S3, Lambda), Kubernetes.</p></li></ul><p></p>"
+            }
+          ]
+        },
+        {
+          "id": "auss-po-2026-001",
+          "hidden": false,
+          "company": "Auckland University Strength Society (AUSS)",
+          "position": "Product Owner & Project Manager & Admin Secretary",
+          "location": "Auckland, New Zealand",
+          "period": "February 2026 - Present",
+          "website": {
+            "url": "",
+            "label": "Jira Board",
+            "inlineLink": false
+          },
+          "description": "<ul><li><p><strong>Product ownership</strong>: Leading a team of UoA student developers building a custom <strong>full-stack web platform</strong> for <strong>AUSS — the largest sports club at the University of Auckland</strong>. Defined product vision, prioritised the backlog in <strong>Jira</strong>, and own end-to-end delivery from requirements to release.</p></li><li><p><strong>Shipped features</strong>: User authentication with <strong>email verification</strong>, <strong>role-based access control</strong> (User / Admin), event management with <strong>RSVPs and capacity controls</strong>, executive team profiles, FAQ system, sponsor management with display ordering, and a media library.</p></li><li><p><strong>Stack</strong>: <strong>React + Vite</strong> (frontend), <strong>Node.js + Express</strong> (backend), <strong>Prisma ORM</strong> + <strong>PostgreSQL</strong>, <strong>Docker</strong> for local dev environments.</p></li><li><p><strong>Delivery</strong>: Run sprint planning, code reviews, and stakeholder communication with the AUSS executive committee; iterate features based on real club operational needs.</p></li></ul>",
+          "roles": []
+        },
+        {
+          "id": "tqv0olt1hre8ypd7coxg1dhx",
+          "hidden": false,
+          "company": "University Of Auckland",
+          "position": "Graduate Teaching Assistant",
+          "location": "Newmarket, Auckland",
+          "period": "December 2024 - Present",
+          "website": {
+            "url": "https://profiles.auckland.ac.nz/rzha972",
+            "label": "GTA Profile",
+            "inlineLink": true
+          },
+          "description": "<p><span style=\"color: rgba(0, 0, 0, 0.9);\">As a Teaching Assistant for ENGGEN 299: Workshop Practice at the University of Auckland, I facilitated hands-on learning experiences for second-year Bachelor of Engineering (Honours) students. This compulsory course introduces students to workshop safety and the use of various fabrication tools, such as laser cutters, 3D printers, soldering equipment, and machine shop tools, enabling them to create physical objects and mechanisms from diverse materials.</span></p>",
+          "roles": []
+        },
+        {
+          "id": "b97havdyg4azk0zvzsm09pox",
+          "hidden": false,
+          "company": "Iking Tech China",
+          "position": "Software Engineering Intern",
+          "location": "Shaanxi, China",
+          "period": "Nov 2024 - Dec 2024",
+          "website": {
+            "url": "https://www.ikingtech.com/",
+            "label": "",
+            "inlineLink": false
+          },
+          "description": "<ul><li><p><strong>JavaScript Development</strong>: Dedicated <strong>50+ hours</strong> to learning <strong>JavaScript</strong>, focusing on <strong>DOM manipulation</strong> and <strong>web application development</strong>. Built a <strong>simplified e-commerce web application</strong> using <strong>vanilla JavaScript, HTML, and CSS</strong>, applying <strong>OOP principles</strong> and UI/UX best practices.<br>🔗 <a target=\"_new\" rel=\"noopener\" href=\"https://github.com/ZingZing001/javascript-amazon-project\">GitHub: JavaScript Amazon Project</a></p></li><li><p><strong>Application Development</strong>: Designed and built a <strong>cross-platform watermark removal tool</strong> for <strong>PDFs, images, and Word documents</strong>, addressing an internal organisational need. Integrated <strong>PyQt5, PyMuPDF, and python-docx</strong> for <strong>batch processing</strong>, fast/deep removal modes, and customisable settings.<br>🔗 <a target=\"_new\" rel=\"noopener\" href=\"https://github.com/ZingZing001/WaterMarkRemovalTool\">GitHub: Watermark Removal Tool</a></p></li><li><p><strong>Agile Development Training</strong>: Completed <strong>85+ hours</strong> of <strong>Agile methodology training</strong>, including daily stand-ups and mentor-led lessons. Gained hands-on experience in <strong>strict Agile workflows</strong>, project timelines, team collaboration, and best practices for high-quality software delivery.</p></li></ul>",
+          "roles": []
+        },
+        {
+          "id": "icnhv27s2owpuec86yvovbz4",
+          "hidden": true,
+          "company": "YumCha Restaurant",
+          "position": "Senior Waiter / Supervisor",
+          "location": "Sylvia Park, Auckland",
+          "period": "2021 - 2022",
+          "website": {
+            "url": "",
+            "label": "",
+            "inlineLink": false
+          },
+          "description": "<p>Supervised daily restaurant operations, trained and mentored junior staff, managed scheduling, and coordinated with the kitchen on orders. Handled customer inquiries and complaints professionally while maintaining high service standards.</p>",
+          "roles": []
+        },
+        {
+          "id": "ob7myeuazq0ihkm7eqy8jk37",
+          "hidden": false,
+          "company": "Hulucat",
+          "position": "Barista",
+          "location": "Auckland",
+          "period": "2021 - 2024",
+          "website": {
+            "url": "",
+            "label": "",
+            "inlineLink": false
+          },
+          "description": "<p>Prepared and served beverages, coordinated front- and back-of-house communication, and built strong relationships with returning customers. Resolved guest issues quickly to maintain high satisfaction.</p>",
+          "roles": []
+        },
+        {
+          "id": "g8y67fuo0k1aap48yd5v7tgj",
+          "hidden": false,
+          "company": "Private Tutoring",
+          "position": "Piano Tutor",
+          "location": "",
+          "period": "2020 - 2021",
+          "website": {
+            "url": "",
+            "label": "",
+            "inlineLink": false
+          },
+          "description": "<p>Delivered individualised piano lessons to students of varying ages and skill levels, building personalised lesson plans and providing constructive feedback to track progress.</p>",
+          "roles": []
+        }
+      ]
+    },
+    "education": {
+      "title": "Education",
+      "icon": "",
+      "columns": 1,
+      "hidden": false,
+      "items": [
+        {
+          "id": "x18xwn7qxnt1n51hz9lulsdr",
+          "hidden": false,
+          "school": "University of Auckland",
+          "degree": "Bachelor of Engineering (Honours)",
+          "area": "Software Engineering",
+          "grade": "GPA: 6.75 / 9.0",
+          "location": "Auckland, New Zealand",
+          "period": "2023 - Present",
+          "website": {
+            "url": "",
+            "label": "",
+            "inlineLink": false
+          },
+          "description": ""
+        },
+        {
+          "id": "r280pccxvw9qc8fnvh8k2cte",
+          "hidden": false,
+          "school": "Botany Downs Secondary College",
+          "degree": "NCEA Level 1, 2 & 3",
+          "area": "Physics, Calculus, Chemistry, Digital Programming",
+          "grade": "Excellence Endorsement (all levels)",
+          "location": "Auckland, New Zealand",
+          "period": "2017 - 2022",
+          "website": {
+            "url": "",
+            "label": "",
+            "inlineLink": false
+          },
+          "description": ""
+        }
+      ]
+    },
+    "projects": {
+      "title": "Projects",
+      "icon": "",
+      "columns": 1,
+      "hidden": false,
+      "items": [
+        {
+          "id": "capstone-evolocity-2026-001",
+          "hidden": false,
+          "name": "EVolocity — Real-Time EV Telemetry Dashboard (Capstone)",
+          "period": "March 2026 - Present",
+          "website": {
+            "url": "https://github.com/ECSECapstone/capstone-project-software-team-22",
+            "label": "GitHub Repository",
+            "inlineLink": false
+          },
+          "description": "<p>Final-year capstone project (Team 22, 4 members) building a <strong>real-time energy monitoring system</strong> for <strong>EVolocity's electric race vehicle competition</strong>. <strong>ESP32</strong> boards sample ADC at 100 Hz and stream telemetry at 10 Hz over <strong>USB serial</strong> or <strong>MQTT</strong>; a Node.js backend ingests, normalises, and persists readings to <strong>SQLite</strong>, then pushes live data to a <strong>React + TypeScript</strong> dashboard over <strong>Socket.io</strong>. Features include dual-board fleet admin, sustained <strong>power-breach alerts</strong>, per-device config push (team ID, max power), downsampled historical telemetry queries, and an embedded <strong>Aedes MQTT broker</strong> with Last-Will disconnect detection. Stack: <strong>React + Vite + Tailwind v4</strong>, <strong>Node.js + Express + Aedes + Socket.io + better-sqlite3</strong>, <strong>ESP32 firmware (ESP-IDF)</strong> migrated from HTTP to MQTT. Comprehensive <strong>Jest</strong> test suite covering unit, integration, SQL-injection, and input-validation security tests.</p>"
+        },
+        {
+          "id": "ump4k170dy4be1ugjc45fsqw",
+          "hidden": true,
+          "name": "EzShift — Shift & Payroll Management Web App",
+          "period": "February 2025 - Present",
+          "website": {
+            "url": "https://github.com/ZingZing001/EzShift",
+            "label": "GitHub Repository",
+            "inlineLink": false
+          },
+          "description": "<p>Team project with third-year Software Engineering students at the <strong>University of Auckland</strong>. Features <strong>role-based access control</strong> — administrators assign shifts and process payroll, while staff view schedules, submit feedback, and access payroll details. Backed by <strong>MySQL</strong> with a UI/UX inspired by leading SaaS products. Delivered using <strong>Agile</strong> methodology with modular implementation across <strong>HTML, CSS, JavaScript, and JSON</strong>. Next steps: finalising the backend framework and a scalable database schema.</p>"
+        },
+        {
+          "id": "t7zsw3ou2x6pwfiixo2wk3r5",
+          "hidden": false,
+          "name": "Personal Portfolio Website",
+          "period": "February 2025",
+          "website": {
+            "url": "https://zingzing001.github.io/PersonalWebsite-V2/",
+            "label": "Live Site",
+            "inlineLink": false
+          },
+          "description": "<p>Modern, fully responsive personal portfolio built with <strong>HTML, CSS, and JavaScript</strong>. Features a dynamic project showcase, smooth scrolling, and a mobile-friendly hamburger navigation.</p>"
+        },
+        {
+          "id": "zxqo9r04cmwchz4x117f5y72",
+          "hidden": false,
+          "name": "Watermark Removal Tool",
+          "period": "November 2024 - December 2024",
+          "website": {
+            "url": "https://github.com/ZingZing001/WaterMarkRemovalTool",
+            "label": "GitHub Repository",
+            "inlineLink": false
+          },
+          "description": "<p>A user-friendly desktop tool for removing watermarks from <strong>PDF and Word documents</strong>. Offers both fast and deep removal modes using a combination of <strong>HSV layer</strong> and <strong>RGB mask</strong> processing. Built with <strong>Python, PyQt5, PyMuPDF, and python-docx</strong>.</p>"
+        },
+        {
+          "id": "adnaczqnqk2xk6jjs2vkbvwm",
+          "hidden": false,
+          "name": "Guess Who's The Thief",
+          "period": "June 2024 - October 2024",
+          "website": {
+            "url": "https://github.com/ZingZing001/GuessWhosTheThief",
+            "label": "GitHub Repository",
+            "inlineLink": false
+          },
+          "description": "<p>Interactive, AI-driven mystery game where players uncover clues, interrogate suspects, and solve an art-theft case. Combines gameplay logic with <strong>OpenAI-powered dialogue</strong> and voice interaction for an immersive experience.</p>"
+        },
+        {
+          "id": "tnqf0tg8n9ly3qcivk5jyypd",
+          "hidden": true,
+          "name": "Risk Map Game",
+          "period": "May 2024",
+          "website": {
+            "url": "https://github.com/ZingZing001/Project_RiskMap",
+            "label": "GitHub Repository",
+            "inlineLink": false
+          },
+          "description": "<ul><li><p>Used <strong>graph data structures</strong> to model the game map — countries as nodes, borders as edges.</p></li><li><p>Implemented <strong>DFS and BFS</strong> algorithms for shortest-path calculation and border-crossing tax computation.</p></li></ul>"
+        },
+        {
+          "id": "pyhjajsc4ahabpp1ct58pyno",
+          "hidden": false,
+          "name": "Venue Hire System",
+          "period": "March 2024",
+          "website": {
+            "url": "https://github.com/ZingZing001/Project_VenueManager",
+            "label": "GitHub Repository",
+            "inlineLink": false
+          },
+          "description": "<p>A comprehensive venue booking system with add-on services (catering, music). Built around <strong>OOP principles</strong> — inheritance, polymorphism, and encapsulation.</p>"
+        },
+        {
+          "id": "rtdcksu2kwehcb3y4sy7lj7w",
+          "hidden": false,
+          "name": "Odd & Even Hand Game",
+          "period": "July 2024",
+          "website": {
+            "url": "https://github.com/ZingZing001/Project_HandGame",
+            "label": "GitHub Repository",
+            "inlineLink": false
+          },
+          "description": "<p>A human player faces off against an AI opponent (HAL-9000) that learns and predicts the player's behaviour. Combines chance, psychology, and a lightweight learning model.</p>"
+        },
+        {
+          "id": "mjm1l1h3u99s8r4kn79ob6l2",
+          "hidden": false,
+          "name": "Ring Counter (ATmega328P)",
+          "period": "March 2024",
+          "website": {
+            "url": "",
+            "label": "",
+            "inlineLink": false
+          },
+          "description": "<ul><li><p>Programmed an <strong>ATmega328P</strong> microcontroller in <strong>C</strong> to implement a binary up-counter and ring counter.</p></li></ul>"
+        }
+      ]
+    },
+    "skills": {
+      "title": "Skills",
+      "icon": "",
+      "columns": 3,
+      "hidden": false,
+      "items": [
+        {
+          "id": "skill-langs-001",
+          "hidden": false,
+          "icon": "",
+          "iconColor": "",
+          "name": "Programming Languages",
+          "proficiency": "Proficient",
+          "level": 4,
+          "keywords": [
+            "JavaScript",
+            "TypeScript",
+            "Python",
+            "Java",
+            "C",
+            "SQL",
+            "HTML",
+            "CSS"
+          ]
+        },
+        {
+          "id": "skill-frontend-001",
+          "hidden": false,
+          "icon": "",
+          "iconColor": "",
+          "name": "Frontend",
+          "proficiency": "Production experience",
+          "level": 4,
+          "keywords": [
+            "React",
+            "Vite",
+            "TypeScript",
+            "Tailwind CSS",
+            "shadcn/ui",
+            "Recharts",
+            "Socket.io client"
+          ]
+        },
+        {
+          "id": "skill-backend-001",
+          "hidden": false,
+          "icon": "",
+          "iconColor": "",
+          "name": "Backend",
+          "proficiency": "Production experience",
+          "level": 4,
+          "keywords": [
+            "Node.js",
+            "Express",
+            "Prisma ORM",
+            "Socket.io",
+            "MQTT (Aedes)",
+            "REST APIs",
+            "Real-time messaging"
+          ]
+        },
+        {
+          "id": "skill-data-001",
+          "hidden": false,
+          "icon": "",
+          "iconColor": "",
+          "name": "Databases & Data",
+          "proficiency": "Production experience",
+          "level": 3,
+          "keywords": [
+            "PostgreSQL",
+            "MySQL",
+            "SQLite (better-sqlite3)",
+            "Snowflake SQL",
+            "Relational modelling"
+          ]
+        },
+        {
+          "id": "skill-cloud-001",
+          "hidden": false,
+          "icon": "",
+          "iconColor": "",
+          "name": "Cloud & DevOps",
+          "proficiency": "Production experience",
+          "level": 3,
+          "keywords": [
+            "AWS S3",
+            "AWS Lambda",
+            "Docker",
+            "Kubernetes",
+            "Tailscale",
+            "CI/CD"
+          ]
+        },
+        {
+          "id": "skill-ai-001",
+          "hidden": false,
+          "icon": "",
+          "iconColor": "",
+          "name": "AI & Automation",
+          "proficiency": "Production experience",
+          "level": 3,
+          "keywords": [
+            "Microsoft Copilot Studio",
+            "Model Context Protocol (MCP)",
+            "Power Automate",
+            "OpenAI API"
+          ]
+        },
+        {
+          "id": "skill-embedded-001",
+          "hidden": false,
+          "icon": "",
+          "iconColor": "",
+          "name": "Embedded & IoT",
+          "proficiency": "Hands-on",
+          "level": 3,
+          "keywords": [
+            "ESP32 (ESP-IDF)",
+            "ATmega328P",
+            "MQTT",
+            "Serial / UART",
+            "Real-time telemetry"
+          ]
+        },
+        {
+          "id": "skill-testing-001",
+          "hidden": false,
+          "icon": "",
+          "iconColor": "",
+          "name": "Testing & Quality",
+          "proficiency": "Hands-on",
+          "level": 3,
+          "keywords": [
+            "Jest",
+            "Integration testing",
+            "SQL-injection testing",
+            "Input-validation testing"
+          ]
+        },
+        {
+          "id": "skill-methods-001",
+          "hidden": false,
+          "icon": "",
+          "iconColor": "",
+          "name": "Methodologies & Practices",
+          "proficiency": "Working knowledge",
+          "level": 4,
+          "keywords": [
+            "Agile / Scrum",
+            "Product Ownership",
+            "Requirements Engineering",
+            "Jira",
+            "OOP",
+            "Code review",
+            "Git / GitHub"
+          ]
+        }
+      ]
+    },
+    "languages": {
+      "title": "Languages",
+      "icon": "",
+      "columns": 2,
+      "hidden": false,
+      "items": [
+        {
+          "id": "np6leiwhhjw7sryh12v5o1ld",
+          "hidden": false,
+          "language": "English",
+          "fluency": "Proficient",
+          "level": 4
+        },
+        {
+          "id": "mh46qn1tdrc98vwurf6tgbg0",
+          "hidden": false,
+          "language": "Chinese (Mandarin)",
+          "fluency": "Native",
+          "level": 5
+        }
+      ]
+    },
+    "interests": {
+      "title": "Interests",
+      "icon": "",
+      "columns": 1,
+      "hidden": true,
+      "items": [
+        {
+          "id": "cu2zaufngec0sh1obm7imvyf",
+          "hidden": false,
+          "icon": "",
+          "iconColor": "",
+          "name": "Surfing",
+          "keywords": []
+        },
+        {
+          "id": "kaxdbfr8bbn0uwivz6jhaqqy",
+          "hidden": false,
+          "icon": "",
+          "iconColor": "",
+          "name": "Taekwon-Do",
+          "keywords": [
+            "Black Belt 2nd Dan"
+          ]
+        },
+        {
+          "id": "ekqrlg5004823j2me0ngpewx",
+          "hidden": false,
+          "icon": "",
+          "iconColor": "",
+          "name": "Piano",
+          "keywords": [
+            "Level 10"
+          ]
+        }
+      ]
+    },
+    "awards": {
+      "title": "Awards",
+      "icon": "",
+      "columns": 2,
+      "hidden": false,
+      "items": [
+        {
+          "id": "drqq5xczn26rleq2n123p57g",
+          "hidden": false,
+          "title": "Piano Level 10",
+          "awarder": "China Musician Association",
+          "date": "2020",
+          "website": {
+            "url": "https://www.chnmusic.org/",
+            "label": "",
+            "inlineLink": false
+          },
+          "description": ""
+        },
+        {
+          "id": "jiteo58et1qzznp8uou6vdla",
+          "hidden": false,
+          "title": "Black Belt 2nd Dan",
+          "awarder": "Botany Taekwon-Do",
+          "date": "2023",
+          "website": {
+            "url": "https://botanytaekwondo.co.nz/",
+            "label": "",
+            "inlineLink": false
+          },
+          "description": ""
+        },
+        {
+          "id": "rt94fytc4wlz9fp2i05s9bmf",
+          "hidden": false,
+          "title": "NCEA Level 1, 2 & 3 Excellence Endorsement",
+          "awarder": "NCEA",
+          "date": "2022",
+          "website": {
+            "url": "",
+            "label": "",
+            "inlineLink": false
+          },
+          "description": ""
+        },
+        {
+          "id": "fjbiyzygepc95ahhnzavxw4n",
+          "hidden": false,
+          "title": "Lead / Prefect Student Team",
+          "awarder": "Botany Downs Secondary College",
+          "date": "2022",
+          "website": {
+            "url": "",
+            "label": "",
+            "inlineLink": false
+          },
+          "description": ""
+        },
+        {
+          "id": "dhlq6yvc70n2aoeu7w0pkj7j",
+          "hidden": false,
+          "title": "Peer Support Leader",
+          "awarder": "Botany Downs Secondary College",
+          "date": "2022",
+          "website": {
+            "url": "",
+            "label": "",
+            "inlineLink": false
+          },
+          "description": ""
+        },
+        {
+          "id": "nyi3wo1nwxyy771rpn76hi3q",
+          "hidden": false,
+          "title": "President of ICT (Technology) Committee",
+          "awarder": "Botany Downs Secondary College",
+          "date": "2022",
+          "website": {
+            "url": "",
+            "label": "",
+            "inlineLink": false
+          },
+          "description": ""
+        }
+      ]
+    },
+    "certifications": {
+      "title": "Certifications",
+      "icon": "",
+      "columns": 1,
+      "hidden": true,
+      "items": []
+    },
+    "publications": {
+      "title": "Publications",
+      "icon": "",
+      "columns": 1,
+      "hidden": true,
+      "items": []
+    },
+    "volunteer": {
+      "title": "Volunteering",
+      "icon": "",
+      "columns": 1,
+      "hidden": false,
+      "items": [
+        {
+          "id": "l9gwenj0qdx8re89n3obuyiz",
+          "hidden": false,
+          "organization": "Student Tech Assistant",
+          "location": "Botany Downs Secondary College",
+          "period": "2022",
+          "website": {
+            "url": "",
+            "label": "",
+            "inlineLink": false
+          },
+          "description": "<ul><li><p>Provided technical support to students and faculty, ensuring efficient operation of computer systems and software.</p></li><li><p>Maintained and troubleshot computer labs and IT equipment, resolving hardware and software issues to keep classes running smoothly.</p></li><li><p>Ran training sessions for students on technology tools and software applications.</p></li></ul>"
+        },
+        {
+          "id": "pyt2teoqjqqxzrxmx7ljhiek",
+          "hidden": false,
+          "organization": "Elim Church Christmas Packing Crew",
+          "location": "Elim Church, Dannemora",
+          "period": "December 2020",
+          "website": {
+            "url": "",
+            "label": "",
+            "inlineLink": false
+          },
+          "description": "<ul><li><p>Prepared and assembled holiday packages for families in need as part of the Christmas packing crew.</p></li><li><p>Collaborated with volunteers to organise and pack food, toys, and clothing efficiently.</p></li></ul>"
+        },
+        {
+          "id": "d5i520ttiha5n8u2ey2y1is1",
+          "hidden": false,
+          "organization": "Half Moon Bay Beach Cleanup Crew",
+          "location": "Half Moon Bay Beach",
+          "period": "May 2019",
+          "website": {
+            "url": "",
+            "label": "",
+            "inlineLink": false
+          },
+          "description": "<ul><li><p>Participated in organised beach clean-up events to remove litter and debris, contributing to environmental conservation efforts.</p></li><li><p>Worked with a team of volunteers to cover designated areas and educated community members on maintaining clean beach ecosystems.</p></li></ul>"
+        }
+      ]
+    }
+  },
+  "customSections": []
+}

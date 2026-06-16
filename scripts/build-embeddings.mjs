@@ -74,6 +74,122 @@ You can find me on GitHub (ZingZing001), LinkedIn (runjiazhangnz), and Instagram
   },
 ];
 
+function stripHtml(html) {
+  if (!html) return "";
+  return html
+    .replace(/<li[^>]*>/gi, "\n- ")
+    .replace(/<\/(p|li|ul|ol|div|h[1-6])>/gi, "\n")
+    .replace(/<br\s*\/?>/gi, "\n")
+    .replace(/<[^>]+>/g, "")
+    .replace(/&nbsp;/gi, " ")
+    .replace(/&amp;/gi, "&")
+    .replace(/&lt;/gi, "<")
+    .replace(/&gt;/gi, ">")
+    .replace(/&#39;|&rsquo;|&apos;/gi, "'")
+    .replace(/&quot;|&ldquo;|&rdquo;/gi, '"')
+    .replace(/[ \t]+/g, " ")
+    .replace(/ *\n */g, "\n")
+    .replace(/\n{3,}/g, "\n\n")
+    .trim();
+}
+
+// Convert the sanitized Reactive-Resume export (src/data/resume.json) into
+// plain-text RAG documents. Respects the CV's own `hidden` flags at both the
+// section and item level, so anything the user hid on their CV is skipped.
+// (Phone number and the References section are already removed from the file.)
+function loadResumeDocuments() {
+  const path = resolve(REPO_ROOT, "src/data/resume.json");
+  if (!existsSync(path)) return [];
+  const cv = JSON.parse(readFileSync(path, "utf8"));
+  const S = cv.sections || {};
+  const visible = (item) => item && item.hidden !== true;
+  const shown = (section) =>
+    section && !section.hidden ? (section.items || []).filter(visible) : [];
+  const docs = [];
+
+  const b = cv.basics || {};
+  docs.push({
+    source: "CV",
+    title: "Profile summary",
+    text: [
+      `${b.name}${b.headline ? " — " + b.headline : ""}.`,
+      b.location ? `Based in ${b.location}.` : "",
+      b.email ? `Contact email: ${b.email}.` : "",
+      b.website?.url ? `Portfolio: ${b.website.url}.` : "",
+      stripHtml(cv.summary?.content),
+    ]
+      .filter(Boolean)
+      .join("\n"),
+  });
+
+  const profiles = shown(S.profiles).map(
+    (p) => `${p.network}: ${p.username}${p.website?.url ? " (" + p.website.url + ")" : ""}`,
+  );
+  if (profiles.length)
+    docs.push({ source: "CV", title: "Online profiles", text: `Online profiles:\n- ${profiles.join("\n- ")}` });
+
+  for (const job of shown(S.experience)) {
+    const parts = [
+      `${job.position} at ${job.company}${job.location ? ", " + job.location : ""} (${job.period}).`,
+      stripHtml(job.description),
+    ];
+    for (const r of (job.roles || []).filter(visible)) {
+      const rdesc = stripHtml(r.description);
+      if (rdesc) parts.push(`${r.position} (${r.period}):\n${rdesc}`);
+    }
+    docs.push({
+      source: "CV — Experience",
+      title: `${job.position} at ${job.company}`,
+      text: parts.filter(Boolean).join("\n"),
+    });
+  }
+
+  const edu = shown(S.education).map(
+    (e) =>
+      `${e.degree}${e.area ? ", " + e.area : ""} — ${e.school} (${e.period})${e.grade ? ". " + e.grade : ""}`,
+  );
+  if (edu.length)
+    docs.push({ source: "CV — Education", title: "Education", text: `Education:\n- ${edu.join("\n- ")}` });
+
+  for (const p of shown(S.projects)) {
+    docs.push({
+      source: "CV — Projects",
+      title: p.name,
+      text: `Project: ${p.name}${p.period ? " (" + p.period + ")" : ""}.\n${stripHtml(p.description)}${p.website?.url ? "\nLink: " + p.website.url : ""}`,
+    });
+  }
+
+  const skills = shown(S.skills).map(
+    (s) => `${s.name}${s.proficiency ? " (" + s.proficiency + ")" : ""}: ${(s.keywords || []).join(", ")}`,
+  );
+  if (skills.length)
+    docs.push({ source: "CV — Skills", title: "Technical skills", text: `Skills:\n- ${skills.join("\n- ")}` });
+
+  const awards = shown(S.awards).map(
+    (a) => `${a.title}${a.awarder ? " — " + a.awarder : ""}${a.date ? " (" + a.date + ")" : ""}`,
+  );
+  if (awards.length)
+    docs.push({ source: "CV — Awards", title: "Awards & achievements", text: `Awards and achievements:\n- ${awards.join("\n- ")}` });
+
+  const langs = shown(S.languages).map((l) => `${l.language} (${l.fluency})`);
+  if (langs.length)
+    docs.push({ source: "CV", title: "Languages spoken", text: `Languages: ${langs.join(", ")}.` });
+
+  const volunteer = shown(S.volunteer).map(
+    (v) => `${v.organization}${v.location ? ", " + v.location : ""} (${v.period}):\n${stripHtml(v.description)}`,
+  );
+  if (volunteer.length)
+    docs.push({ source: "CV — Volunteering", title: "Volunteering", text: `Volunteering:\n${volunteer.join("\n\n")}` });
+
+  const interests = shown(S.interests).map(
+    (i) => (i.keywords?.length ? `${i.name} (${i.keywords.join(", ")})` : i.name),
+  );
+  if (interests.length)
+    docs.push({ source: "CV", title: "Interests", text: `Interests: ${interests.join(", ")}.` });
+
+  return docs;
+}
+
 function stripMarkdown(md) {
   return md
     .replace(/```[\s\S]*?```/g, " ") // fenced code blocks
@@ -130,7 +246,14 @@ async function loadBlogPosts() {
   }
 }
 
-async function embedBatch(inputs, apiKey) {
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
+// Voyage's free tier (no payment method on file) allows only 3 requests/min.
+// Pace requests just under that and retry on 429 so the embed completes.
+const REQUEST_SPACING_MS = 21_000;
+const MAX_RETRIES = 5;
+
+async function embedBatch(inputs, apiKey, attempt = 1) {
   const res = await fetch(VOYAGE_ENDPOINT, {
     method: "POST",
     headers: {
@@ -143,6 +266,12 @@ async function embedBatch(inputs, apiKey) {
       input_type: "document",
     }),
   });
+  if (res.status === 429 && attempt <= MAX_RETRIES) {
+    const wait = REQUEST_SPACING_MS * attempt;
+    console.log(`  rate limited (429); waiting ${wait / 1000}s, retry ${attempt}/${MAX_RETRIES}…`);
+    await sleep(wait);
+    return embedBatch(inputs, apiKey, attempt + 1);
+  }
   if (!res.ok) {
     const body = await res.text();
     throw new Error(`Voyage embed failed: ${res.status} ${body}`);
@@ -179,22 +308,27 @@ async function main() {
     });
   }
 
-  for (const s of STATIC_SOURCES) {
+  const resumeDocs = loadResumeDocuments();
+  console.log(`  loaded ${resumeDocs.length} CV documents`);
+
+  const extraSources = [...STATIC_SOURCES, ...resumeDocs];
+  extraSources.forEach((s, di) => {
     const parts = chunkText(s.text);
     parts.forEach((text, idx) => {
       rawChunks.push({
-        id: `${s.source.toLowerCase()}:${idx}`,
+        id: `${s.source.toLowerCase().replace(/[^a-z0-9]+/g, "-")}:${di}:${idx}`,
         source: s.source,
         title: s.title,
         text,
       });
     });
-  }
+  });
 
   console.log(`Prepared ${rawChunks.length} chunks. Embedding with ${VOYAGE_MODEL}…`);
 
   const enriched = [];
   for (let i = 0; i < rawChunks.length; i += BATCH_SIZE) {
+    if (i > 0) await sleep(REQUEST_SPACING_MS); // stay under the free-tier 3 RPM
     const batch = rawChunks.slice(i, i + BATCH_SIZE);
     const embeddings = await embedBatch(
       batch.map((c) => c.text),

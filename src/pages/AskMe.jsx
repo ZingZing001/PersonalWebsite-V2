@@ -126,7 +126,7 @@ export const AskMe = () => {
               Chat with <span className="text-primary">Virtual Johnson</span>
             </h1>
             <p className="text-muted-foreground max-w-xl mx-auto">
-              An AI agent trained on my blog posts and bio. Ask about my projects, my EROAD internship, my tech stack, or anything else from the site.
+              An AI agent trained on my CV, blog posts, and projects. Ask about my experience, my tech stack, the projects I've built, or anything else.
             </p>
           </header>
 
