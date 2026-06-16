@@ -5,6 +5,205 @@ const BASE_URL = import.meta.env.BASE_URL;
 
 export const blogPosts = [
   {
+    id: 9,
+    slug: "from-intern-to-graduate-engineer-learning-java-at-eroad",
+    title: "From Intern to Graduate Engineer: Learning Java on the Tax Team",
+    date: "2026-06-16",
+    excerpt: "A new chapter at EROAD—stepping into a full Graduate Software Engineer role on the Tax team, and trading fast-moving AI prototyping for production Java, Spring Boot, and event-driven systems.",
+    tags: ["EROAD", "Career", "Java", "Spring Boot", "Backend"],
+    readTime: "7 min read",
+    image: `${BASE_URL}blog/InternAtEroad2026.JPG`,
+    content: `
+## A New Chapter at EROAD
+
+Earlier this year I wrapped up my internship at EROAD. This post is about what came next: stepping into a full **Graduate Software Engineer** role and joining the **Tax team**. New team, new domain, and—maybe the biggest change of all—a new primary language: **Java**.
+
+It's been equal parts exciting and humbling, and I wanted to capture some of what the transition has actually felt like.
+
+## From AI Prototyping to Production Engineering
+
+My internship was a whirlwind of AI agents, Microsoft Copilot Studio, and custom MCP integrations—mostly in the fast-moving world of Node.js and rapid prototyping. The goal there was often to prove an idea quickly: ship a working agent, get feedback, iterate.
+
+The graduate role is a different kind of work, and I mean that in the best way. On the Tax team I'm working in established, production codebases where the bar isn't "does the demo work?" but "will this be correct, reliable, and maintainable for years?" Tax and compliance systems are exactly the kind of place where that mindset matters—numbers have to be *right*, behaviour has to be auditable, and edge cases aren't optional extras.
+
+Moving from "move fast and prototype" to "move carefully and build to last" has been one of the most valuable shifts in how I think as an engineer.
+
+## Learning Java, Coming from JavaScript
+
+Most of my work until now lived in JavaScript and TypeScript. Picking up **Java** as my day-to-day language has been a genuine adjustment—and a really rewarding one.
+
+A few things stood out early:
+
+- **Static typing earns its keep.** Coming from JS, I used to find out about a lot of mistakes at runtime. In Java, the compiler catches whole categories of bugs before the code ever runs. It felt strict at first; now I appreciate it as a safety net.
+- **Structure and convention everywhere.** The Java ecosystem has strong, shared conventions for how projects are laid out and how code is organised. That consistency makes a large codebase far easier to navigate than I expected.
+- **The JVM is a different world.** Understanding how things run—threads, the build tooling, dependency management—has been its own learning curve, separate from the language syntax.
+
+I'm not going to pretend I've mastered it. But every week the language feels a little less foreign and a little more like a tool I can reason with.
+
+## Getting Comfortable with Spring Boot
+
+The team builds on **Spring Boot**, and learning the framework has been almost as big a task as learning the language itself.
+
+What I've come to appreciate is how much Spring Boot gives you out of the box—configuration, dependency injection, and sensible defaults that let you focus on the actual business logic. The flip side is that there's a lot of "magic" happening behind the scenes, and a chunk of my early learning has been about understanding *why* things work, not just *that* they work. Dependency injection in particular took a few "oh, that's how it fits together" moments before it clicked.
+
+## Thinking in Events
+
+The deepest mental shift has been moving toward **event-driven architecture**.
+
+I was used to a fairly linear model: a request comes in, you do some work, you return a response. On the Tax team, a lot of the system communicates by **publishing and reacting to events**—services emit a message when something happens, and other services react to it asynchronously, decoupled from one another.
+
+It took me a while to stop thinking in straight lines and start thinking in streams. But the benefits became clear quickly: services that don't have to know about each other directly, work that can be processed reliably even under load, and a system that's far more resilient because no single piece is a hard dependency for everything else. Designing and reasoning about asynchronous, decoupled flows is a skill I'm actively building, and it's changing how I see backend systems in general.
+
+## Why the Stakes Sharpen You
+
+During my internship I was part of a P1 billing incident, and that experience taught me how directly architectural decisions can affect real customers and real trust. The Tax team has only deepened that lesson.
+
+When you're working on compliance-critical systems, correctness isn't a "nice to have." A subtle bug isn't just an inconvenience—it can have real consequences. That weight is a good thing for a young engineer to carry early. It pushes you to write better tests, ask more questions, and slow down at exactly the moments where slowing down matters.
+
+## What I'm Taking From It
+
+If my internship was about breadth—AI, automation, exposure to a dozen new tools—this chapter is about **depth**. Going deep on a language, a framework, an architectural style, and a domain, with the time and support to actually get good at them.
+
+Huge thanks again to the people at EROAD who keep making room for me to learn. The values I wrote about as an intern—*We Learn and Grow*, *We Do What's Right*—aren't just slogans on a wall; they're the thing that makes it safe to ask "I don't understand this yet, can you walk me through it?" and to keep growing because of it.
+
+## Looking Ahead
+
+I'm still very much at the start of this. There's a lot of Java, a lot of Spring, and a lot of the tax domain left to learn. But that's exactly why it's exciting—every hard thing here is a hard thing worth getting good at.
+
+Thanks for reading!
+    `
+  },
+  {
+    id: 8,
+    slug: "building-virtual-johnson-rag-chatbot-architecture",
+    title: "Building Virtual Johnson: The Architecture of a RAG Chatbot",
+    date: "2026-06-16",
+    excerpt: "I built an AI version of myself that lives on this site and answers questions about my work. Here's the full architecture—RAG, embeddings, a Cloudflare Worker, and streaming—and why it costs almost nothing to run.",
+    tags: ["AI", "RAG", "Cloudflare Workers", "Architecture", "Project"],
+    readTime: "9 min read",
+    image: `${BASE_URL}blog/rag-architecture.svg`,
+    content: `
+## Meet "Virtual Johnson"
+
+This site now has an [Ask Me](${BASE_URL}ask-me) page where you can chat with an AI version of me. Ask it about my EROAD work, my projects, my tech stack, or my time at university, and it answers in my voice—grounded in what I've actually written and done.
+
+The fun part isn't the chat box. It's what sits behind it. I wanted the agent to know about *me* specifically, not just sound like a generic assistant. The technique that makes that possible is **RAG—Retrieval-Augmented Generation**. This post walks through the whole architecture, end to end.
+
+## The High-Level Picture
+
+There are three moving pieces:
+
+1. A **React frontend** (the Ask Me page) that streams the conversation.
+2. A **Cloudflare Worker** that does the real work—retrieval, prompting, and talking to the language model.
+3. A **knowledge base** of my content, pre-processed into embeddings.
+
+\`\`\`text
+Browser (React)                Cloudflare Worker (edge)
+   |                                  |
+   |  POST /chat (messages)           |
+   |--------------------------------> |  1. embed the question (Voyage)
+   |                                  |  2. find top-3 relevant chunks
+   |                                  |  3. build prompt: system + context + history
+   |                                  |  4. call the LLM (OpenRouter)
+   |   <==== streamed tokens (SSE) ===|  5. stream the answer back
+   |                                  |
+\`\`\`
+
+No traditional server, no database server to babysit—just an edge function and a JSON file of vectors.
+
+## What Is RAG, and Why Use It?
+
+A language model on its own knows nothing about me. I had two options to fix that:
+
+- **Fine-tune** a model on my data (expensive, slow to update, overkill for a portfolio).
+- **Retrieve** the relevant facts at question time and hand them to the model as context.
+
+RAG is the second approach, and it's the right tool here. Instead of baking my life into model weights, I keep my content in a searchable form. When someone asks a question, I find the few most relevant passages and say to the model, in effect: *"Answer as Johnson, using these excerpts."* Updating the agent is then as simple as re-indexing my content—no retraining.
+
+## Step 1: Building the Knowledge Base (Offline)
+
+Before anything goes live, I run a one-off build script that turns my writing into vectors. It pulls from two sources: my **blog posts** and my **CV**.
+
+Each source is split into overlapping ~1,200-character **chunks** (small enough to be specific, with a little overlap so I don't slice a sentence in half). Every chunk is sent to **Voyage AI's \`voyage-3\` model**, which returns a 1,024-dimension **embedding**—a vector that captures the meaning of the text.
+
+\`\`\`javascript
+// Each chunk becomes a vector we can search by meaning, not keywords
+{
+  id: "cv-experience:3:0",
+  source: "CV — Experience",
+  title: "Graduate Software Engineer at EROAD",
+  text: "Designed and built an AI-driven data translation pipeline...",
+  embedding: [0.013, -0.041, 0.077, /* ...1024 numbers... */]
+}
+\`\`\`
+
+The result is a \`knowledge-base.json\` file—42 chunks at the moment—that gets bundled straight into the Worker. No external vector database, no extra network hop at query time. For a knowledge base this size, a plain array in memory is more than fast enough.
+
+## Step 2: Answering a Question (Live)
+
+When a question arrives, the Worker:
+
+1. **Embeds the question** with the same Voyage model, so it lives in the same vector space as my content.
+2. **Ranks every chunk** by **cosine similarity** to the question and keeps the top 3.
+3. **Builds the prompt**: my system prompt (who "I" am and how to behave) + the retrieved excerpts + the conversation so far.
+
+\`\`\`javascript
+// Cosine similarity: how aligned two meaning-vectors are
+function cosineSimilarity(a, b) {
+  let dot = 0, normA = 0, normB = 0;
+  for (let i = 0; i < a.length; i++) {
+    dot += a[i] * b[i];
+    normA += a[i] * a[i];
+    normB += b[i] * b[i];
+  }
+  return dot / (Math.sqrt(normA) * Math.sqrt(normB));
+}
+\`\`\`
+
+Only the most relevant slices of my life make it into the prompt, which keeps the model focused and the token bill tiny. The assembled prompt then goes to the language model via **OpenRouter**, using its free model router so the whole thing runs at no cost.
+
+## Step 3: Streaming the Answer
+
+Waiting for a full paragraph to generate feels slow, so the answer is **streamed token by token** using **Server-Sent Events (SSE)**. OpenRouter streams in an OpenAI-compatible format; the Worker translates each delta into a simple event the frontend understands:
+
+\`\`\`text
+data: {"type":"text","text":"At EROAD"}
+data: {"type":"text","text":" I work"}
+data: {"type":"done"}
+\`\`\`
+
+The React client reads that stream and appends each token live, rendering Markdown as it goes—so you watch the reply type itself out.
+
+## The Stack (and Why It's Basically Free)
+
+- **Cloudflare Workers** — the backend runs at the edge, close to the user, on a generous free tier.
+- **OpenRouter (\`openrouter/free\`)** — routes to free language models, so inference costs nothing.
+- **Voyage AI** — embeddings, with a free token allowance that comfortably covers a personal site.
+- **Cloudflare KV** — a tiny per-IP rate limiter so nobody can run up abuse.
+- **React 19 + Vite** — the frontend, deployed to GitHub Pages.
+
+The entire thing—backend, model, and embeddings—runs at essentially zero ongoing cost.
+
+## A Few Gotchas I Hit
+
+No project ships without a fight. A few that taught me something:
+
+- **CORS on streamed responses.** Tests with \`curl\` passed happily, but the browser blocked replies—because CORS headers have to be on the *streaming* response, not just the preflight. \`curl\` doesn't care about CORS; browsers very much do.
+- **Build-time config in CI.** The site deploys through GitHub Actions, which builds from a clean checkout. A locally-set environment variable simply doesn't exist there, so the deployed bundle shipped without the chat URL until I wired it into the workflow.
+- **Theme variants.** A light/dark-mode bug taught me that Tailwind's \`dark:\` variant follows the OS by default, not a CSS class—so the toggle and the styles can disagree.
+
+Each of these was invisible in local testing and obvious in production. A good reminder that "works on my machine" and "works deployed" are two different claims.
+
+## What's Next
+
+A few ideas I'm sitting on: pinning a specific model for more consistent answers, adding source citations so you can see which post an answer came from, and expanding the knowledge base as I write more.
+
+For now, the best way to understand it is to use it. Head to the [Ask Me](${BASE_URL}ask-me) page and ask the virtual me something—then come back and picture the retrieval, the prompt, and the stream happening behind each reply.
+
+Thanks for reading!
+    `
+  },
+  {
     id: 7,
     slug: "spotto-hackathon-spendsmash",
     title: "SpendSmash Hackathon: Uncovering Cloud Savings with Spotto",
