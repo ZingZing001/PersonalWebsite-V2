@@ -81,7 +81,7 @@ Thanks for reading!
     excerpt: "I built an AI version of myself that lives on this site and answers questions about my work. Here's the full architecture—RAG, embeddings, a Cloudflare Worker, and streaming—and why it costs almost nothing to run.",
     tags: ["AI", "RAG", "Cloudflare Workers", "Architecture", "Project"],
     readTime: "9 min read",
-    image: `${BASE_URL}blog/rag-architecture.svg`,
+    image: `${BASE_URL}blog/rag-architecture.png`,
     content: `
 ## Meet "Virtual Johnson"
 
