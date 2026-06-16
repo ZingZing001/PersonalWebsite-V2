@@ -80,10 +80,9 @@ export const AskMe = () => {
         err instanceof ChatError
           ? err.message
           : "Something went wrong reaching the agent. Try again in a moment.";
+      // Keep the user's message on screen (don't wipe the conversation — that
+      // looked like a refresh) and surface the failure as a toast instead.
       toast.error(message);
-      // Roll back the user message so they can retry without duplication
-      setMessages((prev) => prev.slice(0, -1));
-      setInput(trimmed);
     } finally {
       setIsStreaming(false);
       setStreamingContent("");

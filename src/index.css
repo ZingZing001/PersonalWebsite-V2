@@ -1,6 +1,13 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
+/* This site toggles theme with a `.dark` class (see ThemeToggle), but
+   Tailwind v4's `dark:` variant defaults to the prefers-color-scheme media
+   query. Without this override, `dark:` utilities (e.g. dark:prose-invert)
+   follow the OS theme instead of the toggle — e.g. light-gray chat text on a
+   white bubble in light mode when the OS is dark. Bind `dark:` to the class. */
+@custom-variant dark (&:where(.dark, .dark *));
+
 /* Custom theme for this website, @theme to make it easier for dark/light mode switching */
 @theme {
   --color-border: hsl(var(--border));
