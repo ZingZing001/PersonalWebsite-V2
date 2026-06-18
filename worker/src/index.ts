@@ -1,5 +1,7 @@
 import knowledgeBase from "../knowledge-base.json";
 import { SYSTEM_PROMPT } from "./system-prompt";
+import { languageInstruction, languageLabel } from "./lang";
+import { logQuestion, getStats } from "./analytics";
 import {
   embedQuery,
   formatContext,
@@ -16,6 +18,9 @@ interface Env {
   SITE_URL?: string;
   SITE_TITLE?: string;
   RATE_LIMIT: KVNamespace;
+  // Visitor-question analytics + the token guarding the /admin/stats endpoint.
+  DB?: D1Database;
+  ADMIN_TOKEN?: string;
 }
 
 interface ChatMessage {
@@ -50,8 +55,8 @@ function resolveAllowedOrigin(env: Env, origin: string | null): string | null {
 
 function corsHeaders(allowOrigin: string | null): Record<string, string> {
   const headers: Record<string, string> = {
-    "Access-Control-Allow-Methods": "POST, OPTIONS",
-    "Access-Control-Allow-Headers": "Content-Type",
+    "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type, Authorization",
     "Access-Control-Max-Age": "86400",
     Vary: "Origin",
   };
@@ -98,8 +103,9 @@ async function streamLLMResponse(
   env: Env,
   messages: ChatMessage[],
   contextBlock: string,
+  langInstruction: string,
 ): Promise<Response> {
-  const systemWithContext = `${SYSTEM_PROMPT}\n\n---\n\nCONTEXT (excerpts retrieved for this turn):\n\n${contextBlock}`;
+  const systemWithContext = `${SYSTEM_PROMPT}\n\n---\n\nCONTEXT (excerpts retrieved for this turn):\n\n${contextBlock}\n\n---\n\nLANGUAGE FOR THIS REPLY: ${langInstruction}`;
 
   // OpenRouter is OpenAI-compatible: the system prompt is the first message.
   const openAiMessages = [
@@ -199,7 +205,11 @@ async function streamLLMResponse(
 }
 
 export default {
-  async fetch(request: Request, env: Env): Promise<Response> {
+  async fetch(
+    request: Request,
+    env: Env,
+    ctx: ExecutionContext,
+  ): Promise<Response> {
     const url = new URL(request.url);
     const origin = request.headers.get("Origin");
     const allowOrigin = resolveAllowedOrigin(env, origin);
@@ -207,6 +217,33 @@ export default {
 
     if (request.method === "OPTIONS") {
       return new Response(null, { status: 204, headers: cors });
+    }
+
+    // Private analytics endpoint — token-guarded, read-only.
+    if (url.pathname === "/admin/stats") {
+      if (request.method !== "GET") {
+        return jsonResponse({ error: "method_not_allowed" }, 405, cors);
+      }
+      const token = (request.headers.get("Authorization") ?? "").replace(
+        /^Bearer\s+/i,
+        "",
+      );
+      if (!env.ADMIN_TOKEN || token !== env.ADMIN_TOKEN) {
+        return jsonResponse({ error: "unauthorized" }, 401, cors);
+      }
+      if (!env.DB) {
+        return jsonResponse({ error: "analytics_unavailable" }, 503, cors);
+      }
+      try {
+        const stats = await getStats(env.DB);
+        return jsonResponse(stats, 200, cors);
+      } catch (err) {
+        return jsonResponse(
+          { error: "stats_failed", message: String(err) },
+          500,
+          cors,
+        );
+      }
     }
 
     if (url.pathname !== "/chat") {
@@ -260,10 +297,24 @@ export default {
       );
       const chunks = topK(queryEmbedding, KB, 3);
       const contextBlock = formatContext(chunks);
+
+      // Log the question for analytics without blocking the stream (privacy:
+      // question text only — no IP, no identity).
+      ctx.waitUntil(
+        logQuestion(env.DB, {
+          question: lastUser.content,
+          lang: languageLabel(lastUser.content),
+          numSources: chunks.length,
+          topSource: chunks[0]?.title ?? "",
+          status: "ok",
+        }),
+      );
+
       const sseResponse = await streamLLMResponse(
         env,
         body.messages,
         contextBlock,
+        languageInstruction(lastUser.content),
       );
       const headers = new Headers(sseResponse.headers);
       for (const [k, v] of Object.entries(cors)) headers.set(k, v);

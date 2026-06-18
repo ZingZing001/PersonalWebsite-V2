@@ -21,6 +21,16 @@ SITE_TITLE = "Ask Virtual Johnson"
 binding = "RATE_LIMIT"
 id = "c2fa8b603e2b4a9cb7343a26873163fb"
 
+# D1 database for visitor-question analytics.
+# Create with: wrangler d1 create ask-johnson-analytics
+# Then paste the returned database_id below, and apply the migration:
+#   wrangler d1 execute ask-johnson-analytics --remote --file migrations/0001_init.sql
+[[d1_databases]]
+binding = "DB"
+database_name = "ask-johnson-analytics"
+database_id = "6eac744c-c99f-44f8-99e7-cd4c4344c871"
+
 # Secrets are set with: wrangler secret put <NAME>
 #   OPENROUTER_API_KEY — required, OpenRouter API key (https://openrouter.ai/keys)
 #   VOYAGE_API_KEY     — required, Voyage AI embeddings key
+#   ADMIN_TOKEN        — required for /admin/stats; any long random string
