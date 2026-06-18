@@ -5,6 +5,7 @@ import { NotFound } from './pages/NotFound.jsx'
 import { Blog } from './pages/Blog.jsx'
 import { BlogPost } from './pages/BlogPost.jsx'
 import { AskMe } from './pages/AskMe.jsx'
+import { Admin } from './pages/Admin.jsx'
 import { ScrollToTop } from './components/ScrollToTop.jsx'
 
 function App() {
@@ -19,6 +20,8 @@ function App() {
           <Route path="/blog" element={<Blog />} />
           <Route path="/blog/:slug" element={<BlogPost />} />
           <Route path="/ask-me" element={<AskMe />} />
+          {/* Unlisted admin analytics (token-gated client-side; data is token-gated server-side) */}
+          <Route path="/admin" element={<Admin />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

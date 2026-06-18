@@ -6,6 +6,7 @@ import { Footer } from "@/components/Footer";
 import { StarBackground } from "@/components/StarBackground";
 import { ChatMessage } from "@/components/ChatMessage";
 import { StarterQuestions } from "@/components/StarterQuestions";
+import { VirtualAvatar } from "@/components/VirtualAvatar";
 import { streamChat, ChatError } from "@/lib/chatClient";
 
 const STORAGE_KEY = "ask-me:transcript";
@@ -109,6 +110,14 @@ export const AskMe = () => {
 
   const isEmpty = messages.length === 0 && !isStreaming;
 
+  // Drive the avatar from existing chat state: waiting for the first token →
+  // "thinking"; tokens arriving → "speaking"; otherwise "idle".
+  const avatarState = !isStreaming
+    ? "idle"
+    : streamingContent
+      ? "speaking"
+      : "thinking";
+
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden flex flex-col">
       <StarBackground />
@@ -118,6 +127,9 @@ export const AskMe = () => {
         <div className="container mx-auto max-w-3xl">
           {/* Header */}
           <header className="text-center mb-8">
+            <div className="flex justify-center mb-4">
+              <VirtualAvatar state={avatarState} />
+            </div>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/30 text-primary text-xs font-medium mb-4">
               <Sparkles size={12} />
               <span>Experimental · powered by OpenRouter</span>
@@ -171,7 +183,7 @@ export const AskMe = () => {
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   onKeyDown={handleKeyDown}
-                  placeholder="Ask me anything…"
+                  placeholder="Ask me anything — in any language…"
                   rows={1}
                   disabled={isStreaming}
                   className="flex-1 resize-none custom-scrollbar bg-background/80 border dark:border-border/50 border-primary/20 focus:border-primary/50 focus:ring-2 focus:ring-primary/20 outline-none rounded-xl px-4 py-3 text-foreground placeholder:text-foreground/40 transition-all disabled:opacity-60"
