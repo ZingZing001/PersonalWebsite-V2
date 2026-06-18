@@ -295,21 +295,35 @@
   0%, 80%, 100% { transform: translateY(0);    opacity: 0.5; }
   40%           { transform: translateY(-4px);  opacity: 1; }
 }
-
-.avatar-ring-idle {
-  box-shadow: 0 0 0 2px hsl(var(--primary) / 0.25), 0 0 16px 2px hsl(var(--primary) / 0.25);
+/* Contained idle "breathing" — a gentle scale that stays centred (no drift
+   to the boundary), plus a slow glow pulse on the ring. */
+@keyframes avatarBreath {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.03); }
 }
+@keyframes avatarIdleGlow {
+  0%, 100% { box-shadow: 0 0 0 2px hsl(var(--primary) / 0.22), 0 0 14px 2px hsl(var(--primary) / 0.18); }
+  50%      { box-shadow: 0 0 0 2px hsl(var(--primary) / 0.32), 0 0 24px 5px hsl(var(--primary) / 0.3); }
+}
+
+.avatar-breath { animation: avatarBreath 4.5s ease-in-out infinite; }
+.avatar-ring-idle { animation: avatarIdleGlow 4.5s ease-in-out infinite; }
 .avatar-ring-speaking { animation: avatarSpeakingGlow 0.9s ease-in-out infinite; }
 .avatar-ring-thinking { animation: avatarThinkingPulse 1.2s ease-in-out infinite; }
 .avatar-mouth { animation: avatarMouthFlap 0.3s steps(1, end) infinite; }
 .avatar-dot   { animation: avatarDotBounce 0.9s ease-in-out infinite; }
 
 @media (prefers-reduced-motion: reduce) {
+  .avatar-breath,
+  .avatar-ring-idle,
   .avatar-ring-speaking,
   .avatar-ring-thinking,
   .avatar-mouth,
   .avatar-dot {
     animation: none;
+  }
+  .avatar-ring-idle {
+    box-shadow: 0 0 0 2px hsl(var(--primary) / 0.25), 0 0 16px 2px hsl(var(--primary) / 0.25);
   }
   .avatar-mouth { opacity: 0; }
 }

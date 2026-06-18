@@ -7,16 +7,16 @@ export const blogPosts = [
   {
     id: 9,
     slug: "from-intern-to-graduate-engineer-learning-java-at-eroad",
-    title: "From Intern to Graduate Engineer: Learning Java on the Tax Team",
+    title: "From Intern to Graduate Engineer: Back to Java on the Tax Team",
     date: "2026-06-16",
-    excerpt: "A new chapter at EROAD—stepping into a full Graduate Software Engineer role on the Tax team, and trading fast-moving AI prototyping for production Java, Spring Boot, and event-driven systems.",
+    excerpt: "A new chapter at EROAD—stepping into a full Graduate Software Engineer role on the Tax team, and coming full circle back to Java: the language I learned first, after a few years deep in TypeScript and React.",
     tags: ["EROAD", "Career", "Java", "Spring Boot", "Backend"],
     readTime: "7 min read",
     image: `${BASE_URL}blog/InternAtEroad2026.JPG`,
     content: `
 ## A New Chapter at EROAD
 
-Earlier this year I wrapped up my internship at EROAD. This post is about what came next: stepping into a full **Graduate Software Engineer** role and joining the **Tax team**. New team, new domain, and—maybe the biggest change of all—a new primary language: **Java**.
+Earlier this year I wrapped up my internship at EROAD. This post is about what came next: stepping into a full **Graduate Software Engineer** role and joining the **Tax team**. New team, new domain, and a return to a familiar language in a very unfamiliar setting—**Java**.
 
 It's been equal parts exciting and humbling, and I wanted to capture some of what the transition has actually felt like.
 
@@ -28,21 +28,23 @@ The graduate role is a different kind of work, and I mean that in the best way. 
 
 Moving from "move fast and prototype" to "move carefully and build to last" has been one of the most valuable shifts in how I think as an engineer.
 
-## Learning Java, Coming from JavaScript
+## Coming Back to Java
 
-Most of my work until now lived in JavaScript and TypeScript. Picking up **Java** as my day-to-day language has been a genuine adjustment—and a really rewarding one.
+Here's the thing: Java isn't new to me. It's where I started. I built a solid foundation in Java through my university coursework—it was the language I learned data structures, OOP, and algorithmic thinking in.
 
-A few things stood out early:
+What happened next is that I spent a few years away from it. My personal projects and my EROAD internship pulled me deep into **TypeScript and React**—building UIs, then Node-based services, and the **MCP integrations** behind the AI agents I worked on. By the time I joined the Tax team, I'd been living in the JS/TS world long enough that coming back to Java felt like returning to a hometown that had kept growing while I was away.
 
-- **Static typing earns its keep.** Coming from JS, I used to find out about a lot of mistakes at runtime. In Java, the compiler catches whole categories of bugs before the code ever runs. It felt strict at first; now I appreciate it as a safety net.
-- **Structure and convention everywhere.** The Java ecosystem has strong, shared conventions for how projects are laid out and how code is organised. That consistency makes a large codebase far easier to navigate than I expected.
-- **The JVM is a different world.** Understanding how things run—threads, the build tooling, dependency management—has been its own learning curve, separate from the language syntax.
+So the adjustment hasn't really been learning the language—it's been everything *around* it at production scale:
 
-I'm not going to pretend I've mastered it. But every week the language feels a little less foreign and a little more like a tool I can reason with.
+- **Enterprise Java, not coursework Java.** The syntax is familiar; the patterns, conventions, and sheer size of a real production codebase are a different game entirely.
+- **Static typing I now genuinely appreciate.** After a few years in dynamically-typed JavaScript, I've come to love the compiler catching whole categories of bugs before the code ever runs.
+- **Reading before writing.** Right now a big part of my job is **learning the architecture of our codebase**—how the services fit together, where the boundaries are, and why things were built the way they were—before I change anything.
+
+Coming back to a language with fresh eyes, after time spent somewhere completely different, turns out to be its own kind of advantage.
 
 ## Getting Comfortable with Spring Boot
 
-The team builds on **Spring Boot**, and learning the framework has been almost as big a task as learning the language itself.
+The team builds on **Spring Boot**, and getting fluent in the framework has been one of the biggest parts of the ramp-up.
 
 What I've come to appreciate is how much Spring Boot gives you out of the box—configuration, dependency injection, and sensible defaults that let you focus on the actual business logic. The flip side is that there's a lot of "magic" happening behind the scenes, and a chunk of my early learning has been about understanding *why* things work, not just *that* they work. Dependency injection in particular took a few "oh, that's how it fits together" moments before it clicked.
 
@@ -68,7 +70,7 @@ Huge thanks again to the people at EROAD who keep making room for me to learn. T
 
 ## Looking Ahead
 
-I'm still very much at the start of this. There's a lot of Java, a lot of Spring, and a lot of the tax domain left to learn. But that's exactly why it's exciting—every hard thing here is a hard thing worth getting good at.
+I'm still very much at the start of this. There's a lot of production Java, a lot of Spring, and a lot of the tax domain left to learn. But that's exactly why it's exciting—every hard thing here is a hard thing worth getting good at.
 
 Thanks for reading!
     `

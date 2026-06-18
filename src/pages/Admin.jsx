@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import {
   Lock,
   MessageSquare,
-  TrendingUp,
+  Tags,
   Globe,
   CalendarDays,
   RefreshCw,
@@ -102,7 +102,7 @@ export const Admin = () => {
     setInput("");
   };
 
-  const maxTop = Math.max(1, ...(stats?.topQuestions || []).map((q) => q.count));
+  const maxCat = Math.max(1, ...(stats?.byCategory || []).map((q) => q.count));
   const maxLang = Math.max(1, ...(stats?.byLang || []).map((q) => q.count));
   const maxDay = Math.max(1, ...(stats?.byDay || []).map((q) => q.count));
 
@@ -146,12 +146,12 @@ export const Admin = () => {
           ) : (
             // Dashboard
             <>
-              <header className="flex items-center justify-between mb-6 flex-wrap gap-3">
+              <header className="flex items-start justify-between mb-6 flex-wrap gap-3">
                 <div>
-                  <h1 className="text-2xl md:text-3xl font-bold">
+                  <h1 className="text-2xl md:text-3xl font-bold leading-tight">
                     Chat <span className="text-primary">Analytics</span>
                   </h1>
-                  <p className="text-muted-foreground text-sm">
+                  <p className="text-muted-foreground text-sm mt-1">
                     {stats.total} question{stats.total === 1 ? "" : "s"} asked ·
                     anonymous (no IPs stored)
                   </p>
@@ -189,8 +189,10 @@ export const Admin = () => {
                           className="flex items-start justify-between gap-3 text-sm border-b border-border/30 pb-2"
                         >
                           <span className="text-foreground/90">{q.question}</span>
-                          <span className="shrink-0 text-xs text-muted-foreground whitespace-nowrap">
-                            {q.lang} ·{" "}
+                          <span className="shrink-0 flex items-center gap-2 text-xs text-muted-foreground whitespace-nowrap">
+                            <span className="px-2 py-0.5 rounded-full bg-primary/10 text-primary">
+                              {q.category || "Other"}
+                            </span>
                             {new Date(q.created_at).toLocaleString(undefined, {
                               month: "short",
                               day: "numeric",
@@ -204,15 +206,14 @@ export const Admin = () => {
                   </Card>
                 </div>
 
-                <Card icon={TrendingUp} title="Top questions">
+                <Card icon={Tags} title="Question categories">
                   <div className="space-y-2.5">
-                    {stats.topQuestions.map((q, i) => (
+                    {stats.byCategory.map((q, i) => (
                       <Bar
                         key={i}
-                        label={q.question}
-                        title={q.question}
+                        label={q.category}
                         count={q.count}
-                        max={maxTop}
+                        max={maxCat}
                       />
                     ))}
                   </div>

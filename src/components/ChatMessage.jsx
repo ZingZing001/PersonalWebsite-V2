@@ -16,11 +16,14 @@ export const ChatMessage = ({ role, content, isStreaming = false }) => {
             <User className="w-5 h-5 text-primary" />
           </div>
         ) : (
-          <img
-            src={pfp}
-            alt="Virtual Johnson"
-            className="w-9 h-9 rounded-full object-cover border-2 border-primary/40 shadow-md"
-          />
+          <div className="w-9 h-9 rounded-full overflow-hidden border-2 border-primary/40 shadow-md">
+            <img
+              src={pfp}
+              alt="Virtual Johnson"
+              className="w-full h-full object-cover"
+              style={{ transform: "scale(1.7)", transformOrigin: "50% 18%" }}
+            />
+          </div>
         )}
       </div>
 
