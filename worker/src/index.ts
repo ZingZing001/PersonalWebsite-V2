@@ -1,7 +1,7 @@
 import knowledgeBase from "../knowledge-base.json";
 import { SYSTEM_PROMPT } from "./system-prompt";
 import { languageInstruction, languageLabel } from "./lang";
-import { logQuestion, getStats } from "./analytics";
+import { logQuestion, getStats, classifyQuestion } from "./analytics";
 import {
   embedQuery,
   formatContext,
@@ -299,15 +299,25 @@ export default {
       const contextBlock = formatContext(chunks);
 
       // Log the question for analytics without blocking the stream (privacy:
-      // question text only — no IP, no identity).
+      // question text only — no IP, no identity). Classify it via the same
+      // OpenRouter entry point so the admin sees question *types* at a glance.
+      const model = env.OPENROUTER_MODEL || DEFAULT_MODEL;
       ctx.waitUntil(
-        logQuestion(env.DB, {
-          question: lastUser.content,
-          lang: languageLabel(lastUser.content),
-          numSources: chunks.length,
-          topSource: chunks[0]?.title ?? "",
-          status: "ok",
-        }),
+        (async () => {
+          const category = await classifyQuestion(
+            lastUser.content,
+            env.OPENROUTER_API_KEY,
+            model,
+          );
+          await logQuestion(env.DB, {
+            question: lastUser.content,
+            lang: languageLabel(lastUser.content),
+            category,
+            numSources: chunks.length,
+            topSource: chunks[0]?.title ?? "",
+            status: "ok",
+          });
+        })(),
       );
 
       const sseResponse = await streamLLMResponse(

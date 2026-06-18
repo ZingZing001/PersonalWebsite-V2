@@ -17,6 +17,8 @@ export const VirtualAvatar = ({
   idleSrc = pfp,
   talkingSrc = pfp,
   size = 120,
+  imgScale = 1.7,
+  imgFocus = "50% 18%",
 }) => {
   const isSpeaking = state === "speaking";
   const isThinking = state === "thinking";
@@ -29,9 +31,18 @@ export const VirtualAvatar = ({
       ? "avatar-ring-thinking"
       : "avatar-ring-idle";
 
+  // Frame the face within the circle. Tuned for the presentation photo
+  // (face upper-centre); pass scale=1 + focus="50% 50%" for a head-shot frame.
+  const imgStyle = {
+    transform: `scale(${imgScale})`,
+    transformOrigin: imgFocus,
+  };
+
   return (
     <div
-      className="relative flex items-center justify-center select-none"
+      className={`relative flex items-center justify-center select-none ${
+        state === "idle" ? "avatar-breath" : ""
+      }`}
       style={{ width: size, height: size }}
       role="img"
       aria-label="Virtual Johnson avatar"
@@ -41,15 +52,14 @@ export const VirtualAvatar = ({
 
       {/* Avatar image(s) */}
       <div
-        className={`relative rounded-full overflow-hidden border-2 border-primary/40 shadow-lg ${
-          state === "idle" ? "animate-float" : ""
-        }`}
+        className="relative rounded-full overflow-hidden border-2 border-primary/40 shadow-lg"
         style={{ width: inner, height: inner }}
       >
         <img
           src={idleSrc}
           alt=""
           className="absolute inset-0 w-full h-full object-cover"
+          style={imgStyle}
           draggable="false"
         />
         {hasTalkingFrame && (
@@ -57,6 +67,7 @@ export const VirtualAvatar = ({
             src={talkingSrc}
             alt=""
             draggable="false"
+            style={imgStyle}
             className={`absolute inset-0 w-full h-full object-cover ${
               isSpeaking ? "avatar-mouth" : "opacity-0"
             }`}
