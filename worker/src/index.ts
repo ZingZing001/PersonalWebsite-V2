@@ -35,8 +35,31 @@ interface ChatRequest {
 const KB = knowledgeBase as unknown as KnowledgeBase;
 
 const OPENROUTER_ENDPOINT = "https://openrouter.ai/api/v1/chat/completions";
-// "openrouter/free" auto-routes across OpenRouter's free models.
-const DEFAULT_MODEL = "openrouter/free";
+// Curated free-model fallback chain. OpenRouter tries these in order and skips
+// rate-limited ones. Deliberately excludes moderation models (e.g.
+// nvidia/*content-safety) that the random "openrouter/free" router would
+// otherwise pick — those reply with "safe"/"unsafe" instead of chatting.
+// OpenRouter caps the models[] array at 3.
+const DEFAULT_MODELS = [
+  "qwen/qwen3-next-80b-a3b-instruct:free",
+  "openai/gpt-oss-120b:free",
+  "meta-llama/llama-3.3-70b-instruct:free",
+];
+
+// Resolve the model list from config (comma-separated OPENROUTER_MODEL) or the
+// default chain. Capped at 3 (OpenRouter's models[] limit).
+function resolveModels(env: Env): string[] {
+  const configured = (env.OPENROUTER_MODEL ?? "")
+    .split(",")
+    .map((s) => s.trim())
+    .filter(Boolean);
+  return (configured.length ? configured : DEFAULT_MODELS).slice(0, 3);
+}
+
+// OpenRouter request field: a single model, or a fallback array.
+export function modelBody(models: string[]): Record<string, unknown> {
+  return models.length > 1 ? { models } : { model: models[0] };
+}
 
 const RATE_LIMIT_REQUESTS = 20;
 const RATE_LIMIT_WINDOW_SECONDS = 5 * 60;
@@ -104,6 +127,7 @@ async function streamLLMResponse(
   messages: ChatMessage[],
   contextBlock: string,
   langInstruction: string,
+  models: string[],
 ): Promise<Response> {
   const systemWithContext = `${SYSTEM_PROMPT}\n\n---\n\nCONTEXT (excerpts retrieved for this turn):\n\n${contextBlock}\n\n---\n\nLANGUAGE FOR THIS REPLY: ${langInstruction}`;
 
@@ -125,7 +149,7 @@ async function streamLLMResponse(
     method: "POST",
     headers,
     body: JSON.stringify({
-      model: env.OPENROUTER_MODEL || DEFAULT_MODEL,
+      ...modelBody(models),
       max_tokens: 800,
       messages: openAiMessages,
       stream: true,
@@ -298,16 +322,17 @@ export default {
       const chunks = topK(queryEmbedding, KB, 3);
       const contextBlock = formatContext(chunks);
 
+      const models = resolveModels(env);
+
       // Log the question for analytics without blocking the stream (privacy:
       // question text only — no IP, no identity). Classify it via the same
       // OpenRouter entry point so the admin sees question *types* at a glance.
-      const model = env.OPENROUTER_MODEL || DEFAULT_MODEL;
       ctx.waitUntil(
         (async () => {
           const category = await classifyQuestion(
             lastUser.content,
             env.OPENROUTER_API_KEY,
-            model,
+            models,
           );
           await logQuestion(env.DB, {
             question: lastUser.content,
@@ -325,6 +350,7 @@ export default {
         body.messages,
         contextBlock,
         languageInstruction(lastUser.content),
+        models,
       );
       const headers = new Headers(sseResponse.headers);
       for (const [k, v] of Object.entries(cors)) headers.set(k, v);

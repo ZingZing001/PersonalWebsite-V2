@@ -7,9 +7,11 @@ compatibility_flags = ["nodejs_compat"]
 # Local dev origins (http://localhost:5173) are also allowed automatically.
 [vars]
 ALLOWED_ORIGINS = "https://zingzing001.github.io"
-# Any OpenRouter model slug — swap without code changes. See https://openrouter.ai/models
-# "openrouter/free" auto-routes across free models (https://openrouter.ai/openrouter/free).
-OPENROUTER_MODEL = "openrouter/free"
+# Comma-separated free-model fallback chain — OpenRouter tries them in order and
+# skips rate-limited ones (max 3). Leave blank to use the worker's default chain.
+# Avoid the random "openrouter/free" router: it can pick moderation models that
+# reply "safe"/"unsafe" instead of chatting. Swap slugs without code changes.
+OPENROUTER_MODEL = "qwen/qwen3-next-80b-a3b-instruct:free,openai/gpt-oss-120b:free,meta-llama/llama-3.3-70b-instruct:free"
 # Optional: shown in your OpenRouter dashboard analytics.
 SITE_URL = "https://zingzing001.github.io/PersonalWebsite-V2/"
 SITE_TITLE = "Ask Virtual Johnson"

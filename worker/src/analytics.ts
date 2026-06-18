@@ -30,7 +30,7 @@ export const CATEGORIES = [
 export async function classifyQuestion(
   question: string,
   apiKey: string,
-  model: string,
+  models: string[],
 ): Promise<string> {
   try {
     const res = await fetch(
@@ -42,7 +42,7 @@ export async function classifyQuestion(
           Authorization: `Bearer ${apiKey}`,
         },
         body: JSON.stringify({
-          model,
+          ...(models.length > 1 ? { models } : { model: models[0] }),
           max_tokens: 16,
           temperature: 0,
           messages: [
